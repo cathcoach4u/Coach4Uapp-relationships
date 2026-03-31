@@ -1,42 +1,76 @@
-# Coach4U Project Instructions
+# Coach4U Branding Specification
 
-## UI Design Rules
+## Business Context
+- **Entity:** Coach4U
+- **Owner:** Cath Baker
+- **Email:** cath@coach4u.com.au
+- **Phone:** 0402 313 337
+- **Website:** www.coach4u.com.au
+- **Type:** Coaching and counselling practice (NOT psychology)
 
-Follow these rules when building any user-facing interface for Coach4U.
+## Logo
+- File: `assets/coach4u-logo.png`
+- Placement: Top left
+- Dimensions: 4.71cm × 2.41cm (39% of original)
+- Lock aspect ratio
 
-### Visual Style
-- Use a clean, modern, and professional aesthetic — think calm and trustworthy
-- Primary color: deep teal (#0D6E6E). Accent color: warm gold (#D4A843). Neutral: slate gray (#4A5568)
-- Background should be light (white or off-white #F7F7F7) with generous whitespace
-- Use rounded corners (border-radius: 8px) on cards, buttons, and inputs
-- Subtle box shadows for elevation (e.g. `0 2px 8px rgba(0,0,0,0.08)`)
+## Colour Palette
+- **Dark Blue:** #003366 — titles, headings
+- **Black:** #000000 — body text
+- **Grey:** #646464 — footer text
+- **White:** #FFFFFF — background
 
-### Typography
-- Use a sans-serif font stack: Inter, system-ui, sans-serif
-- Base font size: 16px. Line height: 1.5
-- Headings should be semi-bold (600), body text regular (400)
-- Limit to 2-3 font sizes per page to maintain hierarchy without clutter
+## Typography
+- **Font:** Aptos, sans-serif
+- **Title:** 16pt, bold, #003366
+- **Section Heading:** 12pt, bold, #003366
+- **Body:** 11pt, regular, #000000
+- **Footer:** 9pt, regular, #646464, centred
 
-### Layout
-- Mobile-first responsive design — all layouts must work on 320px and up
-- Use CSS Grid or Flexbox for layout — no floats or tables for positioning
-- Max content width: 1200px, centered with auto margins
-- Consistent spacing scale: 4px, 8px, 16px, 24px, 32px, 48px, 64px
+## Web Font Sizes
+- Title: 2rem
+- Heading: 1.5rem
+- Body: 1.1rem
+- Footer: 0.9rem
 
-### Components
-- Buttons: solid fill for primary actions, outline for secondary, text-only for tertiary
-- Forms: clear labels above inputs, visible focus states, inline validation messages
-- Cards: use for grouping related content (sessions, clients, plans)
-- Navigation: sticky top nav on desktop, bottom tab bar on mobile
+## Layout
+- Margins: 1 inch (2.54cm) all sides
+- Background: white
+- Max content width: 1200px for web
 
-### Accessibility
-- Minimum contrast ratio: 4.5:1 for text, 3:1 for large text and UI elements
-- All interactive elements must be keyboard-navigable with visible focus indicators
-- Use semantic HTML elements (nav, main, section, button) — not div for everything
-- Include alt text on images, aria-labels on icon-only buttons
+## Footer (exact text)
+```
+Strengths-Based Coaching and Counselling
+www.coach4u.com.au
+cath@coach4u.com.au
+0402 313 337
+```
 
-### UX Principles
-- Prioritize clarity over cleverness — coaching clients range in tech comfort
-- Show loading states and confirmations for all async actions
-- Destructive actions (cancel session, delete account) require confirmation dialogs
-- Empty states should include helpful guidance, not just "No data"
+## Tone and Language
+- Australian English (colour, organisation, etc.)
+- Warm, professional, direct, strengths-based
+- Short paragraphs, clear headings
+- No exclamation marks
+- No em dashes (use commas or full stops)
+
+## Document Hierarchy
+1. Logo (header, top left)
+2. Title
+3. Section Heading
+4. Body Text
+5. Footer
+
+## WordPress HTML Rules
+- Custom HTML blocks only
+- All styles inline (no CSS classes, no style blocks)
+- Aptos font with sans-serif fallback
+
+## Quality Checklist
+- [ ] Logo: top left, correct dimensions
+- [ ] Aptos font throughout
+- [ ] Title: 16pt, bold, #003366
+- [ ] Headings: 12pt, bold, #003366
+- [ ] Body: 11pt, regular, black
+- [ ] Footer: 9pt, #646464, centred, exact text
+- [ ] Australian English spelling
+- [ ] No exclamation marks or em dashes

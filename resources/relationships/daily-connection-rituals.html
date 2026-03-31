@@ -4,19 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daily Connection Rituals — Coach4U</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --color-primary: #0D6E6E;
-      --color-primary-dark: #0A5555;
-      --color-primary-light: #E6F2F2;
-      --color-accent: #D4A843;
-      --color-accent-light: #FBF5E6;
-      --color-neutral: #4A5568;
-      --color-bg: #F7F7F7;
+      --color-primary: #003366;
+      --color-primary-dark: #002244;
+      --color-primary-light: #E8EEF4;
+      --color-neutral: #646464;
+      --color-bg: #FFFFFF;
       --color-white: #FFFFFF;
-      --color-text: #2D3748;
-      --color-text-light: #718096;
+      --color-text: #000000;
+      --color-text-light: #646464;
       --radius: 8px;
       --radius-lg: 12px;
       --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -26,8 +23,8 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Inter', system-ui, sans-serif;
-      font-size: 16px;
+      font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif;
+      font-size: 1.1rem;
       line-height: 1.5;
       color: var(--color-text);
       background: var(--color-bg);
@@ -65,7 +62,7 @@
 
     .doc-title em {
       font-style: italic;
-      color: var(--color-accent);
+      color: #99BBD6;
     }
 
     .doc-subtitle {
@@ -74,7 +71,7 @@
       font-weight: 400;
     }
 
-    /* --- Timeline Visual --- */
+    /* --- Timeline --- */
     .timeline-bar {
       background: var(--color-white);
       padding: 24px;
@@ -86,7 +83,6 @@
     .timeline {
       display: flex;
       align-items: center;
-      gap: 0;
       max-width: 900px;
       width: 100%;
       position: relative;
@@ -151,18 +147,12 @@
     }
 
     @media (min-width: 640px) {
-      .rituals-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .rituals-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (min-width: 1024px) {
-      .rituals-grid {
-        grid-template-columns: repeat(5, 1fr);
-      }
-      .timeline-label {
-        font-size: 0.8125rem;
-      }
+      .rituals-grid { grid-template-columns: repeat(5, 1fr); }
+      .timeline-label { font-size: 0.8125rem; }
     }
 
     /* --- Ritual Card --- */
@@ -217,11 +207,6 @@
       gap: 16px;
     }
 
-    /* --- Ritual Sections --- */
-    .ritual-section {
-      padding: 0;
-    }
-
     .ritual-section-label {
       font-size: 0.6875rem;
       font-weight: 700;
@@ -230,9 +215,9 @@
       margin-bottom: 4px;
     }
 
-    .label-risk { color: #C53030; }
+    .label-risk { color: #CC0000; }
     .label-goal { color: var(--color-primary); }
-    .label-intervention { color: var(--color-accent); }
+    .label-intervention { color: #4A6FA5; }
 
     .ritual-section p {
       font-size: 0.875rem;
@@ -243,7 +228,7 @@
     /* --- Signal Banner --- */
     .ritual-signal {
       margin-top: auto;
-      background: var(--color-accent);
+      background: var(--color-primary);
       color: var(--color-white);
       padding: 14px 20px;
       border-radius: 0 0 var(--radius-lg) var(--radius-lg);
@@ -254,7 +239,7 @@
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      opacity: 0.8;
+      opacity: 0.7;
       margin-bottom: 2px;
     }
 
@@ -274,7 +259,7 @@
     }
 
     .doc-footer p {
-      font-size: 0.8125rem;
+      font-size: 0.9rem;
       color: var(--color-text-light);
     }
 
@@ -283,11 +268,8 @@
       text-decoration: none;
     }
 
-    .doc-footer a:hover {
-      text-decoration: underline;
-    }
+    .doc-footer a:hover { text-decoration: underline; }
 
-    /* --- Print --- */
     @media print {
       body { background: white; }
       .ritual-card { break-inside: avoid; box-shadow: none; border: 1px solid #e2e8f0; }
@@ -298,7 +280,6 @@
 </head>
 <body>
 
-  <!-- Header -->
   <header class="doc-header">
     <div class="doc-header-inner">
       <div class="doc-brand">Coach4U — Relationships</div>
@@ -307,37 +288,19 @@
     </div>
   </header>
 
-  <!-- Timeline -->
   <div class="timeline-bar">
     <div class="timeline">
-      <div class="timeline-step">
-        <div class="timeline-dot">1</div>
-        <span class="timeline-label">Waking Up</span>
-      </div>
-      <div class="timeline-step">
-        <div class="timeline-dot">2</div>
-        <span class="timeline-label">Leaving</span>
-      </div>
-      <div class="timeline-step">
-        <div class="timeline-dot">3</div>
-        <span class="timeline-label">Sharing Food</span>
-      </div>
-      <div class="timeline-step">
-        <div class="timeline-dot">4</div>
-        <span class="timeline-label">Arriving</span>
-      </div>
-      <div class="timeline-step">
-        <div class="timeline-dot">5</div>
-        <span class="timeline-label">Going to Sleep</span>
-      </div>
+      <div class="timeline-step"><div class="timeline-dot">1</div><span class="timeline-label">Waking Up</span></div>
+      <div class="timeline-step"><div class="timeline-dot">2</div><span class="timeline-label">Leaving</span></div>
+      <div class="timeline-step"><div class="timeline-dot">3</div><span class="timeline-label">Sharing Food</span></div>
+      <div class="timeline-step"><div class="timeline-dot">4</div><span class="timeline-label">Arriving</span></div>
+      <div class="timeline-step"><div class="timeline-dot">5</div><span class="timeline-label">Going to Sleep</span></div>
     </div>
   </div>
 
-  <!-- Rituals -->
   <main class="container">
     <div class="rituals-grid">
 
-      <!-- 1. Waking Up -->
       <article class="ritual-card">
         <div class="ritual-card-header">
           <span class="ritual-number">1</span>
@@ -363,7 +326,6 @@
         </div>
       </article>
 
-      <!-- 2. Leaving / Parting -->
       <article class="ritual-card">
         <div class="ritual-card-header">
           <span class="ritual-number">2</span>
@@ -372,7 +334,7 @@
         <div class="ritual-card-body">
           <div class="ritual-section">
             <div class="ritual-section-label label-risk">The Risk</div>
-            <p>Triggers core fears of abandonment or provides a premature escape — both partners leave unanchored.</p>
+            <p>Triggers core fears of abandonment or provides a premature escape. Both partners leave unanchored.</p>
           </div>
           <div class="ritual-section">
             <div class="ritual-section-label label-goal">The Goal</div>
@@ -389,7 +351,6 @@
         </div>
       </article>
 
-      <!-- 3. Sharing Food -->
       <article class="ritual-card">
         <div class="ritual-card-header">
           <span class="ritual-number">3</span>
@@ -415,7 +376,6 @@
         </div>
       </article>
 
-      <!-- 4. Arriving / Reuniting -->
       <article class="ritual-card">
         <div class="ritual-card-header">
           <span class="ritual-number">4</span>
@@ -441,7 +401,6 @@
         </div>
       </article>
 
-      <!-- 5. Going to Sleep -->
       <article class="ritual-card">
         <div class="ritual-card-header">
           <span class="ritual-number">5</span>
@@ -470,9 +429,11 @@
     </div>
   </main>
 
-  <!-- Footer -->
   <footer class="doc-footer">
-    <p>Strengths-Based Coaching and Counselling &middot; <a href="https://www.coach4u.com.au">www.coach4u.com.au</a> &middot; <a href="mailto:cath@coach4u.com.au">cath@coach4u.com.au</a> &middot; 0402 313 337</p>
+    <p>Strengths-Based Coaching and Counselling<br>
+    <a href="https://www.coach4u.com.au">www.coach4u.com.au</a> &middot;
+    <a href="mailto:cath@coach4u.com.au">cath@coach4u.com.au</a> &middot;
+    0402 313 337</p>
   </footer>
 
 </body>
