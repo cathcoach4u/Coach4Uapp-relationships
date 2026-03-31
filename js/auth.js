@@ -10,7 +10,7 @@ const SESSION_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours
  * Returns true if the code is valid.
  */
 async function verifyAccessCode(code) {
-  const { data, error } = await supabase.rpc('verify_access_code', {
+  const { data, error } = await window.supabaseClient.rpc('verify_access_code', {
     input_code: code,
   });
 
