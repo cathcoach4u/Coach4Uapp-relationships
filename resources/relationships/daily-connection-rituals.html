@@ -7,17 +7,13 @@
   <style>
     :root {
       --color-primary: #003366;
-      --color-primary-dark: #002244;
       --color-primary-light: #E8EEF4;
       --color-neutral: #646464;
-      --color-bg: #FFFFFF;
       --color-white: #FFFFFF;
       --color-text: #000000;
       --color-text-light: #646464;
-      --radius: 8px;
-      --radius-lg: 12px;
-      --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.1);
+      --radius: 12px;
+      --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,37 +23,51 @@
       font-size: 1.1rem;
       line-height: 1.5;
       color: var(--color-text);
-      background: var(--color-bg);
+      background: var(--color-white);
       min-height: 100vh;
     }
 
     /* --- Header --- */
     .doc-header {
-      background: var(--color-primary);
+      background: linear-gradient(135deg, #001a33 0%, #003366 50%, #1a4d80 100%);
       color: var(--color-white);
-      padding: 32px 24px;
+      padding: 48px 24px 40px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.05) 0%, transparent 70%);
     }
 
     .doc-header-inner {
-      max-width: 1200px;
+      max-width: 800px;
       margin: 0 auto;
+      position: relative;
     }
 
     .doc-brand {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 600;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      opacity: 0.7;
-      margin-bottom: 8px;
+      opacity: 0.6;
+      margin-bottom: 12px;
     }
 
     .doc-title {
-      font-size: 2rem;
+      font-size: 2.4rem;
       font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 4px;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      color: var(--color-white);
     }
 
     .doc-title em {
@@ -66,201 +76,290 @@
     }
 
     .doc-subtitle {
-      font-size: 1rem;
-      opacity: 0.8;
+      font-size: 1.1rem;
+      opacity: 0.75;
       font-weight: 400;
+      max-width: 500px;
+      margin: 0 auto;
     }
 
-    /* --- Timeline --- */
-    .timeline-bar {
-      background: var(--color-white);
-      padding: 24px;
-      display: flex;
-      justify-content: center;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
-
-    .timeline {
-      display: flex;
-      align-items: center;
-      max-width: 900px;
-      width: 100%;
+    /* --- Day Journey --- */
+    .day-journey {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 16px;
       position: relative;
     }
 
-    .timeline-step {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      z-index: 1;
+    /* Vertical flow line */
+    .day-journey::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(
+        to bottom,
+        #FFB347 0%,
+        #FFD700 15%,
+        #87CEEB 35%,
+        #4A90D9 55%,
+        #FF8C42 75%,
+        #2C3E6B 90%,
+        #1a2744 100%
+      );
+      transform: translateX(-50%);
+      border-radius: 3px;
     }
 
-    .timeline-dot {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--color-primary);
-      color: var(--color-white);
+    @media (max-width: 768px) {
+      .day-journey::before {
+        left: 24px;
+      }
+    }
+
+    /* --- Ritual Block --- */
+    .ritual {
       display: flex;
+      align-items: flex-start;
+      gap: 40px;
+      padding: 48px 0;
+      position: relative;
+    }
+
+    .ritual:first-child { padding-top: 48px; }
+    .ritual:last-child { padding-bottom: 64px; }
+
+    /* Alternating layout */
+    .ritual:nth-child(odd) { flex-direction: row; }
+    .ritual:nth-child(even) { flex-direction: row-reverse; }
+
+    .ritual-time-marker {
+      flex: 0 0 50%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding-right: 40px;
+    }
+
+    .ritual:nth-child(even) .ritual-time-marker {
+      justify-content: flex-start;
+      padding-right: 0;
+      padding-left: 40px;
+    }
+
+    .ritual-content {
+      flex: 0 0 50%;
+      padding-left: 40px;
+    }
+
+    .ritual:nth-child(even) .ritual-content {
+      padding-left: 0;
+      padding-right: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .ritual,
+      .ritual:nth-child(even) {
+        flex-direction: column;
+        padding-left: 56px;
+        gap: 16px;
+      }
+      .ritual-time-marker,
+      .ritual:nth-child(even) .ritual-time-marker {
+        flex: none;
+        justify-content: flex-start;
+        padding: 0;
+      }
+      .ritual-content,
+      .ritual:nth-child(even) .ritual-content {
+        flex: none;
+        padding: 0;
+      }
+    }
+
+    /* --- Time Badge --- */
+    .time-badge {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
+      gap: 12px;
+      padding: 10px 20px;
+      border-radius: 50px;
       font-weight: 700;
-      font-size: 0.875rem;
+      font-size: 1rem;
+      color: var(--color-white);
+      position: relative;
+      z-index: 2;
+    }
+
+    .time-icon {
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .time-badge-1 { background: linear-gradient(135deg, #FF9A56, #FFB347); }
+    .time-badge-2 { background: linear-gradient(135deg, #FFB347, #FFD700); color: #5C4000; }
+    .time-badge-3 { background: linear-gradient(135deg, #5BA3D9, #87CEEB); }
+    .time-badge-4 { background: linear-gradient(135deg, #D4764E, #FF8C42); }
+    .time-badge-5 { background: linear-gradient(135deg, #1a2744, #2C3E6B); }
+
+    /* --- Flow Dot on Timeline --- */
+    .ritual::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 64px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
       border: 3px solid var(--color-white);
       box-shadow: var(--shadow);
     }
 
-    .timeline-label {
-      margin-top: 8px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--color-neutral);
-      text-align: center;
-      white-space: nowrap;
+    .ritual:nth-child(1)::after { background: #FFB347; }
+    .ritual:nth-child(2)::after { background: #FFD700; }
+    .ritual:nth-child(3)::after { background: #87CEEB; }
+    .ritual:nth-child(4)::after { background: #FF8C42; }
+    .ritual:nth-child(5)::after { background: #2C3E6B; }
+
+    @media (max-width: 768px) {
+      .ritual::after {
+        left: 24px;
+        top: 16px;
+      }
     }
 
-    .timeline::before {
-      content: '';
-      position: absolute;
-      top: 18px;
-      left: 10%;
-      right: 10%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--color-primary-light), var(--color-primary), var(--color-primary-light));
-      border-radius: 2px;
-      z-index: 0;
-    }
-
-    /* --- Rituals Grid --- */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 32px 16px;
-    }
-
-    .rituals-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-
-    @media (min-width: 640px) {
-      .rituals-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (min-width: 1024px) {
-      .rituals-grid { grid-template-columns: repeat(5, 1fr); }
-      .timeline-label { font-size: 0.8125rem; }
-    }
-
-    /* --- Ritual Card --- */
+    /* --- Card --- */
     .ritual-card {
       background: var(--color-white);
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: box-shadow 200ms ease, transform 200ms ease;
-    }
-
-    .ritual-card:hover {
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-2px);
-    }
-
-    .ritual-card-header {
-      background: var(--color-primary);
-      color: var(--color-white);
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .ritual-number {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.875rem;
-      flex-shrink: 0;
-    }
-
-    .ritual-name {
-      font-size: 1rem;
-      font-weight: 600;
-      line-height: 1.3;
+      border: 1px solid rgba(0,0,0,0.06);
     }
 
     .ritual-card-body {
-      padding: 20px;
-      flex: 1;
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 20px;
     }
 
-    .ritual-section-label {
-      font-size: 0.6875rem;
+    .ritual-card h2 {
+      font-size: 1.4rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      color: var(--color-primary);
       margin-bottom: 4px;
     }
 
-    .label-risk { color: #CC0000; }
-    .label-goal { color: var(--color-primary); }
-    .label-intervention { color: #4A6FA5; }
+    .ritual-card .ritual-num {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-neutral);
+    }
 
-    .ritual-section p {
-      font-size: 0.875rem;
+    /* --- Risk / Goal / Intervention sections --- */
+    .info-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 480px) {
+      .info-row { grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    .info-block {
+      padding: 14px;
+      border-radius: 8px;
+      background: #F8F9FA;
+    }
+
+    .info-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .info-label.risk { color: #B91C1C; }
+    .info-label.goal { color: var(--color-primary); }
+    .info-label.intervention { color: #4A6FA5; }
+
+    .info-block p {
+      font-size: 0.85rem;
       line-height: 1.5;
       color: var(--color-neutral);
     }
 
     /* --- Signal Banner --- */
-    .ritual-signal {
-      margin-top: auto;
+    .signal-banner {
       background: var(--color-primary);
       color: var(--color-white);
-      padding: 14px 20px;
-      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .signal-icon {
+      font-size: 1.2rem;
+      opacity: 0.7;
+    }
+
+    .signal-text {
+      flex: 1;
     }
 
     .signal-label {
-      font-size: 0.625rem;
+      font-size: 0.6rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      opacity: 0.7;
+      opacity: 0.6;
       margin-bottom: 2px;
     }
 
     .signal-quote {
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 600;
       font-style: italic;
-      line-height: 1.4;
+      line-height: 1.3;
+    }
+
+    /* --- Flow Arrow between rituals --- */
+    .flow-connector {
+      text-align: center;
+      padding: 0;
+      position: relative;
+      z-index: 1;
+      color: var(--color-neutral);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.5;
     }
 
     /* --- Footer --- */
     .doc-footer {
       text-align: center;
-      padding: 32px 24px;
-      border-top: 1px solid rgba(0,0,0,0.06);
-      margin-top: 16px;
+      padding: 40px 24px;
+      border-top: 2px solid var(--color-primary-light);
+      margin-top: 0;
+      background: #FAFBFC;
     }
 
     .doc-footer p {
       font-size: 0.9rem;
       color: var(--color-text-light);
+      line-height: 1.8;
     }
 
     .doc-footer a {
@@ -270,165 +369,238 @@
 
     .doc-footer a:hover { text-decoration: underline; }
 
+    /* --- Print --- */
     @media print {
       body { background: white; }
-      .ritual-card { break-inside: avoid; box-shadow: none; border: 1px solid #e2e8f0; }
-      .ritual-card:hover { transform: none; }
-      .rituals-grid { grid-template-columns: repeat(5, 1fr); gap: 12px; }
+      .doc-header { background: var(--color-primary) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .ritual-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+      .day-journey::before { display: none; }
+      .ritual::after { display: none; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Header -->
   <header class="doc-header">
     <div class="doc-header-inner">
       <div class="doc-brand">Coach4U — Relationships</div>
       <h1 class="doc-title">Daily <em>Connection Rituals</em></h1>
-      <p class="doc-subtitle">Five everyday moments to strengthen your bond</p>
+      <p class="doc-subtitle">Five moments across your day to build safety, presence, and connection with your partner.</p>
     </div>
   </header>
 
-  <div class="timeline-bar">
-    <div class="timeline">
-      <div class="timeline-step"><div class="timeline-dot">1</div><span class="timeline-label">Waking Up</span></div>
-      <div class="timeline-step"><div class="timeline-dot">2</div><span class="timeline-label">Leaving</span></div>
-      <div class="timeline-step"><div class="timeline-dot">3</div><span class="timeline-label">Sharing Food</span></div>
-      <div class="timeline-step"><div class="timeline-dot">4</div><span class="timeline-label">Arriving</span></div>
-      <div class="timeline-step"><div class="timeline-dot">5</div><span class="timeline-label">Going to Sleep</span></div>
+  <!-- Day Journey Timeline -->
+  <div class="day-journey">
+
+    <!-- 1. Waking Up -->
+    <div class="ritual">
+      <div class="ritual-time-marker">
+        <div class="time-badge time-badge-1">
+          <span class="time-icon">🌅</span>
+          <span>Morning</span>
+        </div>
+      </div>
+      <div class="ritual-content">
+        <div class="ritual-card">
+          <div class="ritual-card-body">
+            <div>
+              <div class="ritual-num">Ritual 1</div>
+              <h2>Waking Up</h2>
+            </div>
+            <div class="info-row">
+              <div class="info-block">
+                <div class="info-label risk">The Risk</div>
+                <p>The brain instantly scans for emotional distance, activating hypervigilance or withdrawal before the day begins.</p>
+              </div>
+              <div class="info-block">
+                <div class="info-label goal">The Goal</div>
+                <p>Establish baseline safety and presence at the start of the cycle.</p>
+              </div>
+              <div class="info-block">
+                <div class="info-label intervention">The Intervention</div>
+                <p>Gentle physical touch or eye contact before logistics begin.</p>
+              </div>
+            </div>
+          </div>
+          <div class="signal-banner">
+            <span class="signal-icon">💬</span>
+            <div class="signal-text">
+              <div class="signal-label">Signal</div>
+              <div class="signal-quote">"Good morning, I'm glad you're here."</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- 2. Leaving / Parting -->
+    <div class="ritual">
+      <div class="ritual-time-marker">
+        <div class="time-badge time-badge-2">
+          <span class="time-icon">🚪</span>
+          <span>Departure</span>
+        </div>
+      </div>
+      <div class="ritual-content">
+        <div class="ritual-card">
+          <div class="ritual-card-body">
+            <div>
+              <div class="ritual-num">Ritual 2</div>
+              <h2>Leaving / Parting</h2>
+            </div>
+            <div class="info-row">
+              <div class="info-block">
+                <div class="info-label risk">The Risk</div>
+                <p>Triggers core fears of abandonment or provides a premature escape. Both partners leave unanchored.</p>
+              </div>
+              <div class="info-block">
+                <div class="info-label goal">The Goal</div>
+                <p>Build a secure bridge to the next meeting.</p>
+              </div>
+              <div class="info-block">
+                <div class="info-label intervention">The Intervention</div>
+                <p>A meaningful goodbye with a clear communication of return. Pause momentum for a moment of connection.</p>
+              </div>
+            </div>
+          </div>
+          <div class="signal-banner">
+            <span class="signal-icon">💬</span>
+            <div class="signal-text">
+              <div class="signal-label">Signal</div>
+              <div class="signal-quote">"I'll be back at 6. I'm thinking of you."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Sharing Food -->
+    <div class="ritual">
+      <div class="ritual-time-marker">
+        <div class="time-badge time-badge-3">
+          <span class="time-icon">🍽️</span>
+          <span>Midday</span>
+        </div>
+      </div>
+      <div class="ritual-content">
+        <div class="ritual-card">
+          <div class="ritual-card-body">
+            <div>
+              <div class="ritual-num">Ritual 3</div>
+              <h2>Sharing Food</h2>
+            </div>
+            <div class="info-row">
+              <div class="info-block">
+                <div class="info-label risk">The Risk</div>
+                <p>Meals devolve into silent tension, screen-scrolling, or logistical conflict zones.</p>
+              </div>
+              <div class="info-block">
+                <div class="info-label goal">The Goal</div>
+                <p>Shared nourishment and grounded, non-demanding presence.</p>
+              </div>
+              <div class="info-block">
+                <div class="info-label intervention">The Intervention</div>
+                <p>Remove screens. Practise gentle curiosity without heavy problem-solving. Allow silence to feel safe, not critical.</p>
+              </div>
+            </div>
+          </div>
+          <div class="signal-banner">
+            <span class="signal-icon">💬</span>
+            <div class="signal-text">
+              <div class="signal-label">Signal</div>
+              <div class="signal-quote">"Tell me one thing about your day."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Arriving / Reuniting -->
+    <div class="ritual">
+      <div class="ritual-time-marker">
+        <div class="time-badge time-badge-4">
+          <span class="time-icon">🏠</span>
+          <span>Evening</span>
+        </div>
+      </div>
+      <div class="ritual-content">
+        <div class="ritual-card">
+          <div class="ritual-card-body">
+            <div>
+              <div class="ritual-num">Ritual 4</div>
+              <h2>Arriving / Reuniting</h2>
+            </div>
+            <div class="info-row">
+              <div class="info-block">
+                <div class="info-label risk">The Risk</div>
+                <p>Transition stress clash: one partner wants decompression space while the other seeks immediate connection.</p>
+              </div>
+              <div class="info-block">
+                <div class="info-label goal">The Goal</div>
+                <p>Regulate the transition and signal relationship priority over tasks.</p>
+              </div>
+              <div class="info-block">
+                <div class="info-label intervention">The Intervention</div>
+                <p>Stop tasks and greet at the door. Script: "Welcome Home," followed by a warm, unhurried hug.</p>
+              </div>
+            </div>
+          </div>
+          <div class="signal-banner">
+            <span class="signal-icon">💬</span>
+            <div class="signal-text">
+              <div class="signal-label">Signal</div>
+              <div class="signal-quote">"Welcome home. I'm glad you're here."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Going to Sleep -->
+    <div class="ritual">
+      <div class="ritual-time-marker">
+        <div class="time-badge time-badge-5">
+          <span class="time-icon">🌙</span>
+          <span>Night</span>
+        </div>
+      </div>
+      <div class="ritual-content">
+        <div class="ritual-card">
+          <div class="ritual-card-body">
+            <div>
+              <div class="ritual-num">Ritual 5</div>
+              <h2>Going to Sleep</h2>
+            </div>
+            <div class="info-row">
+              <div class="info-block">
+                <div class="info-label risk">The Risk</div>
+                <p>Unresolved daytime tension spikes nighttime anxiety; vulnerability leads to feelings of isolation.</p>
+              </div>
+              <div class="info-block">
+                <div class="info-label goal">The Goal</div>
+                <p>Soothe the nervous system to allow the younger brain to rest.</p>
+              </div>
+              <div class="info-block">
+                <div class="info-label intervention">The Intervention</div>
+                <p>Phone-free and argument-free bedroom. Cuddles and appreciation to close the day together.</p>
+              </div>
+            </div>
+          </div>
+          <div class="signal-banner">
+            <span class="signal-icon">💬</span>
+            <div class="signal-text">
+              <div class="signal-label">Signal</div>
+              <div class="signal-quote">"We are okay."</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <main class="container">
-    <div class="rituals-grid">
-
-      <article class="ritual-card">
-        <div class="ritual-card-header">
-          <span class="ritual-number">1</span>
-          <h2 class="ritual-name">Waking Up</h2>
-        </div>
-        <div class="ritual-card-body">
-          <div class="ritual-section">
-            <div class="ritual-section-label label-risk">The Risk</div>
-            <p>The brain instantly scans for emotional distance, activating hypervigilance or withdrawal before the day begins.</p>
-          </div>
-          <div class="ritual-section">
-            <div class="ritual-section-label label-goal">The Goal</div>
-            <p>Establish baseline safety and presence at the start of the cycle.</p>
-          </div>
-          <div class="ritual-section">
-            <div class="ritual-section-label label-intervention">The Intervention</div>
-            <p>Gentle physical touch or eye contact before logistics begin.</p>
-          </div>
-        </div>
-        <div class="ritual-signal">
-          <div class="signal-label">Signal</div>
-          <div class="signal-quote">"Good morning, I'm glad you're here."</div>
-        </div>
-      </article>
-
-      <article class="ritual-card">
-        <div class="ritual-card-header">
-          <span class="ritual-number">2</span>
-          <h2 class="ritual-name">Leaving / Parting</h2>
-        </div>
-        <div class="ritual-card-body">
-          <div class="ritual-section">
-            <div class="ritual-section-label label-risk">The Risk</div>
-            <p>Triggers core fears of abandonment or provides a premature escape. Both partners leave unanchored.</p>
-          </div>
-          <div class="ritual-section">
-            <div class="ritual-section-label label-goal">The Goal</div>
-            <p>Build a secure bridge to the next meeting.</p>
-          </div>
-          <div class="ritual-section">
-            <div class="ritual-section-label label-intervention">The Intervention</div>
-            <p>A meaningful goodbye with a clear communication of return. Pause momentum for a moment of connection.</p>
-          </div>
-        </div>
-        <div class="ritual-signal">
-          <div class="signal-label">Signal</div>
-          <div class="signal-quote">"I'll be back at 6. I'm thinking of you."</div>
-        </div>
-      </article>
-
-      <article class="ritual-card">
-        <div class="ritual-card-header">
-          <span class="ritual-number">3</span>
-          <h2 class="ritual-name">Sharing Food</h2>
-        </div>
-        <div class="ritual-card-body">
-          <div class="ritual-section">
-            <div class="ritual-section-label label-risk">The Risk</div>
-            <p>Meals devolve into silent tension, screen-scrolling, or logistical conflict zones.</p>
-          </div>
-          <div class="ritual-section">
-            <div class="ritual-section-label label-goal">The Goal</div>
-            <p>Shared nourishment and grounded, non-demanding presence.</p>
-          </div>
-          <div class="ritual-section">
-            <div class="ritual-section-label label-intervention">The Intervention</div>
-            <p>Remove screens. Practise gentle curiosity without heavy problem-solving. Allow silence to feel safe, not critical.</p>
-          </div>
-        </div>
-        <div class="ritual-signal">
-          <div class="signal-label">Signal</div>
-          <div class="signal-quote">"Tell me one thing about your day."</div>
-        </div>
-      </article>
-
-      <article class="ritual-card">
-        <div class="ritual-card-header">
-          <span class="ritual-number">4</span>
-          <h2 class="ritual-name">Arriving / Reuniting</h2>
-        </div>
-        <div class="ritual-card-body">
-          <div class="ritual-section">
-            <div class="ritual-section-label label-risk">The Risk</div>
-            <p>Transition stress clash: one partner wants decompression space while the other seeks immediate connection.</p>
-          </div>
-          <div class="ritual-section">
-            <div class="ritual-section-label label-goal">The Goal</div>
-            <p>Regulate the transition and signal relationship priority over tasks.</p>
-          </div>
-          <div class="ritual-section">
-            <div class="ritual-section-label label-intervention">The Intervention</div>
-            <p>Stop tasks and greet at the door. Script: "Welcome Home," followed by a warm, unhurried hug.</p>
-          </div>
-        </div>
-        <div class="ritual-signal">
-          <div class="signal-label">Signal</div>
-          <div class="signal-quote">"Welcome home. I'm glad you're here."</div>
-        </div>
-      </article>
-
-      <article class="ritual-card">
-        <div class="ritual-card-header">
-          <span class="ritual-number">5</span>
-          <h2 class="ritual-name">Going to Sleep</h2>
-        </div>
-        <div class="ritual-card-body">
-          <div class="ritual-section">
-            <div class="ritual-section-label label-risk">The Risk</div>
-            <p>Unresolved daytime tension spikes nighttime anxiety; vulnerability leads to feelings of isolation.</p>
-          </div>
-          <div class="ritual-section">
-            <div class="ritual-section-label label-goal">The Goal</div>
-            <p>Soothe the nervous system to allow the younger brain to rest.</p>
-          </div>
-          <div class="ritual-section">
-            <div class="ritual-section-label label-intervention">The Intervention</div>
-            <p>Phone-free and argument-free bedroom. Cuddles and appreciation to close the day together.</p>
-          </div>
-        </div>
-        <div class="ritual-signal">
-          <div class="signal-label">Signal</div>
-          <div class="signal-quote">"We are okay."</div>
-        </div>
-      </article>
-
-    </div>
-  </main>
-
+  <!-- Footer -->
   <footer class="doc-footer">
     <p>Strengths-Based Coaching and Counselling<br>
     <a href="https://www.coach4u.com.au">www.coach4u.com.au</a> &middot;
