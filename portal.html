@@ -13,7 +13,7 @@
       <a href="portal.html" class="logo" aria-label="Coach4U Home">
         <img src="assets/coach4u-logo.svg" alt="Coach4U" width="140" height="36">
       </a>
-      <button class="btn btn-text btn-sm" onclick="logout()" aria-label="Log out">
+      <button class="btn btn-text btn-sm" id="logout-btn" aria-label="Log out">
         Log Out
       </button>
     </div>
@@ -39,18 +39,175 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    // --- Supabase init ---
     const { createClient } = supabase;
-    const _supabaseClient = createClient(
+    const db = createClient(
       'https://uoixetfvboevjxlkfyqy.supabase.co',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVvaXhldGZ2Ym9ldmp4bGtmeXF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NDY2ODAsImV4cCI6MjA5MDQyMjY4MH0.ZXYJVdvcj70aGMH1FAixIr0hNCaCDSYLEL93hHVCGDU'
     );
-    window.supabaseClient = _supabaseClient;
-  </script>
-  <script src="js/auth.js"></script>
-  <script src="js/resources.js"></script>
-  <script>
-    requireAccess();
-    initPortal();
+
+    // --- Session check ---
+    const SESSION_KEY = 'coach4u_access';
+    const SESSION_DURATION_MS = 24 * 60 * 60 * 1000;
+
+    function hasAccess() {
+      const raw = sessionStorage.getItem(SESSION_KEY);
+      if (!raw) return false;
+      try {
+        const s = JSON.parse(raw);
+        if (!s.granted || Date.now() - s.timestamp > SESSION_DURATION_MS) {
+          sessionStorage.removeItem(SESSION_KEY);
+          return false;
+        }
+        return true;
+      } catch { return false; }
+    }
+
+    if (!hasAccess()) {
+      window.location.href = 'index.html';
+    }
+
+    // --- Logout ---
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      sessionStorage.removeItem(SESSION_KEY);
+      window.location.href = 'index.html';
+    });
+
+    // --- Config ---
+    const STORAGE_BUCKET = 'resources';
+    const SIGNED_URL_EXPIRY = 3600;
+
+    const SECTIONS = [
+      { id: 'relationships', title: 'Relationships', icon: '💛', storagePath: 'relationships' },
+      { id: 'business', title: 'Business', icon: '💼', storagePath: 'business' },
+      { id: 'leadership', title: 'Leadership', icon: '🧭', storagePath: 'leadership' },
+      { id: 'strengths', title: 'Strengths', icon: '💪', storagePath: 'strengths' },
+    ];
+
+    function cleanFileName(name) {
+      return name
+        .replace(/\.[^.]+$/, '')
+        .replace(/[-_]/g, ' ')
+        .replace(/\b\w/g, (c) => c.toUpperCase());
+    }
+
+    function getFileType(name) {
+      const ext = name.split('.').pop().toLowerCase();
+      const types = {
+        html: { label: 'VIEW', badgeClass: 'badge-html', viewable: true },
+        pdf: { label: 'PDF', badgeClass: 'badge-pdf' },
+        doc: { label: 'DOC', badgeClass: 'badge-doc' },
+        docx: { label: 'DOCX', badgeClass: 'badge-doc' },
+        xls: { label: 'XLS', badgeClass: 'badge-xls' },
+        xlsx: { label: 'XLSX', badgeClass: 'badge-xls' },
+        ppt: { label: 'PPT', badgeClass: 'badge-doc' },
+        pptx: { label: 'PPTX', badgeClass: 'badge-doc' },
+        png: { label: 'PNG', badgeClass: 'badge-img' },
+        jpg: { label: 'JPG', badgeClass: 'badge-img' },
+        jpeg: { label: 'JPEG', badgeClass: 'badge-img' },
+      };
+      return types[ext] || { label: ext.toUpperCase(), badgeClass: 'badge-default' };
+    }
+
+    async function fetchFiles(folderPath) {
+      const { data, error } = await db.storage
+        .from(STORAGE_BUCKET)
+        .list(folderPath, { limit: 100, sortBy: { column: 'name', order: 'asc' } });
+      if (error) { console.error(error); return []; }
+      return (data || []).filter((f) => f.metadata && !f.name.startsWith('.'));
+    }
+
+    async function getSignedUrl(filePath) {
+      const { data, error } = await db.storage
+        .from(STORAGE_BUCKET)
+        .createSignedUrl(filePath, SIGNED_URL_EXPIRY);
+      if (error) { console.error(error); return null; }
+      return data.signedUrl;
+    }
+
+    function createDocumentCard(file, folderPath) {
+      const fileType = getFileType(file.name);
+      const displayName = cleanFileName(file.name);
+      const filePath = `${folderPath}/${file.name}`;
+      const isViewable = fileType.viewable || false;
+      const actionLabel = isViewable ? 'View' : 'Download';
+      const btnClass = isViewable ? 'btn-primary' : 'btn-secondary';
+
+      const card = document.createElement('article');
+      card.className = 'card document-card';
+      card.innerHTML = `
+        <div class="doc-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            ${isViewable
+              ? '<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>'
+              : '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>'
+            }
+          </svg>
+        </div>
+        <div class="doc-info">
+          <div class="doc-name" title="${displayName}">${displayName}</div>
+          <span class="badge ${fileType.badgeClass}">${fileType.label}</span>
+        </div>
+        <div class="doc-download">
+          <button class="btn ${btnClass} btn-sm" aria-label="${actionLabel} ${displayName}">
+            ${actionLabel}
+          </button>
+        </div>
+      `;
+
+      card.querySelector('button').addEventListener('click', async (e) => {
+        const btn = e.currentTarget;
+        btn.disabled = true;
+        btn.textContent = '...';
+        const url = await getSignedUrl(filePath);
+        if (url) { window.open(url, '_blank'); }
+        else { alert('Unable to generate link. Please try again.'); }
+        btn.disabled = false;
+        btn.textContent = actionLabel;
+      });
+
+      return card;
+    }
+
+    async function renderSection(section, container) {
+      const el = document.createElement('section');
+      el.id = section.id;
+      el.innerHTML = `
+        <div class="section-header">
+          <span class="section-icon" aria-hidden="true">${section.icon}</span>
+          <h2>${section.title}</h2>
+        </div>
+        <div class="loading"><div class="spinner"></div><span>Loading resources...</span></div>
+      `;
+      container.appendChild(el);
+
+      const files = await fetchFiles(section.storagePath);
+      el.querySelector('.loading').remove();
+
+      if (files.length === 0) {
+        el.innerHTML += `
+          <div class="empty-state">
+            <div class="empty-state-icon" aria-hidden="true">📂</div>
+            <p>No resources available yet</p>
+            <small>Check back soon — new materials are added regularly.</small>
+          </div>
+        `;
+        return;
+      }
+
+      const grid = document.createElement('div');
+      grid.className = 'document-grid';
+      files.forEach((f) => grid.appendChild(createDocumentCard(f, section.storagePath)));
+      el.appendChild(grid);
+    }
+
+    // --- Init ---
+    (async () => {
+      const container = document.getElementById('resources-container');
+      for (const section of SECTIONS) {
+        await renderSection(section, container);
+      }
+    })();
   </script>
 </body>
 </html>
