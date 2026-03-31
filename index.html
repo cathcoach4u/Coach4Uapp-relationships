@@ -41,22 +41,83 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    // --- Supabase init (same pattern as debug.html) ---
     const { createClient } = supabase;
-    const _supabaseClient = createClient(
+    const db = createClient(
       'https://uoixetfvboevjxlkfyqy.supabase.co',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVvaXhldGZ2Ym9ldmp4bGtmeXF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NDY2ODAsImV4cCI6MjA5MDQyMjY4MH0.ZXYJVdvcj70aGMH1FAixIr0hNCaCDSYLEL93hHVCGDU'
     );
-    // Make available globally for auth.js and resources.js
-    window.supabaseClient = _supabaseClient;
-  </script>
-  <script src="js/auth.js"></script>
-  <script>
-    // If already logged in, go straight to portal
+
+    // --- Session management ---
+    const SESSION_KEY = 'coach4u_access';
+    const SESSION_DURATION_MS = 24 * 60 * 60 * 1000;
+
+    function grantAccess() {
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify({ granted: true, timestamp: Date.now() }));
+    }
+
+    function hasAccess() {
+      const raw = sessionStorage.getItem(SESSION_KEY);
+      if (!raw) return false;
+      try {
+        const s = JSON.parse(raw);
+        if (!s.granted || Date.now() - s.timestamp > SESSION_DURATION_MS) {
+          sessionStorage.removeItem(SESSION_KEY);
+          return false;
+        }
+        return true;
+      } catch { return false; }
+    }
+
+    // --- Already logged in? ---
     if (hasAccess()) {
       window.location.href = 'portal.html';
-    } else {
-      initLoginForm();
     }
+
+    // --- Login form ---
+    const form = document.getElementById('login-form');
+    const input = document.getElementById('access-code');
+    const errorEl = document.getElementById('login-error');
+    const submitBtn = document.getElementById('login-btn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const code = input.value.trim();
+
+      if (!code) {
+        errorEl.textContent = 'Please enter an access code.';
+        errorEl.classList.add('visible');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Verifying...';
+      errorEl.classList.remove('visible');
+
+      try {
+        const { data, error } = await db.rpc('verify_access_code', { input_code: code });
+
+        if (error) throw error;
+
+        if (data === true) {
+          grantAccess();
+          window.location.href = 'portal.html';
+        } else {
+          errorEl.textContent = 'Invalid access code. Please try again.';
+          errorEl.classList.add('visible');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Access Resources';
+          input.value = '';
+          input.focus();
+        }
+      } catch (err) {
+        console.error('Login error:', err);
+        errorEl.textContent = 'Something went wrong. Please try again.';
+        errorEl.classList.add('visible');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Access Resources';
+      }
+    });
   </script>
 </body>
 </html>
