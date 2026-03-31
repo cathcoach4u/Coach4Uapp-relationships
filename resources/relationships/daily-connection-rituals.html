@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Connection Rituals — Coach4U</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #0D6E6E;
+      --color-primary-dark: #0A5555;
+      --color-primary-light: #E6F2F2;
+      --color-accent: #D4A843;
+      --color-accent-light: #FBF5E6;
+      --color-neutral: #4A5568;
+      --color-bg: #F7F7F7;
+      --color-white: #FFFFFF;
+      --color-text: #2D3748;
+      --color-text-light: #718096;
+      --radius: 8px;
+      --radius-lg: 12px;
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--color-text);
+      background: var(--color-bg);
+      min-height: 100vh;
+    }
+
+    /* --- Header --- */
+    .doc-header {
+      background: var(--color-primary);
+      color: var(--color-white);
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .doc-header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .doc-brand {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 8px;
+    }
+
+    .doc-title {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .doc-title em {
+      font-style: italic;
+      color: var(--color-accent);
+    }
+
+    .doc-subtitle {
+      font-size: 1rem;
+      opacity: 0.8;
+      font-weight: 400;
+    }
+
+    /* --- Timeline Visual --- */
+    .timeline-bar {
+      background: var(--color-white);
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .timeline {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      max-width: 900px;
+      width: 100%;
+      position: relative;
+    }
+
+    .timeline-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: var(--color-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.875rem;
+      border: 3px solid var(--color-white);
+      box-shadow: var(--shadow);
+    }
+
+    .timeline-label {
+      margin-top: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-neutral);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 10%;
+      right: 10%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-primary-light), var(--color-primary), var(--color-primary-light));
+      border-radius: 2px;
+      z-index: 0;
+    }
+
+    /* --- Rituals Grid --- */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 16px;
+    }
+
+    .rituals-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 640px) {
+      .rituals-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .rituals-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+      .timeline-label {
+        font-size: 0.8125rem;
+      }
+    }
+
+    /* --- Ritual Card --- */
+    .ritual-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 200ms ease, transform 200ms ease;
+    }
+
+    .ritual-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .ritual-card-header {
+      background: var(--color-primary);
+      color: var(--color-white);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ritual-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.875rem;
+      flex-shrink: 0;
+    }
+
+    .ritual-name {
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .ritual-card-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* --- Ritual Sections --- */
+    .ritual-section {
+      padding: 0;
+    }
+
+    .ritual-section-label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .label-risk { color: #C53030; }
+    .label-goal { color: var(--color-primary); }
+    .label-intervention { color: var(--color-accent); }
+
+    .ritual-section p {
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: var(--color-neutral);
+    }
+
+    /* --- Signal Banner --- */
+    .ritual-signal {
+      margin-top: auto;
+      background: var(--color-accent);
+      color: var(--color-white);
+      padding: 14px 20px;
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    }
+
+    .signal-label {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 2px;
+    }
+
+    .signal-quote {
+      font-size: 1rem;
+      font-weight: 600;
+      font-style: italic;
+      line-height: 1.4;
+    }
+
+    /* --- Footer --- */
+    .doc-footer {
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      margin-top: 16px;
+    }
+
+    .doc-footer p {
+      font-size: 0.8125rem;
+      color: var(--color-text-light);
+    }
+
+    .doc-footer a {
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    .doc-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* --- Print --- */
+    @media print {
+      body { background: white; }
+      .ritual-card { break-inside: avoid; box-shadow: none; border: 1px solid #e2e8f0; }
+      .ritual-card:hover { transform: none; }
+      .rituals-grid { grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="doc-header">
+    <div class="doc-header-inner">
+      <div class="doc-brand">Coach4U — Relationships</div>
+      <h1 class="doc-title">Daily <em>Connection Rituals</em></h1>
+      <p class="doc-subtitle">Five everyday moments to strengthen your bond</p>
+    </div>
+  </header>
+
+  <!-- Timeline -->
+  <div class="timeline-bar">
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="timeline-dot">1</div>
+        <span class="timeline-label">Waking Up</span>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot">2</div>
+        <span class="timeline-label">Leaving</span>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot">3</div>
+        <span class="timeline-label">Sharing Food</span>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot">4</div>
+        <span class="timeline-label">Arriving</span>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot">5</div>
+        <span class="timeline-label">Going to Sleep</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rituals -->
+  <main class="container">
+    <div class="rituals-grid">
+
+      <!-- 1. Waking Up -->
+      <article class="ritual-card">
+        <div class="ritual-card-header">
+          <span class="ritual-number">1</span>
+          <h2 class="ritual-name">Waking Up</h2>
+        </div>
+        <div class="ritual-card-body">
+          <div class="ritual-section">
+            <div class="ritual-section-label label-risk">The Risk</div>
+            <p>The brain instantly scans for emotional distance, activating hypervigilance or withdrawal before the day begins.</p>
+          </div>
+          <div class="ritual-section">
+            <div class="ritual-section-label label-goal">The Goal</div>
+            <p>Establish baseline safety and presence at the start of the cycle.</p>
+          </div>
+          <div class="ritual-section">
+            <div class="ritual-section-label label-intervention">The Intervention</div>
+            <p>Gentle physical touch or eye contact before logistics begin.</p>
+          </div>
+        </div>
+        <div class="ritual-signal">
+          <div class="signal-label">Signal</div>
+          <div class="signal-quote">"Good morning, I'm glad you're here."</div>
+        </div>
+      </article>
+
+      <!-- 2. Leaving / Parting -->
+      <article class="ritual-card">
+        <div class="ritual-card-header">
+          <span class="ritual-number">2</span>
+          <h2 class="ritual-name">Leaving / Parting</h2>
+        </div>
+        <div class="ritual-card-body">
+          <div class="ritual-section">
+            <div class="ritual-section-label label-risk">The Risk</div>
+            <p>Triggers core fears of abandonment or provides a premature escape — both partners leave unanchored.</p>
+          </div>
+          <div class="ritual-section">
+            <div class="ritual-section-label label-goal">The Goal</div>
+            <p>Build a secure bridge to the next meeting.</p>
+          </div>
+          <div class="ritual-section">
+            <div class="ritual-section-label label-intervention">The Intervention</div>
+            <p>A meaningful goodbye with a clear communication of return. Pause momentum for a moment of connection.</p>
+          </div>
+        </div>
+        <div class="ritual-signal">
+          <div class="signal-label">Signal</div>
+          <div class="signal-quote">"I'll be back at 6. I'm thinking of you."</div>
+        </div>
+      </article>
+
+      <!-- 3. Sharing Food -->
+      <article class="ritual-card">
+        <div class="ritual-card-header">
+          <span class="ritual-number">3</span>
+          <h2 class="ritual-name">Sharing Food</h2>
+        </div>
+        <div class="ritual-card-body">
+          <div class="ritual-section">
+            <div class="ritual-section-label label-risk">The Risk</div>
+            <p>Meals devolve into silent tension, screen-scrolling, or logistical conflict zones.</p>
+          </div>
+          <div class="ritual-section">
+            <div class="ritual-section-label label-goal">The Goal</div>
+            <p>Shared nourishment and grounded, non-demanding presence.</p>
+          </div>
+          <div class="ritual-section">
+            <div class="ritual-section-label label-intervention">The Intervention</div>
+            <p>Remove screens. Practise gentle curiosity without heavy problem-solving. Allow silence to feel safe, not critical.</p>
+          </div>
+        </div>
+        <div class="ritual-signal">
+          <div class="signal-label">Signal</div>
+          <div class="signal-quote">"Tell me one thing about your day."</div>
+        </div>
+      </article>
+
+      <!-- 4. Arriving / Reuniting -->
+      <article class="ritual-card">
+        <div class="ritual-card-header">
+          <span class="ritual-number">4</span>
+          <h2 class="ritual-name">Arriving / Reuniting</h2>
+        </div>
+        <div class="ritual-card-body">
+          <div class="ritual-section">
+            <div class="ritual-section-label label-risk">The Risk</div>
+            <p>Transition stress clash: one partner wants decompression space while the other seeks immediate connection.</p>
+          </div>
+          <div class="ritual-section">
+            <div class="ritual-section-label label-goal">The Goal</div>
+            <p>Regulate the transition and signal relationship priority over tasks.</p>
+          </div>
+          <div class="ritual-section">
+            <div class="ritual-section-label label-intervention">The Intervention</div>
+            <p>Stop tasks and greet at the door. Script: "Welcome Home," followed by a warm, unhurried hug.</p>
+          </div>
+        </div>
+        <div class="ritual-signal">
+          <div class="signal-label">Signal</div>
+          <div class="signal-quote">"Welcome home. I'm glad you're here."</div>
+        </div>
+      </article>
+
+      <!-- 5. Going to Sleep -->
+      <article class="ritual-card">
+        <div class="ritual-card-header">
+          <span class="ritual-number">5</span>
+          <h2 class="ritual-name">Going to Sleep</h2>
+        </div>
+        <div class="ritual-card-body">
+          <div class="ritual-section">
+            <div class="ritual-section-label label-risk">The Risk</div>
+            <p>Unresolved daytime tension spikes nighttime anxiety; vulnerability leads to feelings of isolation.</p>
+          </div>
+          <div class="ritual-section">
+            <div class="ritual-section-label label-goal">The Goal</div>
+            <p>Soothe the nervous system to allow the younger brain to rest.</p>
+          </div>
+          <div class="ritual-section">
+            <div class="ritual-section-label label-intervention">The Intervention</div>
+            <p>Phone-free and argument-free bedroom. Cuddles and appreciation to close the day together.</p>
+          </div>
+        </div>
+        <div class="ritual-signal">
+          <div class="signal-label">Signal</div>
+          <div class="signal-quote">"We are okay."</div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="doc-footer">
+    <p>Strengths-Based Coaching and Counselling &middot; <a href="https://www.coach4u.com.au">www.coach4u.com.au</a> &middot; <a href="mailto:cath@coach4u.com.au">cath@coach4u.com.au</a> &middot; 0402 313 337</p>
+  </footer>
+
+</body>
+</html>
