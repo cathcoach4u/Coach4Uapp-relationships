@@ -447,6 +447,11 @@ h4 { font-size: var(--font-size-lg); }
   color: #6B46C1;
 }
 
+.badge-html {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
 .badge-default {
   background: #E2E8F0;
   color: var(--color-neutral);
