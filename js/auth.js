@@ -97,18 +97,26 @@ function initLoginForm() {
     submitBtn.textContent = 'Verifying...';
     errorEl.classList.remove('visible');
 
-    const valid = await verifyAccessCode(code);
+    try {
+      const valid = await verifyAccessCode(code);
 
-    if (valid) {
-      grantAccess();
-      window.location.href = 'portal.html';
-    } else {
-      errorEl.textContent = 'Invalid access code. Please try again.';
+      if (valid) {
+        grantAccess();
+        window.location.href = 'portal.html';
+      } else {
+        errorEl.textContent = 'Invalid access code. Please try again.';
+        errorEl.classList.add('visible');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Access Resources';
+        input.value = '';
+        input.focus();
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      errorEl.textContent = 'Something went wrong. Please try again.';
       errorEl.classList.add('visible');
       submitBtn.disabled = false;
       submitBtn.textContent = 'Access Resources';
-      input.value = '';
-      input.focus();
     }
   });
 }
