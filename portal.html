@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coach4U — Resource Library</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="portal.html" class="logo" aria-label="Coach4U Home">
+        <img src="assets/coach4u-logo.svg" alt="Coach4U" width="140" height="36">
+      </a>
+      <button class="btn btn-text btn-sm" onclick="logout()" aria-label="Log out">
+        Log Out
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="container portal-hero">
+    <h1>Resource Library</h1>
+    <p>Browse and download your coaching resources below.</p>
+  </div>
+
+  <!-- Resource Sections -->
+  <div class="container">
+    <div id="resources-container"></div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 Coach4U. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/resources.js"></script>
+  <script>
+    requireAccess();
+    initPortal();
+  </script>
+</body>
+</html>

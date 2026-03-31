@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coach4U — Resource Library</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="login-page">
+    <div class="card login-card">
+      <div class="login-logo">
+        <img src="assets/coach4u-logo.svg" alt="Coach4U" width="160" height="40">
+      </div>
+
+      <h1 class="login-title">Resource Library</h1>
+      <p class="login-subtitle">
+        Welcome! Enter the access code provided by your coach to view your resources.
+      </p>
+
+      <form id="login-form" class="login-form" novalidate>
+        <div class="form-group">
+          <label for="access-code" class="form-label">Access Code</label>
+          <input
+            type="password"
+            id="access-code"
+            class="form-input"
+            placeholder="Enter your access code"
+            autocomplete="off"
+            required
+          >
+          <div id="login-error" class="form-error" role="alert"></div>
+        </div>
+
+        <button type="submit" id="login-btn" class="btn btn-primary btn-block">
+          Access Resources
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // If already logged in, go straight to portal
+    if (hasAccess()) {
+      window.location.href = 'portal.html';
+    } else {
+      initLoginForm();
+    }
+  </script>
+</body>
+</html>
