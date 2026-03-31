@@ -11,7 +11,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="portal.html" class="logo" aria-label="Coach4U Home">
-        <img src="assets/coach4u-logo.svg" alt="Coach4U" width="140" height="36">
+        <img src="assets/COACH4U%20(Final).jpg" alt="Coach4U" height="48">
       </a>
       <button class="btn btn-text btn-sm" id="logout-btn" aria-label="Log out">
         Log Out
@@ -160,13 +160,18 @@
 
       card.querySelector('button').addEventListener('click', async (e) => {
         const btn = e.currentTarget;
-        btn.disabled = true;
-        btn.textContent = '...';
-        const url = await getSignedUrl(filePath);
-        if (url) { window.open(url, '_blank'); }
-        else { alert('Unable to generate link. Please try again.'); }
-        btn.disabled = false;
-        btn.textContent = actionLabel;
+        if (isViewable) {
+          // HTML files are served from GitHub Pages (Supabase can't render HTML)
+          window.open(`resources/${filePath}`, '_blank');
+        } else {
+          btn.disabled = true;
+          btn.textContent = '...';
+          const url = await getSignedUrl(filePath);
+          if (url) { window.open(url, '_blank'); }
+          else { alert('Unable to generate link. Please try again.'); }
+          btn.disabled = false;
+          btn.textContent = actionLabel;
+        }
       });
 
       return card;
