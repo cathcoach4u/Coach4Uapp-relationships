@@ -69,7 +69,7 @@ function getFileType(name) {
  * Fetch files from a Supabase Storage folder.
  */
 async function fetchFiles(folderPath) {
-  const { data, error } = await supabase.storage
+  const { data, error } = await window.supabaseClient.storage
     .from(STORAGE_BUCKET)
     .list(folderPath, {
       limit: 100,
@@ -91,7 +91,7 @@ async function fetchFiles(folderPath) {
  * Get a signed download URL for a file.
  */
 async function getSignedUrl(filePath) {
-  const { data, error } = await supabase.storage
+  const { data, error } = await window.supabaseClient.storage
     .from(STORAGE_BUCKET)
     .createSignedUrl(filePath, SIGNED_URL_EXPIRY);
 
