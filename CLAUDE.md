@@ -46,6 +46,9 @@ cath@coach4u.com.au
 0402 313 337
 ```
 
+## Coach4U Terminology
+- **"The 4 Relationship Killers"** — Coach4U's name for criticism, defensiveness, contempt, and stonewalling. Gottman's "Four Horsemen" is a reference only, not the primary label. Always use "The 4 Relationship Killers" as the title in client-facing materials.
+
 ## Tone and Language
 - Australian English (colour, organisation, etc.)
 - Warm, professional, direct, strengths-based

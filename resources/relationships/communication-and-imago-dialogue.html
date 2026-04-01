@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Communication and Imago Dialogue — Coach4U</title>
+  <style>
+    @page { size: landscape; margin: 0; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif;
+      background: #FFFFFF;
+      color: #000000;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* --- Header --- */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 48px 0;
+    }
+
+    .top-bar-brand img { display: block; height: 40px; width: auto; }
+
+    .top-bar-category {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #003366;
+      background: #E8EEF4; padding: 4px 14px; border-radius: 20px;
+    }
+
+    /* --- Title --- */
+    .title-section {
+      text-align: center;
+      padding: 24px 48px 8px;
+    }
+
+    .title-section h1 {
+      font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 6px;
+    }
+
+    .title-section h1 em { font-style: italic; font-weight: 400; }
+
+    .title-section p {
+      font-size: 1rem; color: #646464; max-width: 720px; margin: 0 auto;
+    }
+
+    /* --- Foundations Strip --- */
+    .foundations {
+      display: flex;
+      gap: 12px;
+      padding: 16px 48px 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .foundation-pill {
+      background: #F8FAFB;
+      border: 1px solid #D8E2EC;
+      border-radius: 24px;
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #003366;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .foundation-pill .icon { font-size: 1.1rem; }
+
+    /* --- Imago Steps --- */
+    .imago-section {
+      flex: 1;
+      padding: 16px 48px 12px;
+    }
+
+    .imago-label {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #646464;
+      margin-bottom: 16px;
+    }
+
+    .imago-steps {
+      display: flex;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .step-card {
+      flex: 1;
+      border-radius: 16px;
+      padding: 24px 24px 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .step-card.mirror {
+      background: linear-gradient(135deg, #E8F4E8 0%, #D4ECDA 100%);
+      border: 2px solid #A8D5A8;
+    }
+
+    .step-card.validate {
+      background: linear-gradient(135deg, #E8EEF8 0%, #D6E2F4 100%);
+      border: 2px solid #A0BCE8;
+    }
+
+    .step-card.empathise {
+      background: linear-gradient(135deg, #F8EEF4 0%, #F0D6E8 100%);
+      border: 2px solid #DCA0C8;
+    }
+
+    .step-number {
+      position: absolute;
+      top: -14px;
+      left: 20px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+
+    .mirror .step-number { background: #4A9A4A; }
+    .validate .step-number { background: #4A7AB5; }
+    .empathise .step-number { background: #B54A8A; }
+
+    .step-emoji {
+      font-size: 2.4rem;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .step-card h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #003366;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .step-card p {
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .speech-bubble {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: auto;
+      position: relative;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .speech-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .mirror .speech-label { color: #4A9A4A; }
+    .validate .speech-label { color: #4A7AB5; }
+    .empathise .speech-label { color: #B54A8A; }
+
+    .speech-bubble p {
+      font-size: 0.9rem;
+      font-style: italic;
+      color: #333333;
+      margin-bottom: 0;
+    }
+
+    /* --- Arrows between steps --- */
+    .step-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 30px;
+      font-size: 1.6rem;
+      color: #C0C0C0;
+    }
+
+    /* --- Bottom tip --- */
+    .bottom-tip {
+      display: flex;
+      gap: 16px;
+      padding: 8px 48px 12px;
+      justify-content: center;
+      align-items: stretch;
+    }
+
+    .tip-card {
+      background: #003366;
+      color: #FFFFFF;
+      border-radius: 12px;
+      padding: 14px 20px;
+      flex: 1;
+      max-width: 380px;
+      text-align: center;
+    }
+
+    .tip-card h3 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #FFD700;
+      margin-bottom: 6px;
+    }
+
+    .tip-card p {
+      font-size: 0.88rem;
+      color: #E0E8F0;
+      line-height: 1.5;
+    }
+
+    /* --- Footer --- */
+    .footer {
+      text-align: center;
+      padding: 8px 48px 20px;
+    }
+
+    .footer p { font-size: 9pt; color: #646464; line-height: 1.8; }
+
+    /* --- Print --- */
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
+    /* --- Mobile --- */
+    @media (max-width: 900px) {
+      .imago-steps { flex-direction: column; }
+      .step-connector { transform: rotate(90deg); min-width: unset; min-height: 30px; }
+      .foundations { padding: 12px 24px; }
+      .imago-section, .bottom-tip { padding-left: 24px; padding-right: 24px; }
+      .top-bar, .title-section, .footer { padding-left: 24px; padding-right: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="top-bar">
+    <div class="top-bar-brand"><img src="../../assets/coach4u-logo.jpg" alt="Coach4U"></div>
+    <div class="top-bar-category">Relationships</div>
+  </div>
+
+  <!-- Title -->
+  <div class="title-section">
+    <h1>Communication and <em>Imago Dialogue</em></h1>
+    <p>Three steps to help you truly hear each other, even when emotions are high.</p>
+  </div>
+
+  <!-- Foundations -->
+  <div class="foundations">
+    <div class="foundation-pill"><span class="icon">⏸️</span> Slow down</div>
+    <div class="foundation-pill"><span class="icon">👂</span> Listen to understand</div>
+    <div class="foundation-pill"><span class="icon">💬</span> Use "I" statements</div>
+    <div class="foundation-pill"><span class="icon">🤝</span> Handle transitions gently</div>
+    <div class="foundation-pill"><span class="icon">❤️</span> Name the feeling, not the judgement</div>
+  </div>
+
+  <!-- Imago Dialogue Steps -->
+  <div class="imago-section">
+    <div class="imago-label">The Imago Dialogue: three steps to connection</div>
+    <div class="imago-steps">
+
+      <!-- Step 1: Mirror -->
+      <div class="step-card mirror">
+        <div class="step-number">1</div>
+        <div class="step-emoji">🪞</div>
+        <h2>Mirror</h2>
+        <p>Repeat back what your partner said in your own words. This shows you are listening without adding your own interpretation.</p>
+        <p>Do not fix, advise, or respond yet. Just reflect.</p>
+        <div class="speech-bubble">
+          <div class="speech-label">Say this</div>
+          <p>"What I hear you saying is..."</p>
+          <p>"Did I get that right? Is there more?"</p>
+        </div>
+      </div>
+
+      <div class="step-connector">&#10140;</div>
+
+      <!-- Step 2: Validate -->
+      <div class="step-card validate">
+        <div class="step-number">2</div>
+        <div class="step-emoji">✅</div>
+        <h2>Validate</h2>
+        <p>Acknowledge that your partner's perspective makes sense from their point of view. You do not have to agree to validate.</p>
+        <p>Validation tells your partner: "Your experience matters."</p>
+        <div class="speech-bubble">
+          <div class="speech-label">Say this</div>
+          <p>"That makes sense because..."</p>
+          <p>"I can understand why you would feel that way."</p>
+        </div>
+      </div>
+
+      <div class="step-connector">&#10140;</div>
+
+      <!-- Step 3: Empathise -->
+      <div class="step-card empathise">
+        <div class="step-number">3</div>
+        <div class="step-emoji">💗</div>
+        <h2>Empathise</h2>
+        <p>Imagine what your partner might be feeling. Step into their shoes and name the emotion you sense beneath their words.</p>
+        <p>This is what deepens emotional connection.</p>
+        <div class="speech-bubble">
+          <div class="speech-label">Say this</div>
+          <p>"I imagine you might be feeling..."</p>
+          <p>"It sounds like that was really hard for you."</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom Tips -->
+  <div class="bottom-tip">
+    <div class="tip-card">
+      <h3>Try this</h3>
+      <p>Choose a low-stakes topic and practise the three steps together. Take turns being the speaker and the listener. Notice how it feels different from your usual conversations.</p>
+    </div>
+    <div class="tip-card">
+      <h3>Remember</h3>
+      <p>Connection grows when both partners feel safe enough to say what is true, not just what is easy. These steps create that safety.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>
+      Strengths-Based Coaching and Counselling<br>
+      www.coach4u.com.au<br>
+      cath@coach4u.com.au<br>
+      0402 313 337
+    </p>
+  </div>
+
+</body>
+</html>

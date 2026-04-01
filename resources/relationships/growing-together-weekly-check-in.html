@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Growing Together: Weekly Check-In — Coach4U</title>
+  <style>
+    @page { size: landscape; margin: 0; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif;
+      background: #FFFFFF;
+      color: #000000;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* --- Header --- */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 48px 0;
+    }
+
+    .top-bar-brand img { display: block; height: 40px; width: auto; }
+
+    .top-bar-category {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #003366;
+      background: #E8EEF4; padding: 4px 14px; border-radius: 20px;
+    }
+
+    /* --- Title --- */
+    .title-section {
+      text-align: center;
+      padding: 24px 48px 8px;
+    }
+
+    .title-section h1 {
+      font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 6px;
+    }
+
+    .title-section h1 em { font-style: italic; font-weight: 400; }
+
+    .title-section p {
+      font-size: 1rem; color: #646464; max-width: 700px; margin: 0 auto;
+    }
+
+    /* --- Main Layout --- */
+    .checkin-layout {
+      flex: 1;
+      display: flex;
+      gap: 28px;
+      padding: 16px 48px 12px;
+      align-items: stretch;
+    }
+
+    /* --- Left: 3-Step Ritual --- */
+    .ritual-steps {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .ritual-step {
+      flex: 1;
+      border-radius: 14px;
+      padding: 20px 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .step-1 {
+      background: linear-gradient(135deg, #FFF8F0 0%, #FFECD6 100%);
+      border: 2px solid #E8C9A0;
+    }
+
+    .step-2 {
+      background: linear-gradient(135deg, #EBF3FF 0%, #D6E5F7 100%);
+      border: 2px solid #A0C4E8;
+    }
+
+    .step-3 {
+      background: linear-gradient(135deg, #EBF8EB 0%, #D6F0D6 100%);
+      border: 2px solid #A0D8A0;
+    }
+
+    .step-icon {
+      font-size: 2.4rem;
+      line-height: 1;
+      min-width: 48px;
+      text-align: center;
+    }
+
+    .step-content h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #003366;
+      margin-bottom: 4px;
+    }
+
+    .step-content .step-number {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #646464;
+      margin-bottom: 2px;
+    }
+
+    .step-content p {
+      font-size: 0.92rem;
+      line-height: 1.45;
+      margin-bottom: 6px;
+    }
+
+    .step-prompt {
+      background: #FFFFFF;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #003366;
+      font-weight: 600;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    /* --- Right: Reflection + Tips --- */
+    .right-panel {
+      width: 380px;
+      min-width: 340px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .reflection-card {
+      background: #F8FAFB;
+      border: 2px solid #E0E8F0;
+      border-radius: 14px;
+      padding: 20px 22px;
+      flex: 1;
+    }
+
+    .reflection-card h3 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #003366;
+      margin-bottom: 10px;
+    }
+
+    .reflection-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .reflection-card li {
+      font-size: 0.9rem;
+      padding: 8px 0;
+      border-bottom: 1px solid #E8EEF4;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.4;
+    }
+
+    .reflection-card li:last-child { border-bottom: none; }
+
+    .reflection-card li .r-icon {
+      font-size: 1.2rem;
+      min-width: 24px;
+      text-align: center;
+    }
+
+    /* --- Bottom insight --- */
+    .bottom-section {
+      display: flex;
+      gap: 16px;
+      padding: 6px 48px 10px;
+      justify-content: center;
+    }
+
+    .insight-box {
+      background: #003366;
+      color: #FFFFFF;
+      border-radius: 12px;
+      padding: 14px 28px;
+      text-align: center;
+      max-width: 700px;
+    }
+
+    .insight-box h3 {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #FFD700; margin-bottom: 4px;
+    }
+
+    .insight-box p { font-size: 0.9rem; color: #E0E8F0; line-height: 1.5; }
+
+    .schedule-box {
+      background: #FFF8F0;
+      border: 2px solid #E8C9A0;
+      border-radius: 12px;
+      padding: 14px 24px;
+      text-align: center;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .schedule-box h3 {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #996633; margin-bottom: 6px;
+    }
+
+    .schedule-box p {
+      font-size: 0.88rem; color: #664422; line-height: 1.4;
+    }
+
+    /* --- Footer --- */
+    .footer {
+      text-align: center;
+      padding: 6px 48px 20px;
+    }
+
+    .footer p { font-size: 9pt; color: #646464; line-height: 1.8; }
+
+    /* --- Print --- */
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
+    /* --- Mobile --- */
+    @media (max-width: 900px) {
+      .checkin-layout { flex-direction: column; padding: 12px 24px; }
+      .right-panel { width: 100%; min-width: unset; }
+      .bottom-section { flex-direction: column; align-items: center; padding: 8px 24px; }
+      .top-bar, .title-section, .footer { padding-left: 24px; padding-right: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="top-bar">
+    <div class="top-bar-brand"><img src="../../assets/coach4u-logo.jpg" alt="Coach4U"></div>
+    <div class="top-bar-category">Relationships</div>
+  </div>
+
+  <!-- Title -->
+  <div class="title-section">
+    <h1>Growing Together: <em>Weekly Check-In</em></h1>
+    <p>A simple 15-minute ritual to stay connected, celebrate progress, and keep your relationship growing.</p>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="checkin-layout">
+
+    <!-- Left: 3 Steps -->
+    <div class="ritual-steps">
+
+      <div class="ritual-step step-1">
+        <div class="step-icon">🌟</div>
+        <div class="step-content">
+          <div class="step-number">Step one</div>
+          <h2>Appreciation</h2>
+          <p>Share one thing you appreciated about your partner this week. Be specific. It does not need to be big.</p>
+          <div class="step-prompt">"Something I appreciated about you this week was..."</div>
+        </div>
+      </div>
+
+      <div class="ritual-step step-2">
+        <div class="step-icon">🌡️</div>
+        <div class="step-content">
+          <div class="step-number">Step two</div>
+          <h2>Temperature Check</h2>
+          <p>On a scale of 1 to 10, how connected did you feel this week? Share your number and a brief reason why.</p>
+          <div class="step-prompt">"This week I felt about a ___ because..."</div>
+        </div>
+      </div>
+
+      <div class="ritual-step step-3">
+        <div class="step-icon">💚</div>
+        <div class="step-content">
+          <div class="step-number">Step three</div>
+          <h2>One Request</h2>
+          <p>Is there one small thing that would help you feel more connected next week? Keep it simple and actionable.</p>
+          <div class="step-prompt">"Something that would help me feel more connected is..."</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right: Reflection and Tips -->
+    <div class="right-panel">
+
+      <div class="reflection-card">
+        <h3>Monthly reflection</h3>
+        <ul>
+          <li><span class="r-icon">📖</span> What did we handle well this month?</li>
+          <li><span class="r-icon">🔄</span> What would we do differently?</li>
+          <li><span class="r-icon">📈</span> How have we grown since we started?</li>
+          <li><span class="r-icon">🎯</span> What do we want to focus on next month?</li>
+        </ul>
+      </div>
+
+      <div class="reflection-card">
+        <h3>Journalling prompts</h3>
+        <ul>
+          <li><span class="r-icon">✏️</span> How did the relationship feel this week?</li>
+          <li><span class="r-icon">✅</span> What went well between us?</li>
+          <li><span class="r-icon">💭</span> What was hard, and why?</li>
+          <li><span class="r-icon">🌱</span> What do I want more of?</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Bottom -->
+  <div class="bottom-section">
+    <div class="schedule-box">
+      <h3>Make it a habit</h3>
+      <p>Pick a regular time and put it in the calendar. Treat it like any other important appointment. Even 15 minutes makes a difference.</p>
+    </div>
+    <div class="insight-box">
+      <h3>Remember</h3>
+      <p>The strongest relationships are not the ones without problems. They are the ones where both partners keep choosing to show up, learn, and grow together.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>
+      Strengths-Based Coaching and Counselling<br>
+      www.coach4u.com.au<br>
+      cath@coach4u.com.au<br>
+      0402 313 337
+    </p>
+  </div>
+
+</body>
+</html>
