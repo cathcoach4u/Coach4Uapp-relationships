@@ -219,6 +219,24 @@ h4 { font-size: var(--font-size-base); }
 }
 .section-header h2 { font-size: var(--font-size-xl); }
 
+/* --- Subsection Headers --- */
+.subsection-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0 8px;
+  margin-top: 20px;
+}
+.subsection-header:first-child { margin-top: 0; }
+.subsection-icon { font-size: 1.1rem; }
+.subsection-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  letter-spacing: 0.01em;
+}
+.subsection-grid { margin-bottom: 8px; }
+
 /* --- Document Grid --- */
 .document-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
 @media (min-width: 640px) { .document-grid { grid-template-columns: repeat(2, 1fr); } }
