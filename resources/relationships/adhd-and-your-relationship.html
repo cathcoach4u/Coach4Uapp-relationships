@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADHD and Your Relationship — Coach4U</title>
+  <style>
+    @page { size: landscape; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif;
+      background: #FFFFFF; color: #000000;
+      min-height: 100vh; display: flex; flex-direction: column;
+    }
+
+    .top-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 28px 48px 0;
+    }
+    .top-bar-brand img { display: block; height: 40px; width: auto; }
+    .top-bar-category {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #003366;
+      background: #E8EEF4; padding: 4px 14px; border-radius: 20px;
+    }
+    .back-link { font-size: 0.8rem; color: #003366; text-decoration: none; font-weight: 600; }
+    .back-link:hover { text-decoration: underline; }
+
+    .title-section { text-align: center; padding: 20px 48px 4px; }
+    .title-section h1 { font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 4px; }
+    .title-section h1 em { font-style: italic; font-weight: 400; }
+    .title-section p { font-size: 0.95rem; color: #646464; max-width: 750px; margin: 0 auto; }
+
+    /* Framework strip */
+    .framework-strip {
+      display: flex; gap: 0; padding: 14px 48px 6px;
+      justify-content: center; align-items: stretch;
+    }
+    .fw-step {
+      flex: 1; max-width: 220px; padding: 10px 16px;
+      text-align: center; position: relative;
+    }
+    .fw-step-1 { background: #FFE0E0; border-radius: 10px 0 0 10px; }
+    .fw-step-2 { background: #FFECD6; }
+    .fw-step-3 { background: #D6E5F7; }
+    .fw-step-4 { background: #D6F0D6; border-radius: 0 10px 10px 0; }
+    .fw-num {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #646464; margin-bottom: 2px;
+    }
+    .fw-step h3 { font-size: 0.9rem; font-weight: 700; color: #003366; margin-bottom: 1px; }
+    .fw-step p { font-size: 0.75rem; color: #555; }
+    .fw-arrow {
+      position: absolute; right: -10px; top: 50%; transform: translateY(-50%);
+      font-size: 1rem; color: #999; z-index: 1;
+    }
+
+    /* Tools grid */
+    .tools-grid {
+      flex: 1; display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px; padding: 10px 48px 10px;
+    }
+    .tool-card {
+      border-radius: 14px; padding: 16px 18px;
+      display: flex; flex-direction: column;
+    }
+    .tool-card h2 {
+      font-size: 0.95rem; font-weight: 700; color: #003366;
+      margin-bottom: 4px; display: flex; align-items: center; gap: 8px;
+    }
+    .tool-card h2 .t-emoji { font-size: 1.2rem; }
+    .tool-card .t-sub {
+      font-size: 0.75rem; font-weight: 600; color: #646464;
+      margin-bottom: 6px;
+    }
+    .tool-card ul { list-style: none; padding: 0; margin: 0; }
+    .tool-card li {
+      font-size: 0.82rem; padding: 3px 0; display: flex;
+      align-items: flex-start; gap: 6px; line-height: 1.4;
+    }
+    .tool-card li .li-dot { min-width: 14px; text-align: center; color: #003366; font-weight: 700; }
+
+    .tool-strengths {
+      background: linear-gradient(135deg, #FFF8F0 0%, #FFECD6 100%);
+      border: 2px solid #E8C9A0;
+    }
+    .tool-communication {
+      background: linear-gradient(135deg, #EBF3FF 0%, #D6E5F7 100%);
+      border: 2px solid #A0C4E8;
+    }
+    .tool-gottman {
+      background: linear-gradient(135deg, #FFF0F0 0%, #FFE0E0 100%);
+      border: 2px solid #E8A0A0;
+    }
+    .tool-eft {
+      background: linear-gradient(135deg, #EBF8EB 0%, #D6F0D6 100%);
+      border: 2px solid #A0D8A0;
+    }
+    .tool-brain {
+      background: linear-gradient(135deg, #F0F0FA 0%, #E0E0F0 100%);
+      border: 2px solid #B0B0D8;
+    }
+    .tool-presence {
+      background: linear-gradient(135deg, #F5F0FF 0%, #E8DCFF 100%);
+      border: 2px solid #C4A8E8;
+    }
+
+    /* Bottom */
+    .bottom-section {
+      display: flex; gap: 16px; padding: 4px 48px 8px; justify-content: center;
+    }
+    .insight-box {
+      background: #003366; color: #FFFFFF; border-radius: 12px;
+      padding: 14px 28px; text-align: center; max-width: 800px; flex: 1;
+    }
+    .insight-box h3 {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #FFD700; margin-bottom: 4px;
+    }
+    .insight-box p { font-size: 0.88rem; color: #E0E8F0; line-height: 1.5; }
+    .footer { text-align: center; padding: 6px 48px 20px; }
+    .footer p { font-size: 9pt; color: #646464; line-height: 1.8; }
+
+    @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+    @media (max-width: 900px) {
+      .framework-strip { flex-wrap: wrap; gap: 6px; padding: 12px 24px; }
+      .fw-step { border-radius: 10px; max-width: none; flex-basis: 45%; }
+      .fw-arrow { display: none; }
+      .tools-grid { grid-template-columns: 1fr; padding: 8px 24px; }
+      .bottom-section { flex-direction: column; align-items: center; padding: 8px 24px; }
+      .top-bar, .title-section, .footer { padding-left: 24px; padding-right: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="top-bar-brand"><img src="../../assets/coach4u-logo.jpg" alt="Coach4U"></div>
+    <a href="../../portal.html" class="back-link">&larr; Back to Portal</a>
+    <div class="top-bar-category">Relationships</div>
+  </div>
+
+  <div class="title-section">
+    <h1>ADHD <em>and Your Relationship</em></h1>
+    <p>The Coach4U approach and key tools for supporting ADHD-affected couples.</p>
+  </div>
+
+  <!-- 4-Phase Framework -->
+  <div class="framework-strip">
+    <div class="fw-step fw-step-1">
+      <div class="fw-num">Phase 1</div>
+      <h3>Stabilise</h3>
+      <p>Regulate and anchor</p>
+      <span class="fw-arrow">&#9654;</span>
+    </div>
+    <div class="fw-step fw-step-2">
+      <div class="fw-num">Phase 2</div>
+      <h3>Understand</h3>
+      <p>Explore patterns and identity</p>
+      <span class="fw-arrow">&#9654;</span>
+    </div>
+    <div class="fw-step fw-step-3">
+      <div class="fw-num">Phase 3</div>
+      <h3>Integrate</h3>
+      <p>Practise and embed</p>
+      <span class="fw-arrow">&#9654;</span>
+    </div>
+    <div class="fw-step fw-step-4">
+      <div class="fw-num">Phase 4</div>
+      <h3>Sustain</h3>
+      <p>Maintain and reflect</p>
+    </div>
+  </div>
+
+  <!-- Tools Grid -->
+  <div class="tools-grid">
+
+    <div class="tool-card tool-strengths">
+      <h2><span class="t-emoji">💪</span> Strengths-Based Foundation</h2>
+      <div class="t-sub">Gallup CliftonStrengths + Best of Us Tool</div>
+      <ul>
+        <li><span class="li-dot">&bull;</span> Understand what each partner brings and needs</li>
+        <li><span class="li-dot">&bull;</span> Reframe frustration as "strengths under stress"</li>
+        <li><span class="li-dot">&bull;</span> Build compassion, appreciation, and identity clarity</li>
+      </ul>
+    </div>
+
+    <div class="tool-card tool-communication">
+      <h2><span class="t-emoji">💬</span> Communication and Connection</h2>
+      <div class="t-sub">Imago Dialogue</div>
+      <ul>
+        <li><span class="li-dot">&bull;</span> Structured conversation for listening, mirroring, validation and empathy</li>
+        <li><span class="li-dot">&bull;</span> Moves couples from blame to curiosity and connection</li>
+      </ul>
+    </div>
+
+    <div class="tool-card tool-gottman">
+      <h2><span class="t-emoji">🛡️</span> Conflict and Repair</h2>
+      <div class="t-sub">The 4 Relationship Killers and antidotes (based on Gottman's research)</div>
+      <ul>
+        <li><span class="li-dot">&bull;</span> Recognise and counter criticism, defensiveness, contempt, and stonewalling</li>
+        <li><span class="li-dot">&bull;</span> Pursuer-Avoider pattern awareness and repair</li>
+        <li><span class="li-dot">&bull;</span> Conflict regulation and de-escalation strategies</li>
+      </ul>
+    </div>
+
+    <div class="tool-card tool-eft">
+      <h2><span class="t-emoji">💚</span> Emotional Safety and Attachment</h2>
+      <div class="t-sub">Emotionally Focused Therapy (EFT)</div>
+      <ul>
+        <li><span class="li-dot">&bull;</span> Recognise emotional responses and unmet needs</li>
+        <li><span class="li-dot">&bull;</span> Build capacity for vulnerability and repair</li>
+      </ul>
+    </div>
+
+    <div class="tool-card tool-brain">
+      <h2><span class="t-emoji">🧠</span> Brain Awareness and Regulation</h2>
+      <div class="t-sub">Understanding brain-based reactivity</div>
+      <ul>
+        <li><span class="li-dot">&bull;</span> Normalise fight, flight, freeze, and fawn responses</li>
+        <li><span class="li-dot">&bull;</span> Learn Baby, Child, Adult, and Observer brain states</li>
+        <li><span class="li-dot">&bull;</span> Co-regulation: breathwork, pause cues, shared scripts</li>
+        <li><span class="li-dot">&bull;</span> Reduce shame and foster shared understanding</li>
+      </ul>
+    </div>
+
+    <div class="tool-card tool-presence">
+      <h2><span class="t-emoji">🌿</span> Presence and Conscious Relating</h2>
+      <div class="t-sub">Crossing the Bridge</div>
+      <ul>
+        <li><span class="li-dot">&bull;</span> Step into each other's world with curiosity</li>
+        <li><span class="li-dot">&bull;</span> Encourage respectful invitations to connect</li>
+        <li><span class="li-dot">&bull;</span> Pause during intensity and respond with calm</li>
+        <li><span class="li-dot">&bull;</span> Use appreciation to stay connected</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="bottom-section">
+    <div class="insight-box">
+      <h3>Your pace, your path</h3>
+      <p>All tools are chosen and paced based on each couple's needs and capacity. The goal is to move from reacting to choosing how you relate, even during stress.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>
+      Strengths-Based Coaching and Counselling<br>
+      www.coach4u.com.au<br>
+      cath@coach4u.com.au<br>
+      0402 313 337
+    </p>
+  </div>
+
+</body>
+</html>

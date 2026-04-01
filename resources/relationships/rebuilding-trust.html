@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rebuilding Trust — Coach4U</title>
+  <style>
+    @page { size: landscape; margin: 0; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif;
+      background: #FFFFFF;
+      color: #000000;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* --- Header --- */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 48px 0;
+    }
+
+    .top-bar-brand img { display: block; height: 40px; width: auto; }
+
+    .top-bar-category {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #003366;
+      background: #E8EEF4; padding: 4px 14px; border-radius: 20px;
+    }
+
+    .back-link { font-size: 0.8rem; color: #003366; text-decoration: none; font-weight: 600; }
+    .back-link:hover { text-decoration: underline; }
+
+    /* --- Title --- */
+    .title-section {
+      text-align: center;
+      padding: 24px 48px 4px;
+    }
+
+    .title-section h1 {
+      font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 4px;
+    }
+
+    .title-section p {
+      font-size: 1rem; color: #646464; max-width: 720px; margin: 0 auto;
+    }
+
+    /* --- Phase Cards --- */
+    .phases-grid {
+      display: flex;
+      gap: 20px;
+      padding: 20px 48px 16px;
+      align-items: stretch;
+    }
+
+    .phase-card {
+      flex: 1;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phase-top {
+      padding: 20px 20px 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-1 .phase-top { background: linear-gradient(135deg, #FFF0F0 0%, #FFE0E0 100%); border: 2px solid #E8A0A0; border-bottom: none; border-radius: 16px 16px 0 0; }
+    .card-2 .phase-top { background: linear-gradient(135deg, #FFF5EB 0%, #FFECD6 100%); border: 2px solid #E8C9A0; border-bottom: none; border-radius: 16px 16px 0 0; }
+    .card-3 .phase-top { background: linear-gradient(135deg, #EBF5FF 0%, #D6EAFF 100%); border: 2px solid #A0C9E8; border-bottom: none; border-radius: 16px 16px 0 0; }
+    .card-4 .phase-top { background: linear-gradient(135deg, #E8F5E8 0%, #D6F0D6 100%); border: 2px solid #A0D8A0; border-bottom: none; border-radius: 16px 16px 0 0; }
+
+    .phase-number {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-align: center; margin-bottom: 6px;
+    }
+
+    .card-1 .phase-number { color: #CC4444; }
+    .card-2 .phase-number { color: #CC8833; }
+    .card-3 .phase-number { color: #3366AA; }
+    .card-4 .phase-number { color: #338833; }
+
+    .phase-emoji {
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .phase-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #003366;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .phase-desc {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      text-align: center;
+      color: #333;
+    }
+
+    /* --- Frequency strip --- */
+    .phase-frequency {
+      padding: 10px 20px;
+      text-align: center;
+    }
+
+    .card-1 .phase-frequency { background: #F5D6D6; border: 2px solid #E8A0A0; border-top: 2px dashed #E8A0A0; border-radius: 0 0 16px 16px; }
+    .card-2 .phase-frequency { background: #F5E4CC; border: 2px solid #E8C9A0; border-top: 2px dashed #E8C9A0; border-radius: 0 0 16px 16px; }
+    .card-3 .phase-frequency { background: #CCE0F5; border: 2px solid #A0C9E8; border-top: 2px dashed #A0C9E8; border-radius: 0 0 16px 16px; }
+    .card-4 .phase-frequency { background: #CCE8CC; border: 2px solid #A0D8A0; border-top: 2px dashed #A0D8A0; border-radius: 0 0 16px 16px; }
+
+    .frequency-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 2px;
+    }
+
+    .card-1 .frequency-label { color: #993333; }
+    .card-2 .frequency-label { color: #996622; }
+    .card-3 .frequency-label { color: #225588; }
+    .card-4 .frequency-label { color: #226622; }
+
+    .frequency-text {
+      font-size: 0.85rem; font-weight: 600; color: #333;
+    }
+
+    /* --- Key Elements --- */
+    .key-elements-section {
+      padding: 4px 48px 12px;
+    }
+
+    .key-elements-title {
+      font-size: 1.5rem; font-weight: bold; color: #003366;
+      text-align: center; margin-bottom: 12px;
+    }
+
+    .elements-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .element-card {
+      background: #F5F8FC;
+      border: 1px solid #D0D8E4;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .element-icon {
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+    }
+
+    .element-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #003366;
+      margin-bottom: 6px;
+    }
+
+    .element-desc {
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: #333;
+    }
+
+    /* --- Insight Box --- */
+    .insight-box {
+      margin: 8px 48px 12px;
+      background: #003366;
+      color: #FFFFFF;
+      border-radius: 12px;
+      padding: 16px 32px;
+      text-align: center;
+    }
+
+    .insight-box h3 {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #FFD700; margin-bottom: 4px;
+    }
+
+    .insight-box p {
+      font-size: 0.88rem; color: #E0E8F0; line-height: 1.5;
+    }
+
+    /* --- Footer --- */
+    .footer {
+      text-align: center;
+      padding: 6px 48px 20px;
+    }
+
+    .footer p { font-size: 9pt; color: #646464; line-height: 1.8; }
+
+    /* --- Print --- */
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
+    /* --- Mobile --- */
+    @media (max-width: 900px) {
+      .phases-grid {
+        flex-direction: column;
+        padding: 12px 24px;
+      }
+      .elements-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .top-bar, .title-section, .key-elements-section, .footer { padding-left: 24px; padding-right: 24px; }
+      .insight-box { margin-left: 24px; margin-right: 24px; }
+    }
+
+    @media (max-width: 560px) {
+      .elements-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="top-bar">
+    <div class="top-bar-brand"><img src="../../assets/coach4u-logo.jpg" alt="Coach4U"></div>
+    <a href="../../portal.html" class="back-link">&larr; Back to Portal</a>
+    <div class="top-bar-category">Relationships</div>
+  </div>
+
+  <!-- Title -->
+  <div class="title-section">
+    <h1>Rebuilding Trust</h1>
+    <p>A structured approach to healing and rebuilding your relationship after betrayal.</p>
+  </div>
+
+  <!-- Four Phase Cards -->
+  <div class="phases-grid">
+
+    <!-- Phase 1 -->
+    <div class="phase-card card-1">
+      <div class="phase-top">
+        <div class="phase-number">Phase 1</div>
+        <div class="phase-emoji">🛟</div>
+        <div class="phase-name">Safety and Stability</div>
+        <div class="phase-desc">Immediate safety and crisis management. Daily structured check-ins create a safe space for both partners to express feelings and acknowledge the breach.</div>
+      </div>
+      <div class="phase-frequency">
+        <div class="frequency-label">Frequency</div>
+        <div class="frequency-text">Daily check-ins</div>
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase-card card-2">
+      <div class="phase-top">
+        <div class="phase-number">Phase 2</div>
+        <div class="phase-emoji">🤝</div>
+        <div class="phase-name">Understanding and Accountability</div>
+        <div class="phase-desc">The partner who breached trust takes full responsibility, offering sincere and specific apologies. Both partners express emotions, focusing on feelings rather than stories.</div>
+      </div>
+      <div class="phase-frequency">
+        <div class="frequency-label">Frequency</div>
+        <div class="frequency-text">Several times per week</div>
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase-card card-3">
+      <div class="phase-top">
+        <div class="phase-number">Phase 3</div>
+        <div class="phase-emoji">🌱</div>
+        <div class="phase-name">Learning and Restoration</div>
+        <div class="phase-desc">Self-reflection on personal growth and understanding of behaviour. Concrete, measurable actions to rebuild trust. Demonstrating commitment to change.</div>
+      </div>
+      <div class="phase-frequency">
+        <div class="frequency-label">Frequency</div>
+        <div class="frequency-text">Weekly</div>
+      </div>
+    </div>
+
+    <!-- Phase 4 -->
+    <div class="phase-card card-4">
+      <div class="phase-top">
+        <div class="phase-number">Phase 4</div>
+        <div class="phase-emoji">🌿</div>
+        <div class="phase-name">Reconnection and Growth</div>
+        <div class="phase-desc">Transitioning from frequent structured dialogues to more organic, supportive conversations. The relationship heals and strengthens over time.</div>
+      </div>
+      <div class="phase-frequency">
+        <div class="frequency-label">Frequency</div>
+        <div class="frequency-text">Monthly or as needed</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Key Elements -->
+  <div class="key-elements-section">
+    <h2 class="key-elements-title">Key Elements of the Process</h2>
+    <div class="elements-grid">
+
+      <div class="element-card">
+        <div class="element-icon">🕰️</div>
+        <div class="element-name">Timing Check</div>
+        <div class="element-desc">Always ask if it is a good time to talk. Either partner can decline and reschedule, no questions asked.</div>
+      </div>
+
+      <div class="element-card">
+        <div class="element-icon">📊</div>
+        <div class="element-name">Safety Number</div>
+        <div class="element-desc">A rating from 0 to 10 to gauge emotional safety and progress. Even small increases (e.g. moving from -5 to -1) are significant.</div>
+      </div>
+
+      <div class="element-card">
+        <div class="element-icon">💬</div>
+        <div class="element-name">Acknowledgment and Requests</div>
+        <div class="element-desc">Acknowledge when you felt safest. Make specific, tangible requests that can be fulfilled within 24 to 48 hours.</div>
+      </div>
+
+      <div class="element-card">
+        <div class="element-icon">🧘</div>
+        <div class="element-name">Managing Emotions</div>
+        <div class="element-desc">The process is structured to prevent emotional outbursts and keep conversations focused and constructive.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Insight Box -->
+  <div class="insight-box">
+    <h3>Remember</h3>
+    <p>Small shifts matter. Moving even a single point on the safety scale is progress worth celebrating. Trust is rebuilt through consistent, small actions over time, not grand gestures. Every structured conversation is a step forward.</p>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>
+      Strengths-Based Coaching and Counselling<br>
+      www.coach4u.com.au<br>
+      cath@coach4u.com.au<br>
+      0402 313 337
+    </p>
+  </div>
+
+</body>
+</html>
