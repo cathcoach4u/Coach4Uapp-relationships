@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigating Separation with Care — Coach4U</title>
+  <style>
+    @page { size: landscape; margin: 0; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif;
+      background: #FFFFFF;
+      color: #000000;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* --- Header --- */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 48px 0;
+    }
+
+    .top-bar-brand img { display: block; height: 40px; width: auto; }
+
+    .top-bar-category {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #003366;
+      background: #E8EEF4; padding: 4px 14px; border-radius: 20px;
+    }
+
+    .back-link { font-size: 0.8rem; color: #003366; text-decoration: none; font-weight: 600; }
+    .back-link:hover { text-decoration: underline; }
+
+    /* --- Title --- */
+    .title-section {
+      text-align: center;
+      padding: 24px 48px 8px;
+    }
+
+    .title-section h1 {
+      font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 6px;
+    }
+
+    .title-section h1 em { font-style: italic; font-weight: 400; }
+
+    .title-section p {
+      font-size: 1rem; color: #646464; max-width: 750px; margin: 0 auto;
+    }
+
+    /* --- Journey Grid --- */
+    .journey-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      padding: 16px 48px 12px;
+    }
+
+    .phase-card {
+      border-radius: 14px;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phase-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .phase-card h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #003366;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .phase-card h2 .phase-emoji { font-size: 1.3rem; }
+
+    .phase-card p {
+      font-size: 0.88rem;
+      line-height: 1.45;
+      margin-bottom: 8px;
+    }
+
+    .phase-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .phase-card li {
+      font-size: 0.85rem;
+      padding: 4px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.4;
+    }
+
+    .phase-card li .li-icon { min-width: 18px; text-align: center; }
+
+    .prompt-box {
+      background: #FFFFFF;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: #003366;
+      font-weight: 600;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      margin-top: auto;
+    }
+
+    /* Phase colours */
+    .phase-foundation {
+      background: linear-gradient(135deg, #EBF3FF 0%, #D6E5F7 100%);
+      border: 2px solid #A0C4E8;
+    }
+    .phase-foundation .phase-label { color: #336699; }
+
+    .phase-reflect {
+      background: linear-gradient(135deg, #FFF8F0 0%, #FFECD6 100%);
+      border: 2px solid #E8C9A0;
+    }
+    .phase-reflect .phase-label { color: #996633; }
+
+    .phase-children {
+      background: linear-gradient(135deg, #EBF8EB 0%, #D6F0D6 100%);
+      border: 2px solid #A0D8A0;
+    }
+    .phase-children .phase-label { color: #2D7A2D; }
+
+    .phase-practical {
+      background: linear-gradient(135deg, #F0F0FA 0%, #E0E0F0 100%);
+      border: 2px solid #B0B0D8;
+    }
+    .phase-practical .phase-label { color: #555588; }
+
+    .phase-safety {
+      background: linear-gradient(135deg, #FFF0F0 0%, #FFE0E0 100%);
+      border: 2px solid #E8A0A0;
+    }
+    .phase-safety .phase-label { color: #994444; }
+
+    .phase-closure {
+      background: linear-gradient(135deg, #F5F0FF 0%, #E8DCFF 100%);
+      border: 2px solid #C4A8E8;
+    }
+    .phase-closure .phase-label { color: #664499; }
+
+    /* --- Roadmap strip --- */
+    .roadmap-strip {
+      display: flex;
+      gap: 8px;
+      padding: 4px 48px 6px;
+      justify-content: center;
+      align-items: stretch;
+    }
+
+    .roadmap-block {
+      flex: 1;
+      max-width: 180px;
+      border-radius: 8px;
+      padding: 10px 14px;
+      text-align: center;
+    }
+
+    .roadmap-block h4 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #003366;
+      margin-bottom: 2px;
+    }
+
+    .roadmap-block p {
+      font-size: 0.78rem;
+      color: #646464;
+      line-height: 1.3;
+    }
+
+    .rm-1 { background: #EBF3FF; }
+    .rm-2 { background: #FFF8F0; }
+    .rm-3 { background: #EBF8EB; }
+    .rm-4 { background: #F0F0FA; }
+    .rm-5 { background: #FFF0F0; }
+    .rm-6 { background: #F5F0FF; }
+
+    /* --- Bottom insight --- */
+    .bottom-section {
+      display: flex;
+      gap: 16px;
+      padding: 6px 48px 10px;
+      justify-content: center;
+    }
+
+    .insight-box {
+      background: #003366;
+      color: #FFFFFF;
+      border-radius: 12px;
+      padding: 14px 28px;
+      text-align: center;
+      max-width: 800px;
+      flex: 1;
+    }
+
+    .insight-box h3 {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #FFD700; margin-bottom: 4px;
+    }
+
+    .insight-box p { font-size: 0.9rem; color: #E0E8F0; line-height: 1.5; }
+
+    /* --- Footer --- */
+    .footer {
+      text-align: center;
+      padding: 6px 48px 20px;
+    }
+
+    .footer p { font-size: 9pt; color: #646464; line-height: 1.8; }
+
+    /* --- Print --- */
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
+    /* --- Mobile --- */
+    @media (max-width: 900px) {
+      .journey-grid { grid-template-columns: 1fr; padding: 12px 24px; }
+      .roadmap-strip { flex-wrap: wrap; padding: 8px 24px; }
+      .roadmap-block { max-width: none; flex-basis: 45%; }
+      .bottom-section { flex-direction: column; align-items: center; padding: 8px 24px; }
+      .top-bar, .title-section, .footer { padding-left: 24px; padding-right: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="top-bar">
+    <div class="top-bar-brand"><img src="../../assets/coach4u-logo.jpg" alt="Coach4U"></div>
+    <a href="../../portal.html" class="back-link">&larr; Back to Portal</a>
+    <div class="top-bar-category">Relationships</div>
+  </div>
+
+  <!-- Title -->
+  <div class="title-section">
+    <h1>Navigating Separation <em>with Care</em></h1>
+    <p>A structured guide to separating with dignity and stability, while protecting everyone's wellbeing.</p>
+  </div>
+
+  <!-- Journey Grid -->
+  <div class="journey-grid">
+
+    <!-- Phase 1: Foundation -->
+    <div class="phase-card phase-foundation">
+      <div class="phase-label">Phase 1</div>
+      <h2><span class="phase-emoji">🧭</span> Your Shared Values</h2>
+      <p>Even in separation, you often share important values. Identifying these creates a compass for decisions ahead.</p>
+      <ul>
+        <li><span class="li-icon">🤝</span> Map your shared interests: children, respect, pets, finances, family ties</li>
+        <li><span class="li-icon">📌</span> Choose a guiding stance that anchors your process</li>
+      </ul>
+      <div class="prompt-box">"We will prioritise the kids" or "We commit to respect and honesty."</div>
+    </div>
+
+    <!-- Phase 2: Reflect -->
+    <div class="phase-card phase-reflect">
+      <div class="phase-label">Phase 2</div>
+      <h2><span class="phase-emoji">💛</span> Reflecting and Letting Go</h2>
+      <p>Take time to reflect on the relationship honestly. This is about acknowledging what was, not assigning blame.</p>
+      <ul>
+        <li><span class="li-icon">✨</span> What I liked and appreciated</li>
+        <li><span class="li-icon">📝</span> What I found difficult</li>
+        <li><span class="li-icon">💎</span> Treasures I am taking with me (learnings, strengths)</li>
+        <li><span class="li-icon">🍂</span> What I am leaving behind (resentments, old patterns)</li>
+      </ul>
+      <div class="prompt-box">Optional: write a letter of acknowledgment and gratitude.</div>
+    </div>
+
+    <!-- Phase 3: Children -->
+    <div class="phase-card phase-children">
+      <div class="phase-label">Phase 3</div>
+      <h2><span class="phase-emoji">👨‍👩‍👧‍👦</span> Putting Children First</h2>
+      <p>Children's core question is: "Do I still have access to both parents?" Access comes first, before money or property.</p>
+      <ul>
+        <li><span class="li-icon">📅</span> Use visual calendars so children know what to expect</li>
+        <li><span class="li-icon">💬</span> Keep messaging consistent between both homes</li>
+        <li><span class="li-icon">🔄</span> Create rituals at transitions (drop-offs, pickups)</li>
+        <li><span class="li-icon">🌱</span> The first 3 months are the most sensitive. Children may regress. This is normal.</li>
+      </ul>
+      <div class="prompt-box">Frame every decision through "What do the children need right now?"</div>
+    </div>
+
+    <!-- Phase 4: Practical -->
+    <div class="phase-card phase-practical">
+      <div class="phase-label">Phase 4</div>
+      <h2><span class="phase-emoji">🔧</span> Practical Systems</h2>
+      <p>Clear systems reduce conflict. Set up tools that keep communication factual and organised.</p>
+      <ul>
+        <li><span class="li-icon">📱</span> Shared calendars for parenting time, school, activities</li>
+        <li><span class="li-icon">📨</span> Texting for logistics only, not emotional processing</li>
+        <li><span class="li-icon">💰</span> Expense tracking apps to reduce financial disputes</li>
+        <li><span class="li-icon">📋</span> Interim financial agreements: child support, shared costs, housing</li>
+      </ul>
+      <div class="prompt-box">What are you aiming for financially? Stability, fairness, security for the children?</div>
+    </div>
+
+    <!-- Phase 5: Safety -->
+    <div class="phase-card phase-safety">
+      <div class="phase-label">Phase 5</div>
+      <h2><span class="phase-emoji">🛡️</span> Boundaries and Safety</h2>
+      <p>Clear boundaries keep the process safe for everyone. Agree on ground rules early.</p>
+      <ul>
+        <li><span class="li-icon">🚫</span> No late-night emotional texts</li>
+        <li><span class="li-icon">⏸️</span> Time-outs are allowed, with a return to your agreed stance</li>
+        <li><span class="li-icon">🔇</span> Some topics may be off-limits until emotions settle</li>
+        <li><span class="li-icon">👤</span> Neutral third parties can help with exchanges if needed</li>
+      </ul>
+      <div class="prompt-box">When things escalate, return to your guiding stance from Phase 1.</div>
+    </div>
+
+    <!-- Phase 6: Closure -->
+    <div class="phase-card phase-closure">
+      <div class="phase-label">Phase 6</div>
+      <h2><span class="phase-emoji">🕊️</span> Closure and Moving Forward</h2>
+      <p>A symbolic act can help bring closure and honour what the relationship was.</p>
+      <ul>
+        <li><span class="li-icon">💌</span> Letters of thanks and acknowledgment</li>
+        <li><span class="li-icon">🔑</span> Returning meaningful items</li>
+        <li><span class="li-icon">🕯️</span> A final conversation naming what is honoured and what is ending</li>
+        <li><span class="li-icon">🗓️</span> Set a review cadence: weekly, fortnightly, or monthly check-ins</li>
+      </ul>
+      <div class="prompt-box">You are done when both feel heard, children are stable, and practical systems are working.</div>
+    </div>
+
+  </div>
+
+  <!-- Staged Roadmap Strip -->
+  <div class="roadmap-strip">
+    <div class="roadmap-block rm-1">
+      <h4>Weeks 1-2</h4>
+      <p>Access to children, schedule, exchanges</p>
+    </div>
+    <div class="roadmap-block rm-2">
+      <h4>Weeks 2-8</h4>
+      <p>Finances, support, expenses, budget</p>
+    </div>
+    <div class="roadmap-block rm-3">
+      <h4>0-3 months</h4>
+      <p>Housing, living arrangements</p>
+    </div>
+    <div class="roadmap-block rm-4">
+      <h4>1-3 months</h4>
+      <p>Childcare, school communications</p>
+    </div>
+    <div class="roadmap-block rm-5">
+      <h4>3-6 months</h4>
+      <p>Calendars, holidays, logistics</p>
+    </div>
+    <div class="roadmap-block rm-6">
+      <h4>6-12 months</h4>
+      <p>Long-term finances, future planning</p>
+    </div>
+  </div>
+
+  <!-- Bottom -->
+  <div class="bottom-section">
+    <div class="insight-box">
+      <h3>Reclaiming your identity</h3>
+      <p>Who am I outside this relationship? What values do I want to live by? What strengths am I carrying forward? What boundaries do I need? Separation is not just an ending. It is also the beginning of rediscovering who you are.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>
+      Strengths-Based Coaching and Counselling<br>
+      www.coach4u.com.au<br>
+      cath@coach4u.com.au<br>
+      0402 313 337
+    </p>
+  </div>
+
+</body>
+</html>
