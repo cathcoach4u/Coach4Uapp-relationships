@@ -10,15 +10,15 @@
   "background_color": "#0f172a",
   "icons": [
     {
-      "src": "assets/coach4u-logo.jpg",
-      "sizes": "192x192",
+      "src": "assets/coach4u-icon.jpeg",
+      "sizes": "512x512",
       "type": "image/jpeg",
       "purpose": "any"
     },
     {
-      "src": "assets/coach4u-logo.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "assets/coach4u-icon.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
       "purpose": "any"
     }
   ]
