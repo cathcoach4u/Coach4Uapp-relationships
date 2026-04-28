@@ -374,10 +374,28 @@
   </footer>
 
   <script>
-    // --- TEMPORARY: Auth bypass for review ---
-    // TODO: Re-enable Supabase auth when new project is configured
-    // --- Logout (disabled during review) ---
+    const SESSION_KEY = 'coach4u_access';
+    const SESSION_DURATION_MS = 24 * 60 * 60 * 1000;
+
+    function hasAccess() {
+      const raw = sessionStorage.getItem(SESSION_KEY);
+      if (!raw) return false;
+      try {
+        const s = JSON.parse(raw);
+        if (!s.granted || Date.now() - s.timestamp > SESSION_DURATION_MS) {
+          sessionStorage.removeItem(SESSION_KEY);
+          return false;
+        }
+        return true;
+      } catch { return false; }
+    }
+
+    if (!hasAccess()) {
+      window.location.href = 'index.html';
+    }
+
     document.getElementById('logout-btn').addEventListener('click', () => {
+      sessionStorage.removeItem(SESSION_KEY);
       window.location.href = 'index.html';
     });
   </script>

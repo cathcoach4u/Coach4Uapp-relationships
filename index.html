@@ -47,14 +47,12 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // --- Supabase init (same pattern as debug.html) ---
     const { createClient } = supabase;
     const db = createClient(
-      'https://uoixetfvboevjxlkfyqy.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVvaXhldGZ2Ym9ldmp4bGtmeXF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NDY2ODAsImV4cCI6MjA5MDQyMjY4MH0.ZXYJVdvcj70aGMH1FAixIr0hNCaCDSYLEL93hHVCGDU'
+      'https://eekefsuaefgpqmjdyniy.supabase.co',
+      'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y'
     );
 
-    // --- Session management ---
     const SESSION_KEY = 'coach4u_access';
     const SESSION_DURATION_MS = 24 * 60 * 60 * 1000;
 
@@ -75,12 +73,10 @@
       } catch { return false; }
     }
 
-    // --- Already logged in? ---
     if (hasAccess()) {
       window.location.href = 'portal.html';
     }
 
-    // --- Login form ---
     const form = document.getElementById('login-form');
     const input = document.getElementById('access-code');
     const errorEl = document.getElementById('login-error');
