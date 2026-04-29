@@ -6,8 +6,8 @@
   "scope": "/Coach4Uapp-relationships/",
   "display": "standalone",
   "orientation": "any",
-  "theme_color": "#3b82f6",
-  "background_color": "#0f172a",
+  "theme_color": "#1B3664",
+  "background_color": "#FFFFFF",
   "icons": [
     {
       "src": "assets/coach4u-icon.jpeg",
