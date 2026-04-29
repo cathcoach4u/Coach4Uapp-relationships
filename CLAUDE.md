@@ -1,5 +1,6 @@
 # Coach4U Relationships — Claude Code Guide
 
+> Design system version: **v1.3**
 > Template: https://github.com/cathcoach4u/coach4u-shared/blob/main/templates/CLAUDE.md
 > Shared design system: https://github.com/cathcoach4u/coach4u-shared
 > Full setup guide: https://github.com/cathcoach4u/coach4u-shared/blob/main/SETUP.md
@@ -103,8 +104,8 @@ For pages in `resources/relationships/` use `'../../index.html'` and `'../../ina
 - **Entity:** Coach4U — Owner: Cath Baker
 - **Contact:** cath@coach4u.com.au | 0402 313 337 | www.coach4u.com.au
 - **Type:** Coaching and counselling practice (NOT psychology)
-- **Colour palette:** Dark Blue `#003366` (headings), Black `#000000` (body), Grey `#646464` (footer), White `#FFFFFF` (background)
-- **Font:** Aptos, sans-serif
+- **Colour palette:** Dark Blue `#1B3664` (headings/primary), Mid Blue `#5684C4` (secondary/accent), Dark Grey `#2D2D2D` (body text), Light Grey `#DDDDDD` (borders/neutral), White `#FFFFFF` (background)
+- **Font:** Inter Bold (headings) + Montserrat Regular (body) via Google Fonts; Aptos/Calibri as fallback
 - **Logo:** `assets/coach4u-logo.jpg` — top left
 - **Tone:** Australian English, warm, professional, strengths-based, no exclamation marks, no em dashes
 
@@ -125,4 +126,4 @@ cath@coach4u.com.au
 
 - Custom HTML blocks only
 - All styles inline (no CSS classes, no style blocks)
-- Aptos font with sans-serif fallback
+- Inter Bold for headings, Montserrat Regular for body, with Aptos/sans-serif fallback
