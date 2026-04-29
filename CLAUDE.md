@@ -1,44 +1,122 @@
-# Coach4U Branding Specification
+# Coach4U Relationships — Claude Code Guide
 
-## Business Context
-- **Entity:** Coach4U
-- **Owner:** Cath Baker
-- **Email:** cath@coach4u.com.au
-- **Phone:** 0402 313 337
-- **Website:** www.coach4u.com.au
+> Template: https://github.com/cathcoach4u/coach4u-shared/blob/main/templates/CLAUDE.md
+> Shared design system: https://github.com/cathcoach4u/coach4u-shared
+> Full setup guide: https://github.com/cathcoach4u/coach4u-shared/blob/main/SETUP.md
+
+## Shared Stylesheet
+
+Add to every HTML page `<head>`:
+
+```html
+<link rel="stylesheet" href="https://cathcoach4u.github.io/coach4u-shared/css/style.css">
+```
+
+## Supabase Project
+
+| | |
+|---|---|
+| URL | `https://eekefsuaefgpqmjdyniy.supabase.co` |
+| Anon Key | `sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y` |
+
+## Critical Rules
+
+**Supabase init — always inline.** GitHub Pages does not reliably load external `.js` modules. Always initialise Supabase inline in a `<script type="module">` block. Never import from an external config file.
+
+**Reset password redirect.** Use `window.location.href` (not `window.location.origin`) when building the `redirectTo` URL. Using `origin` drops the path and breaks Supabase's redirect matching.
+
+**Membership gating.** Every page except login/forgot/reset must verify `users.membership_status = 'active'` after confirming a session. Redirect to `inactive.html` if not.
+
+## Auth Flow
+
+- Login: email + password only (no magic link)
+- Forgot password → `forgot-password.html`
+- Reset password → `reset-password.html`
+
+## Add a New Member (SQL)
+
+```sql
+INSERT INTO users (id, email, membership_status)
+SELECT id, email, 'active'
+FROM auth.users
+WHERE LOWER(email) = LOWER('email@here.com');
+```
+
+---
+
+## App-Specific Notes
+
+### App Overview
+
+**Coach4U Relationships** is a password-protected client resource portal. Clients enter a **shared access code** (not individual email/password) to browse and download resources across four categories: Relationships, Business, Leadership, and Strengths.
+
+### Auth Model — Differs from Standard Template
+
+This app does **not** use Supabase individual email/password auth. Instead:
+
+- A single shared access code is verified via a Supabase RPC: `verify_access_code(input_code)`
+- On success, a 24-hour session is stored in `sessionStorage` under the key `coach4u_access`
+- There is **no** per-user `membership_status` check, no `users` table requirement, and no forgot/reset password flow
+- Standard template auth patterns (login form, forgot-password.html, reset-password.html, membership gating) do **not** apply here
+
+### Access Code SQL Setup
+
+```sql
+CREATE TABLE access_codes (
+  id int PRIMARY KEY DEFAULT 1,
+  code text NOT NULL,
+  CONSTRAINT single_row CHECK (id = 1)
+);
+
+INSERT INTO access_codes (code) VALUES ('your-access-code-here');
+
+ALTER TABLE access_codes ENABLE ROW LEVEL SECURITY;
+
+CREATE OR REPLACE FUNCTION verify_access_code(input_code text)
+RETURNS boolean
+LANGUAGE sql
+SECURITY DEFINER
+AS $$
+  SELECT EXISTS (SELECT 1 FROM access_codes WHERE code = input_code);
+$$;
+```
+
+To change the code: `UPDATE access_codes SET code = 'new-code' WHERE id = 1;`
+
+### Resource Storage
+
+- Supabase Storage bucket: `resources` (private)
+- Folders: `relationships/`, `business/`, `leadership/`, `strengths/`
+- Files appear automatically in the portal after upload — no code changes needed
+- File names are cleaned for display: `my-great-worksheet.pdf` → "My Great Worksheet"
+
+### Pages
+
+| Page | Purpose |
+|------|---------|
+| `index.html` | Access code login |
+| `portal.html` | Resource library (protected) |
+
+### Local Stylesheet
+
+This app currently uses a **local** `css/styles.css` rather than the shared stylesheet. When updating styles, edit `css/styles.css` directly or migrate to the shared stylesheet link above.
+
+### Branding
+
+- **Entity:** Coach4U — Owner: Cath Baker
+- **Contact:** cath@coach4u.com.au | 0402 313 337 | www.coach4u.com.au
 - **Type:** Coaching and counselling practice (NOT psychology)
-
-## Logo
-- File: `assets/coach4u-logo.png`
-- Placement: Top left
-- Dimensions: 4.71cm × 2.41cm (39% of original)
-- Lock aspect ratio
-
-## Colour Palette
-- **Dark Blue:** #003366 — titles, headings
-- **Black:** #000000 — body text
-- **Grey:** #646464 — footer text
-- **White:** #FFFFFF — background
-
-## Typography
+- **Colour palette:** Dark Blue `#003366` (headings), Black `#000000` (body), Grey `#646464` (footer), White `#FFFFFF` (background)
 - **Font:** Aptos, sans-serif
-- **Title:** 16pt, bold, #003366
-- **Section Heading:** 12pt, bold, #003366
-- **Body:** 11pt, regular, #000000
-- **Footer:** 9pt, regular, #646464, centred
+- **Logo:** `assets/coach4u-logo.png` — top left, aspect-locked
+- **Tone:** Australian English, warm, professional, strengths-based, no exclamation marks, no em dashes
 
-## Web Font Sizes
-- Title: 2rem
-- Heading: 1.5rem
-- Body: 1.1rem
-- Footer: 0.9rem
+### Key Terminology
 
-## Layout
-- Margins: 1 inch (2.54cm) all sides
-- Background: white
-- Max content width: 1200px for web
+- **"The 4 Relationship Killers"** is Coach4U's label for criticism, defensiveness, contempt, and stonewalling. Gottman's "Four Horsemen" is a reference only. Always use "The 4 Relationship Killers" in client-facing materials.
 
-## Footer (exact text)
+### Footer (exact text)
+
 ```
 Strengths-Based Coaching and Counselling
 www.coach4u.com.au
@@ -46,34 +124,8 @@ cath@coach4u.com.au
 0402 313 337
 ```
 
-## Coach4U Terminology
-- **"The 4 Relationship Killers"** — Coach4U's name for criticism, defensiveness, contempt, and stonewalling. Gottman's "Four Horsemen" is a reference only, not the primary label. Always use "The 4 Relationship Killers" as the title in client-facing materials.
+### WordPress HTML Rules
 
-## Tone and Language
-- Australian English (colour, organisation, etc.)
-- Warm, professional, direct, strengths-based
-- Short paragraphs, clear headings
-- No exclamation marks
-- No em dashes (use commas or full stops)
-
-## Document Hierarchy
-1. Logo (header, top left)
-2. Title
-3. Section Heading
-4. Body Text
-5. Footer
-
-## WordPress HTML Rules
 - Custom HTML blocks only
 - All styles inline (no CSS classes, no style blocks)
 - Aptos font with sans-serif fallback
-
-## Quality Checklist
-- [ ] Logo: top left, correct dimensions
-- [ ] Aptos font throughout
-- [ ] Title: 16pt, bold, #003366
-- [ ] Headings: 12pt, bold, #003366
-- [ ] Body: 11pt, regular, black
-- [ ] Footer: 9pt, #646464, centred, exact text
-- [ ] Australian English spelling
-- [ ] No exclamation marks or em dashes
