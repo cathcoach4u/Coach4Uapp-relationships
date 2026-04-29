@@ -8,7 +8,7 @@
 
 This app uses a **local** stylesheet: `css/styles.css`. Edit it directly for style changes.
 
-The shared CDN stylesheet (`https://cathcoach4u.github.io/coach4u-shared/css/style.css`) is **not** used here.
+The shared CDN stylesheet (`https://cathcoach4u.github.io/coach4u-shared/css/style.css`) is **not** currently used here.
 
 ## Supabase Project
 
@@ -19,50 +19,28 @@ The shared CDN stylesheet (`https://cathcoach4u.github.io/coach4u-shared/css/sty
 
 ## Critical Rules
 
-**Supabase init — use the CDN global, not a module import.** This app loads Supabase via `<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">` and accesses it as `supabase.createClient(...)` in a plain `<script>` block. Do not switch to `<script type="module">` or an external config file without testing on GitHub Pages first.
+**Supabase init — always inline in `<script type="module">`.** GitHub Pages does not reliably load external `.js` modules. Always initialise Supabase inline in a `<script type="module">` block using the ESM CDN import. Never import from an external config file.
 
-**Portal guard uses `sessionStorage`.** `portal.html` checks `sessionStorage` for the key `coach4u_access` with a 24-hour expiry. Any page added to the portal must include the same guard at the top of its script block, redirecting to `index.html` if access is not granted.
+**Reset password redirect.** Use `window.location.href` (not `window.location.origin`) when building the `redirectTo` URL. Using `origin` drops the path and breaks Supabase's redirect matching.
 
-**Never expose the access code in client-side code.** Access code verification happens server-side via the Supabase RPC `verify_access_code`. The code itself is never returned to the browser.
+**Membership gating.** Every page except `index.html`, `forgot-password.html`, `reset-password.html`, and `inactive.html` must verify `users.membership_status = 'active'` after confirming a session. Redirect to `inactive.html` if not active, `index.html` if no session.
+
+**Hide body until auth check completes.** Protected pages include `<style>body{visibility:hidden}</style>` in `<head>` and set `document.body.style.visibility = 'visible'` only after auth passes, to prevent content flash.
 
 ## Auth Flow
 
-This app uses a **shared access code**, not individual email/password accounts.
+- Login: email + password only (`index.html`)
+- Forgot password → `forgot-password.html`
+- Reset password → `reset-password.html`
+- Inactive membership → `inactive.html`
 
-1. Client visits `index.html` and enters the shared access code
-2. Code is verified via Supabase RPC: `verify_access_code(input_code)` → returns `boolean`
-3. On success, `sessionStorage` is set with `{ granted: true, timestamp: Date.now() }` under key `coach4u_access`
-4. Session lasts 24 hours or until the tab is closed
-5. `portal.html` checks for a valid session on load; redirects to `index.html` if missing or expired
-
-There is no individual user login, no forgot-password flow, and no reset-password flow.
-
-## Access Code SQL Setup
+## Add a New Member (SQL)
 
 ```sql
-CREATE TABLE access_codes (
-  id int PRIMARY KEY DEFAULT 1,
-  code text NOT NULL,
-  CONSTRAINT single_row CHECK (id = 1)
-);
-
-INSERT INTO access_codes (code) VALUES ('your-access-code-here');
-
-ALTER TABLE access_codes ENABLE ROW LEVEL SECURITY;
-
-CREATE OR REPLACE FUNCTION verify_access_code(input_code text)
-RETURNS boolean
-LANGUAGE sql
-SECURITY DEFINER
-AS $$
-  SELECT EXISTS (SELECT 1 FROM access_codes WHERE code = input_code);
-$$;
-```
-
-To change the code later:
-
-```sql
-UPDATE access_codes SET code = 'new-code' WHERE id = 1;
+INSERT INTO users (id, email, membership_status)
+SELECT id, email, 'active'
+FROM auth.users
+WHERE LOWER(email) = LOWER('email@here.com');
 ```
 
 ---
@@ -71,20 +49,54 @@ UPDATE access_codes SET code = 'new-code' WHERE id = 1;
 
 ### App Overview
 
-**Coach4U Relationships** is a password-protected client resource library. Clients enter a shared access code to browse and view resources across four categories: Relationships, Business, Leadership, and Strengths. Resources are static HTML pages and downloadable PDFs stored in the `resources/` directory.
+**Coach4U Relationships** is a membership-gated client resource library. After signing in with email and password, clients with `membership_status = 'active'` can browse and view resources across four categories: Relationships, Business, Leadership, and Strengths.
 
 ### Pages
 
-| Page | Purpose |
-|------|---------|
-| `index.html` | Access code login |
-| `portal.html` | Resource library (protected) |
-| `resources/relationships/*.html` | Individual relationship resource pages |
-| `resources/downloads/*.pdf` | Downloadable PDF versions |
+| Page | Auth required | Purpose |
+|------|--------------|----------|
+| `index.html` | No | Email + password login |
+| `forgot-password.html` | No | Send password reset email |
+| `reset-password.html` | No | Update password via reset token |
+| `inactive.html` | No | Shown when membership is inactive |
+| `portal.html` | Yes | Resource library |
+| `resources/relationships/*.html` | Yes | Individual resource pages |
 
 ### Resource Structure
 
-Resources are hardcoded in `portal.html` as static links — they are not fetched dynamically from Supabase Storage. To add a new resource, add the file to `resources/` and add a new `<article class="card document-card">` entry in `portal.html`.
+Resources are hardcoded in `portal.html` as static links. To add a new resource, add the file to `resources/` and add a new `<article class="card document-card">` entry in `portal.html`. Every new resource page must include the standard auth guard (see below).
+
+### Auth Guard Template
+
+For pages at root level (`portal.html`):
+
+```html
+<style>body{visibility:hidden}</style>
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+  const supabase = createClient(
+    'https://eekefsuaefgpqmjdyniy.supabase.co',
+    'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y'
+  );
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) {
+    window.location.href = 'index.html';
+  } else {
+    const { data: profile } = await supabase
+      .from('users')
+      .select('membership_status')
+      .eq('id', session.user.id)
+      .single();
+    if (profile?.membership_status !== 'active') {
+      window.location.href = 'inactive.html';
+    } else {
+      document.body.style.visibility = 'visible';
+    }
+  }
+</script>
+```
+
+For pages in `resources/relationships/` use `'../../index.html'` and `'../../inactive.html'`.
 
 ### Branding
 

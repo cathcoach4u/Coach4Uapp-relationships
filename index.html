@@ -6,7 +6,7 @@
   <title>Coach4U — Resource Library</title>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#3b82f6">
+  <meta name="theme-color" content="#003366">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Coach4U">
@@ -18,106 +18,55 @@
       <div class="login-logo">
         <img src="assets/coach4u-logo.jpg" alt="Coach4U" height="64">
       </div>
-
       <h1 class="login-title">Resource Library</h1>
-      <p class="login-subtitle">
-        Welcome! Enter the access code provided by your coach to view your resources.
-      </p>
-
+      <p class="login-subtitle">Sign in to access your coaching resources.</p>
       <form id="login-form" class="login-form" novalidate>
         <div class="form-group">
-          <label for="access-code" class="form-label">Access Code</label>
-          <input
-            type="password"
-            id="access-code"
-            class="form-input"
-            placeholder="Enter your access code"
-            autocomplete="off"
-            required
-          >
-          <div id="login-error" class="form-error" role="alert"></div>
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" class="form-input" required autocomplete="username">
         </div>
-
-        <button type="submit" id="login-btn" class="btn btn-primary btn-block">
-          Access Resources
-        </button>
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" id="password" class="form-input" required autocomplete="current-password">
+        </div>
+        <div id="login-error" class="form-error" role="alert"></div>
+        <button type="submit" id="login-btn" class="btn btn-primary btn-block">Sign In</button>
+        <p style="text-align:center;margin-top:14px;font-size:0.875rem">
+          <a href="forgot-password.html">Forgot password?</a>
+        </p>
       </form>
     </div>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    const { createClient } = supabase;
-    const db = createClient(
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient(
       'https://eekefsuaefgpqmjdyniy.supabase.co',
       'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y'
     );
 
-    const SESSION_KEY = 'coach4u_access';
-    const SESSION_DURATION_MS = 24 * 60 * 60 * 1000;
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) window.location.href = 'portal.html';
 
-    function grantAccess() {
-      sessionStorage.setItem(SESSION_KEY, JSON.stringify({ granted: true, timestamp: Date.now() }));
-    }
-
-    function hasAccess() {
-      const raw = sessionStorage.getItem(SESSION_KEY);
-      if (!raw) return false;
-      try {
-        const s = JSON.parse(raw);
-        if (!s.granted || Date.now() - s.timestamp > SESSION_DURATION_MS) {
-          sessionStorage.removeItem(SESSION_KEY);
-          return false;
-        }
-        return true;
-      } catch { return false; }
-    }
-
-    if (hasAccess()) {
-      window.location.href = 'portal.html';
-    }
-
-    const form = document.getElementById('login-form');
-    const input = document.getElementById('access-code');
-    const errorEl = document.getElementById('login-error');
-    const submitBtn = document.getElementById('login-btn');
-
-    form.addEventListener('submit', async (e) => {
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const code = input.value.trim();
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const errEl    = document.getElementById('login-error');
+      const btn      = document.getElementById('login-btn');
 
-      if (!code) {
-        errorEl.textContent = 'Please enter an access code.';
-        errorEl.classList.add('visible');
-        return;
-      }
+      btn.disabled = true;
+      btn.textContent = 'Signing in...';
+      errEl.classList.remove('visible');
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Verifying...';
-      errorEl.classList.remove('visible');
-
-      try {
-        const { data, error } = await db.rpc('verify_access_code', { input_code: code });
-
-        if (error) throw error;
-
-        if (data === true) {
-          grantAccess();
-          window.location.href = 'portal.html';
-        } else {
-          errorEl.textContent = 'Invalid access code. Please try again.';
-          errorEl.classList.add('visible');
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Access Resources';
-          input.value = '';
-          input.focus();
-        }
-      } catch (err) {
-        console.error('Login error:', err);
-        errorEl.textContent = 'Something went wrong. Please try again.';
-        errorEl.classList.add('visible');
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Access Resources';
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) {
+        errEl.textContent = error.message;
+        errEl.classList.add('visible');
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+      } else {
+        window.location.href = 'portal.html';
       }
     });
   </script>
