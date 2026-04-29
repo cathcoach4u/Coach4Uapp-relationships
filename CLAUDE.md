@@ -4,13 +4,11 @@
 > Shared design system: https://github.com/cathcoach4u/coach4u-shared
 > Full setup guide: https://github.com/cathcoach4u/coach4u-shared/blob/main/SETUP.md
 
-## Shared Stylesheet
+## Stylesheet
 
-Add to every HTML page `<head>`:
+This app uses a **local** stylesheet: `css/styles.css`. Edit it directly for style changes.
 
-```html
-<link rel="stylesheet" href="https://cathcoach4u.github.io/coach4u-shared/css/style.css">
-```
+The shared CDN stylesheet (`https://cathcoach4u.github.io/coach4u-shared/css/style.css`) is **not** used here.
 
 ## Supabase Project
 
@@ -21,45 +19,25 @@ Add to every HTML page `<head>`:
 
 ## Critical Rules
 
-**Supabase init — always inline.** GitHub Pages does not reliably load external `.js` modules. Always initialise Supabase inline in a `<script type="module">` block. Never import from an external config file.
+**Supabase init — use the CDN global, not a module import.** This app loads Supabase via `<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">` and accesses it as `supabase.createClient(...)` in a plain `<script>` block. Do not switch to `<script type="module">` or an external config file without testing on GitHub Pages first.
 
-**Reset password redirect.** Use `window.location.href` (not `window.location.origin`) when building the `redirectTo` URL. Using `origin` drops the path and breaks Supabase's redirect matching.
+**Portal guard uses `sessionStorage`.** `portal.html` checks `sessionStorage` for the key `coach4u_access` with a 24-hour expiry. Any page added to the portal must include the same guard at the top of its script block, redirecting to `index.html` if access is not granted.
 
-**Membership gating.** Every page except login/forgot/reset must verify `users.membership_status = 'active'` after confirming a session. Redirect to `inactive.html` if not.
+**Never expose the access code in client-side code.** Access code verification happens server-side via the Supabase RPC `verify_access_code`. The code itself is never returned to the browser.
 
 ## Auth Flow
 
-- Login: email + password only (no magic link)
-- Forgot password → `forgot-password.html`
-- Reset password → `reset-password.html`
+This app uses a **shared access code**, not individual email/password accounts.
 
-## Add a New Member (SQL)
+1. Client visits `index.html` and enters the shared access code
+2. Code is verified via Supabase RPC: `verify_access_code(input_code)` → returns `boolean`
+3. On success, `sessionStorage` is set with `{ granted: true, timestamp: Date.now() }` under key `coach4u_access`
+4. Session lasts 24 hours or until the tab is closed
+5. `portal.html` checks for a valid session on load; redirects to `index.html` if missing or expired
 
-```sql
-INSERT INTO users (id, email, membership_status)
-SELECT id, email, 'active'
-FROM auth.users
-WHERE LOWER(email) = LOWER('email@here.com');
-```
+There is no individual user login, no forgot-password flow, and no reset-password flow.
 
----
-
-## App-Specific Notes
-
-### App Overview
-
-**Coach4U Relationships** is a password-protected client resource portal. Clients enter a **shared access code** (not individual email/password) to browse and download resources across four categories: Relationships, Business, Leadership, and Strengths.
-
-### Auth Model — Differs from Standard Template
-
-This app does **not** use Supabase individual email/password auth. Instead:
-
-- A single shared access code is verified via a Supabase RPC: `verify_access_code(input_code)`
-- On success, a 24-hour session is stored in `sessionStorage` under the key `coach4u_access`
-- There is **no** per-user `membership_status` check, no `users` table requirement, and no forgot/reset password flow
-- Standard template auth patterns (login form, forgot-password.html, reset-password.html, membership gating) do **not** apply here
-
-### Access Code SQL Setup
+## Access Code SQL Setup
 
 ```sql
 CREATE TABLE access_codes (
@@ -81,14 +59,19 @@ AS $$
 $$;
 ```
 
-To change the code: `UPDATE access_codes SET code = 'new-code' WHERE id = 1;`
+To change the code later:
 
-### Resource Storage
+```sql
+UPDATE access_codes SET code = 'new-code' WHERE id = 1;
+```
 
-- Supabase Storage bucket: `resources` (private)
-- Folders: `relationships/`, `business/`, `leadership/`, `strengths/`
-- Files appear automatically in the portal after upload — no code changes needed
-- File names are cleaned for display: `my-great-worksheet.pdf` → "My Great Worksheet"
+---
+
+## App-Specific Notes
+
+### App Overview
+
+**Coach4U Relationships** is a password-protected client resource library. Clients enter a shared access code to browse and view resources across four categories: Relationships, Business, Leadership, and Strengths. Resources are static HTML pages and downloadable PDFs stored in the `resources/` directory.
 
 ### Pages
 
@@ -96,10 +79,12 @@ To change the code: `UPDATE access_codes SET code = 'new-code' WHERE id = 1;`
 |------|---------|
 | `index.html` | Access code login |
 | `portal.html` | Resource library (protected) |
+| `resources/relationships/*.html` | Individual relationship resource pages |
+| `resources/downloads/*.pdf` | Downloadable PDF versions |
 
-### Local Stylesheet
+### Resource Structure
 
-This app currently uses a **local** `css/styles.css` rather than the shared stylesheet. When updating styles, edit `css/styles.css` directly or migrate to the shared stylesheet link above.
+Resources are hardcoded in `portal.html` as static links — they are not fetched dynamically from Supabase Storage. To add a new resource, add the file to `resources/` and add a new `<article class="card document-card">` entry in `portal.html`.
 
 ### Branding
 
@@ -108,7 +93,7 @@ This app currently uses a **local** `css/styles.css` rather than the shared styl
 - **Type:** Coaching and counselling practice (NOT psychology)
 - **Colour palette:** Dark Blue `#003366` (headings), Black `#000000` (body), Grey `#646464` (footer), White `#FFFFFF` (background)
 - **Font:** Aptos, sans-serif
-- **Logo:** `assets/coach4u-logo.png` — top left, aspect-locked
+- **Logo:** `assets/coach4u-logo.jpg` — top left
 - **Tone:** Australian English, warm, professional, strengths-based, no exclamation marks, no em dashes
 
 ### Key Terminology
