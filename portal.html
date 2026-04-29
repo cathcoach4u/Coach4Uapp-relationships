@@ -11,7 +11,15 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Coach4U">
   <link rel="apple-touch-icon" href="assets/coach4u-icon.jpeg">
-  <style>body{visibility:hidden}</style>
+  <style>
+    body{visibility:hidden}
+    .site-header { background: var(--color-primary); border-bottom-color: var(--color-primary-dark); }
+    .header-date { font-family: var(--font-family-heading); font-size: 16px; font-weight: 700; color: #fff; }
+    .header-version { font-size: 12px; color: rgba(255,255,255,0.5); }
+    .header-right { display: flex; align-items: center; gap: 16px; }
+    .btn-ghost { background: none; border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 6px 16px; border-radius: var(--radius); font-size: var(--font-size-sm); cursor: pointer; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+  </style>
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
     const supabase = createClient(
@@ -30,6 +38,9 @@
       if (profile?.membership_status !== 'active') {
         window.location.href = 'inactive.html';
       } else {
+        const today = new Date().toLocaleDateString('en-AU', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        document.getElementById('header-date').textContent = today;
+        document.getElementById('header-version').textContent = 'v1.3';
         document.body.style.visibility = 'visible';
       }
     }
@@ -39,12 +50,11 @@
   <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
-      <a href="portal.html" class="logo" aria-label="Coach4U Home">
-        <img src="assets/coach4u-logo.jpg" alt="Coach4U" height="48">
-      </a>
-      <button class="btn btn-text btn-sm sign-out-btn" id="logout-btn" aria-label="Log out">
-        Log Out
-      </button>
+      <span id="header-date" class="header-date"></span>
+      <div class="header-right">
+        <span id="header-version" class="header-version"></span>
+        <button id="sign-out-btn" class="btn btn-ghost sign-out-btn">Sign Out</button>
+      </div>
     </div>
   </header>
 
@@ -402,7 +412,7 @@
       'https://eekefsuaefgpqmjdyniy.supabase.co',
       'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y'
     );
-    document.getElementById('logout-btn').addEventListener('click', async () => {
+    document.getElementById('sign-out-btn').addEventListener('click', async () => {
       await supabase.auth.signOut();
       window.location.href = 'index.html';
     });
