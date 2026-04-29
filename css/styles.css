@@ -4,16 +4,17 @@
 
 /* --- CSS Custom Properties --- */
 :root {
-  --color-primary: #003366;
-  --color-primary-dark: #002244;
+  --color-primary: #1B3664;
+  --color-primary-dark: #122448;
   --color-primary-light: #E8EEF4;
-  --color-neutral: #646464;
+  --color-secondary: #5684C4;
+  --color-neutral: #DDDDDD;
   --color-neutral-light: #999999;
   --color-bg: #FFFFFF;
   --color-white: #FFFFFF;
   --color-error: #CC0000;
   --color-error-light: #FEE;
-  --color-text: #000000;
+  --color-text: #2D2D2D;
   --color-text-light: #646464;
 
   --font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif;
@@ -150,7 +151,7 @@ h4 { font-size: var(--font-size-base); }
 .form-input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.15);
+  box-shadow: 0 0 0 3px rgba(27, 54, 100, 0.15);
 }
 
 .form-input::placeholder { color: var(--color-neutral-light); }
