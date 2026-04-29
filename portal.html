@@ -6,11 +6,34 @@
   <title>Coach4U — Resource Library</title>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#3b82f6">
+  <meta name="theme-color" content="#003366">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Coach4U">
   <link rel="apple-touch-icon" href="assets/coach4u-icon.jpeg">
+  <style>body{visibility:hidden}</style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient(
+      'https://eekefsuaefgpqmjdyniy.supabase.co',
+      'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y'
+    );
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      window.location.href = 'index.html';
+    } else {
+      const { data: profile } = await supabase
+        .from('users')
+        .select('membership_status')
+        .eq('id', session.user.id)
+        .single();
+      if (profile?.membership_status !== 'active') {
+        window.location.href = 'inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+      }
+    }
+  </script>
 </head>
 <body>
   <!-- Header -->
@@ -373,29 +396,14 @@
     </div>
   </footer>
 
-  <script>
-    const SESSION_KEY = 'coach4u_access';
-    const SESSION_DURATION_MS = 24 * 60 * 60 * 1000;
-
-    function hasAccess() {
-      const raw = sessionStorage.getItem(SESSION_KEY);
-      if (!raw) return false;
-      try {
-        const s = JSON.parse(raw);
-        if (!s.granted || Date.now() - s.timestamp > SESSION_DURATION_MS) {
-          sessionStorage.removeItem(SESSION_KEY);
-          return false;
-        }
-        return true;
-      } catch { return false; }
-    }
-
-    if (!hasAccess()) {
-      window.location.href = 'index.html';
-    }
-
-    document.getElementById('logout-btn').addEventListener('click', () => {
-      sessionStorage.removeItem(SESSION_KEY);
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient(
+      'https://eekefsuaefgpqmjdyniy.supabase.co',
+      'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y'
+    );
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+      await supabase.auth.signOut();
       window.location.href = 'index.html';
     });
   </script>
