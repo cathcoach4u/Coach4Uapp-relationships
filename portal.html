@@ -14,10 +14,10 @@
   <style>
     body{visibility:hidden}
     .site-header { background: var(--color-primary); border-bottom-color: var(--color-primary-dark); }
-    .header-date { font-family: var(--font-family-heading); font-size: 16px; font-weight: 700; color: #fff; }
-    .header-version { font-size: 12px; color: rgba(255,255,255,0.5); }
-    .header-right { display: flex; align-items: center; gap: 16px; }
-    .btn-ghost { background: none; border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 6px 16px; border-radius: var(--radius); font-size: var(--font-size-sm); cursor: pointer; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+    .header-title { font-family: var(--font-family-heading); font-size: 18px; font-weight: 700; color: #fff; }
+    .header-meta { font-size: 14px; color: rgba(255,255,255,0.7); }
+    .btn-ghost { background: none; border: 1px solid rgba(255,255,255,0.5); color: #fff; padding: 8px 20px; border-radius: var(--radius); font-size: var(--font-size-sm); cursor: pointer; font-family: var(--font-family); }
     .btn-ghost:hover { background: rgba(255,255,255,0.1); }
   </style>
   <script type="module">
@@ -38,9 +38,8 @@
       if (profile?.membership_status !== 'active') {
         window.location.href = 'inactive.html';
       } else {
-        const today = new Date().toLocaleDateString('en-AU', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-        document.getElementById('header-date').textContent = today;
-        document.getElementById('header-version').textContent = 'v1.3';
+        const today = new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+        document.getElementById('header-meta').textContent = 'v1.3 — ' + today;
         document.body.style.visibility = 'visible';
       }
     }
@@ -50,11 +49,9 @@
   <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
-      <span id="header-date" class="header-date"></span>
-      <div class="header-right">
-        <span id="header-version" class="header-version"></span>
-        <button id="sign-out-btn" class="btn btn-ghost sign-out-btn">Sign Out</button>
-      </div>
+      <span class="header-title">Coach4U Relationships</span>
+      <span id="header-meta" class="header-meta"></span>
+      <button id="sign-out-btn" class="btn-ghost sign-out-btn">Sign Out</button>
     </div>
   </header>
 
