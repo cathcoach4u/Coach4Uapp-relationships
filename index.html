@@ -29,7 +29,7 @@
           <label for="password" class="form-label">Password</label>
           <input type="password" id="password" class="form-input" required autocomplete="current-password">
         </div>
-        <div id="login-error" class="form-error" role="alert"></div>
+        <div id="message" class="form-error" role="alert"></div>
         <button type="submit" id="login-btn" class="btn btn-primary btn-block">Sign In</button>
         <p style="text-align:center;margin-top:14px;font-size:0.875rem">
           <a href="forgot-password.html">Forgot password?</a>
@@ -52,7 +52,7 @@
       e.preventDefault();
       const email    = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
-      const errEl    = document.getElementById('login-error');
+      const errEl    = document.getElementById('message');
       const btn      = document.getElementById('login-btn');
 
       btn.disabled = true;
