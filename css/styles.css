@@ -91,9 +91,9 @@ h4 { font-size: var(--font-size-base); }
   justify-content: center;
   gap: 8px;
   padding: 10px 24px;
-  font-family: var(--font-family);
-  font-size: var(--font-size-base);
-  font-weight: 500;
+  font-family: 'Montserrat', 'Aptos', 'Calibri', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
   line-height: 1.5;
   border: 2px solid transparent;
   border-radius: var(--radius);
@@ -134,27 +134,28 @@ h4 { font-size: var(--font-size-base); }
 .form-label {
   display: block;
   margin-bottom: 8px;
-  font-weight: 500;
-  font-size: var(--font-size-sm);
-  color: var(--color-neutral);
+  font-family: 'Montserrat', 'Aptos', 'Calibri', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text);
 }
 
 .form-input {
   width: 100%;
   padding: 12px 16px;
-  font-family: var(--font-family);
-  font-size: var(--font-size-base);
+  font-family: 'Montserrat', 'Aptos', 'Calibri', sans-serif;
+  font-size: 15px;
   color: var(--color-text);
   background-color: var(--color-white);
-  border: 2px solid #CCCCCC;
+  border: 1px solid var(--color-neutral);
   border-radius: var(--radius);
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 
 .form-input:focus {
   outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(27, 54, 100, 0.15);
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 3px rgba(86, 132, 196, 0.15);
 }
 
 .form-input::placeholder { color: var(--color-neutral-light); }
@@ -184,14 +185,26 @@ h4 { font-size: var(--font-size-base); }
   justify-content: center;
   min-height: 100vh;
   padding: 16px;
+  background: linear-gradient(135deg, #1B3664 0%, #5684C4 100%);
 }
 
-.login-card { width: 100%; max-width: 440px; padding: 48px 32px; text-align: center; }
-.login-logo { margin-bottom: 32px; }
+.login-card { width: 100%; max-width: 420px; padding: 48px 40px; text-align: center; background: #FFFFFF; border-radius: 16px; box-shadow: 0 8px 40px rgba(0,0,0,0.2); }
+.login-logo { margin-bottom: 24px; }
 .login-logo img { height: 64px; width: auto; }
-.login-title { margin-bottom: 8px; color: var(--color-primary); }
-.login-subtitle { margin-bottom: 32px; color: var(--color-text-light); font-size: var(--font-size-base); }
+.login-app-name { font-family: 'Inter', 'Aptos', 'Calibri', sans-serif; font-size: 36px; font-weight: 700; color: #1B3664; margin-bottom: 8px; }
+.login-page-title { font-family: 'Inter', 'Aptos', 'Calibri', sans-serif; font-size: 26px; font-weight: 700; color: #1B3664; margin-bottom: 8px; }
+.login-subtitle { margin-bottom: 32px; font-family: 'Montserrat', 'Aptos', 'Calibri', sans-serif; font-size: 15px; font-weight: 400; color: #6C757D; }
 .login-form .form-group { text-align: left; }
+
+/* --- Password toggle --- */
+.password-wrapper { position: relative; }
+.password-wrapper .form-input { padding-right: 60px; }
+.password-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-family: 'Montserrat', 'Aptos', 'Calibri', sans-serif; font-size: 13px; color: #6C757D; padding: 4px; }
+.password-toggle:hover { color: var(--color-secondary); }
+
+/* --- Auth link --- */
+.auth-link { font-family: 'Montserrat', 'Aptos', 'Calibri', sans-serif; font-size: 14px; font-weight: 500; color: var(--color-secondary); text-decoration: none; }
+.auth-link:hover { text-decoration: underline; }
 
 /* --- Portal Page --- */
 .portal-hero { padding: 48px 0 32px; text-align: center; }
