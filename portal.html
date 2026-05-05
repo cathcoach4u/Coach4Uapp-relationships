@@ -3,416 +3,137 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coach4U — Relationships</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <title>Your Relationship Coach — Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#003366">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Coach4U">
+  <meta name="apple-mobile-web-app-title" content="Your Relationship Coach">
   <link rel="apple-touch-icon" href="assets/coach4u-icon.jpeg">
-  <style>
-    body{visibility:hidden}
-    .site-header { background: var(--color-primary); border-bottom-color: var(--color-primary-dark); }
-    .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
-    .header-title { font-family: var(--font-family-heading); font-size: 18px; font-weight: 700; color: #fff; }
-    .header-meta { font-size: 14px; color: rgba(255,255,255,0.7); }
-    .btn-ghost { background: none; border: 1px solid rgba(255,255,255,0.5); color: #fff; padding: 8px 20px; border-radius: var(--radius); font-size: var(--font-size-sm); cursor: pointer; font-family: var(--font-family); }
-    .btn-ghost:hover { background: rgba(255,255,255,0.1); }
-  </style>
+  <style>body{visibility:hidden}</style>
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-    const supabase = createClient(
-      'https://eekefsuaefgpqmjdyniy.supabase.co',
-      'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y'
-    );
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
+
+    const SUPABASE_URL      = 'https://eekefsuaefgpqmjdyniy.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+
+    if (!user || userError) {
       window.location.href = 'index.html';
     } else {
       const { data: profile } = await supabase
         .from('users')
-        .select('membership_status')
-        .eq('id', session.user.id)
+        .select('membership_status, name, email')
+        .eq('id', user.id)
         .single();
-      if (profile?.membership_status !== 'active') {
+
+      if (!profile || profile.membership_status !== 'active') {
         window.location.href = 'inactive.html';
       } else {
-        const today = new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
-        document.getElementById('header-meta').textContent = 'v1.3 — ' + today;
+        document.getElementById('memberName').textContent  = profile.name || user.user_metadata?.name || user.email;
+        document.getElementById('memberEmail').textContent = profile.email || user.email;
         document.body.style.visibility = 'visible';
+
+        document.getElementById('signOutBtn').addEventListener('click', async () => {
+          await supabase.auth.signOut();
+          window.location.href = 'index.html';
+        });
       }
     }
   </script>
 </head>
 <body>
+
   <!-- Header -->
   <header class="site-header">
-    <div class="container header-inner">
-      <span class="header-title">Coach4U Relationships</span>
-      <span id="header-meta" class="header-meta"></span>
-      <button id="sign-out-btn" class="btn-ghost sign-out-btn">Sign Out</button>
+    <div class="header-inner">
+      <div class="header-left">
+        <span class="header-title">Your Relationship Coach</span>
+      </div>
+      <button id="signOutBtn" class="sign-out-btn">Sign Out</button>
     </div>
   </header>
 
-  <!-- Hero -->
-  <div class="container portal-hero">
-    <h1>Relationships</h1>
-    <p>Browse and download your relationship resources below.</p>
-  </div>
+  <!-- Dashboard -->
+  <div class="container">
 
-  <!-- Resource Sections -->
-  <div class="container" id="resources-container">
+    <!-- Membership Card -->
+    <div class="membership-card">
+      <div class="member-name" id="memberName">—</div>
+      <div class="member-email" id="memberEmail">—</div>
+      <span class="membership-badge">Active Member</span>
+    </div>
 
-    <!-- Relationships -->
-    <section id="relationships">
-      <div class="section-header">
-        <span class="section-icon" aria-hidden="true">💛</span>
-        <h2>Relationships</h2>
-      </div>
+    <!-- Modules -->
+    <div class="app-section-header">
+      <span class="app-section-title">Your Modules</span>
+      <span class="app-section-count">2 available · 4 coming soon</span>
+    </div>
 
-      <!-- Understanding Your Relationship -->
-      <div class="subsection-header">
-        <span class="subsection-icon" aria-hidden="true">🧭</span>
-        <h3>Understanding Your Relationship</h3>
-      </div>
-      <div class="document-grid subsection-grid">
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">From Unconscious to Conscious Love</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/from-unconscious-to-conscious-love.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Your Relationship Journey</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/your-relationship-journey.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Couples Counselling Goals and Outcomes</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/couples-counselling-goals-and-outcomes.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
+    <div class="app-grid">
+
+      <!-- Relationships -->
+      <div class="app-card">
+        <div class="app-card-icon">💛</div>
+        <div class="app-card-title">Relationships</div>
+        <div class="app-card-desc">Coaching resources and worksheets covering communication, trust, daily practice and more.</div>
+        <a href="relationships.html" class="btn btn-primary">Open</a>
       </div>
 
-      <!-- Communication and Connection -->
-      <div class="subsection-header">
-        <span class="subsection-icon" aria-hidden="true">💬</span>
-        <h3>Communication and Connection</h3>
-      </div>
-      <div class="document-grid subsection-grid">
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Communication and Imago Dialogue</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/communication-and-imago-dialogue.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Pursuer and Avoider Dynamics</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/pursuer-avoider-dynamics.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">The 4 Relationship Killers</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/the-4-relationship-killers.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Your Strengths as a Couple</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/your-strengths-as-a-couple.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
+      <!-- Business -->
+      <div class="app-card">
+        <div class="app-card-icon">💼</div>
+        <div class="app-card-title">Business</div>
+        <div class="app-card-desc">Coaching tools and resources for business and professional growth.</div>
+        <span class="badge badge-pending" style="align-self:flex-start;padding:5px 12px;font-size:11px;">Coming Soon</span>
       </div>
 
-      <!-- Daily Practice -->
-      <div class="subsection-header">
-        <span class="subsection-icon" aria-hidden="true">📅</span>
-        <h3>Daily Practice</h3>
-      </div>
-      <div class="document-grid subsection-grid">
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Daily Connection Rituals</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/daily-connection-rituals.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Growing Together: Weekly Check-In</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/growing-together-weekly-check-in.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Weekly Connection Check-In</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/weekly-connection-check-in.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Understanding Your Connection Pulse</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/understanding-your-connection-pulse.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
+      <!-- Leadership -->
+      <div class="app-card">
+        <div class="app-card-icon">🧭</div>
+        <div class="app-card-title">Leadership</div>
+        <div class="app-card-desc">Resources to develop your leadership strengths and presence.</div>
+        <span class="badge badge-pending" style="align-self:flex-start;padding:5px 12px;font-size:11px;">Coming Soon</span>
       </div>
 
-      <!-- Healing and Trust -->
-      <div class="subsection-header">
-        <span class="subsection-icon" aria-hidden="true">💚</span>
-        <h3>Healing and Trust</h3>
-      </div>
-      <div class="document-grid subsection-grid">
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Rebuilding Trust</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/rebuilding-trust.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">The Safety Check Dialogue</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/safety-check-dialogue.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Your Relationship Reflection</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/your-relationship-reflection.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
+      <!-- Strengths -->
+      <div class="app-card">
+        <div class="app-card-icon">💪</div>
+        <div class="app-card-title">Strengths</div>
+        <div class="app-card-desc">Discover and apply your CliftonStrengths in work and relationships.</div>
+        <span class="badge badge-pending" style="align-self:flex-start;padding:5px 12px;font-size:11px;">Coming Soon</span>
       </div>
 
-      <!-- Navigating Transitions -->
-      <div class="subsection-header">
-        <span class="subsection-icon" aria-hidden="true">🔄</span>
-        <h3>Navigating Transitions</h3>
-      </div>
-      <div class="document-grid subsection-grid">
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Navigating Separation with Care</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/navigating-separation-with-care.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Your Relationship Toolkit</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/your-relationship-toolkit.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
+      <!-- Downloads -->
+      <div class="app-card">
+        <div class="app-card-icon">📥</div>
+        <div class="app-card-title">Downloads</div>
+        <div class="app-card-desc">Printable PDFs and worksheets to save or print for offline use.</div>
+        <a href="downloads.html" class="btn btn-primary">Open</a>
       </div>
 
-      <!-- Specialised Support -->
-      <div class="subsection-header">
-        <span class="subsection-icon" aria-hidden="true">🧠</span>
-        <h3>Specialised Support</h3>
-      </div>
-      <div class="document-grid subsection-grid">
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">ADHD and Your Relationship</div>
-            <span class="badge badge-html">VIEW</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/relationships/adhd-and-your-relationship.html" target="_blank" class="btn btn-primary btn-sm">View</a>
-          </div>
-        </article>
+      <!-- Account -->
+      <div class="app-card">
+        <div class="app-card-icon">⚙️</div>
+        <div class="app-card-title">Account</div>
+        <div class="app-card-desc">Your profile and membership details.</div>
+        <span class="badge badge-pending" style="align-self:flex-start;padding:5px 12px;font-size:11px;">Coming Soon</span>
       </div>
 
-    </section>
-
-    <!-- Business -->
-    <section id="business">
-      <div class="section-header">
-        <span class="section-icon" aria-hidden="true">💼</span>
-        <h2>Business</h2>
-      </div>
-      <div class="empty-state">
-        <div class="empty-state-icon" aria-hidden="true">📂</div>
-        <p>No resources available yet</p>
-        <small>Check back soon. New materials are added regularly.</small>
-      </div>
-    </section>
-
-    <!-- Leadership -->
-    <section id="leadership">
-      <div class="section-header">
-        <span class="section-icon" aria-hidden="true">🧭</span>
-        <h2>Leadership</h2>
-      </div>
-      <div class="empty-state">
-        <div class="empty-state-icon" aria-hidden="true">📂</div>
-        <p>No resources available yet</p>
-        <small>Check back soon. New materials are added regularly.</small>
-      </div>
-    </section>
-
-    <!-- Strengths -->
-    <section id="strengths">
-      <div class="section-header">
-        <span class="section-icon" aria-hidden="true">💪</span>
-        <h2>Strengths</h2>
-      </div>
-      <div class="empty-state">
-        <div class="empty-state-icon" aria-hidden="true">📂</div>
-        <p>No resources available yet</p>
-        <small>Check back soon. New materials are added regularly.</small>
-      </div>
-    </section>
-
-    <!-- Downloads -->
-    <section id="downloads">
-      <div class="section-header">
-        <span class="section-icon" aria-hidden="true">📥</span>
-        <h2>Downloads</h2>
-      </div>
-      <p style="color: var(--color-text-light); margin-bottom: 20px; font-size: 0.95rem;">Printable versions of key resources. Save or print for offline use.</p>
-      <div class="document-grid">
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Weekly Connection Check-In</div>
-            <span class="badge badge-pdf">PDF</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/downloads/weekly-connection-check-in.pdf" download class="btn btn-secondary btn-sm">Download</a>
-          </div>
-        </article>
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">From Unconscious to Conscious Love</div>
-            <span class="badge badge-pdf">PDF</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/downloads/from-unconscious-to-conscious-love.pdf" download class="btn btn-secondary btn-sm">Download</a>
-          </div>
-        </article>
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Safety Check Dialogue Guide</div>
-            <span class="badge badge-pdf">PDF</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/downloads/safety-check-dialogue-guide.pdf" download class="btn btn-secondary btn-sm">Download</a>
-          </div>
-        </article>
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Navigating Separation Workbook</div>
-            <span class="badge badge-pdf">PDF</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/downloads/navigating-separation-workbook.pdf" download class="btn btn-secondary btn-sm">Download</a>
-          </div>
-        </article>
-        <article class="card document-card">
-          <div class="doc-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-          <div class="doc-info">
-            <div class="doc-name">Couples Counselling Goals and Outcomes</div>
-            <span class="badge badge-img">PNG</span>
-          </div>
-          <div class="doc-download">
-            <a href="resources/downloads/couples-counselling-goals-and-outcomes.png" download class="btn btn-secondary btn-sm">Download</a>
-          </div>
-        </article>
-      </div>
-    </section>
+    </div>
 
   </div>
 
   <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <p>Strengths-Based Coaching and Counselling<br>
-      <a href="https://www.coach4u.com.au">www.coach4u.com.au</a><br>
-      <a href="mailto:cath@coach4u.com.au">cath@coach4u.com.au</a><br>
-      0402 313 337</p>
-    </div>
+  <footer style="text-align:center;padding:32px 0;margin-top:16px;border-top:1px solid var(--divider);color:var(--text-muted);font-size:12px;line-height:1.8;">
+    Strengths-Based Coaching and Counselling<br>
+    <a href="https://www.coach4u.com.au">www.coach4u.com.au</a> &nbsp;|&nbsp;
+    <a href="mailto:cath@coach4u.com.au">cath@coach4u.com.au</a> &nbsp;|&nbsp;
+    0402 313 337
   </footer>
 
-  <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-    const supabase = createClient(
-      'https://eekefsuaefgpqmjdyniy.supabase.co',
-      'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y'
-    );
-    document.getElementById('sign-out-btn').addEventListener('click', async () => {
-      await supabase.auth.signOut();
-      window.location.href = 'index.html';
-    });
-  </script>
 </body>
 </html>
