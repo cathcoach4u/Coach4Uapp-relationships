@@ -3,77 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coach4U — Relationships</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <title>Your Relationship Coach — Sign In</title>
+  <link rel="stylesheet" href="css/style.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#003366">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Coach4U">
+  <meta name="apple-mobile-web-app-title" content="Your Relationship Coach">
   <link rel="apple-touch-icon" href="assets/coach4u-icon.jpeg">
 </head>
-<body>
-  <main class="login-page">
-    <div class="card login-card">
+<body class="login-page">
+
+  <div style="display:flex;flex-direction:column;align-items:center;width:100%;max-width:420px;padding:20px;">
+
+    <div class="login-card">
       <div class="login-logo">
-        <img src="assets/coach4u-logo.jpg" alt="Coach4U" height="64">
+        <img src="assets/coach4u-logo.jpg" alt="Coach4U" style="height:64px;width:auto;">
+        <h1>Your Relationship Coach</h1>
       </div>
-      <h1 class="login-app-name">Relationship Coach4U</h1>
-      <p class="login-subtitle">Sign in to access your account.</p>
-      <form id="login-form" class="login-form" novalidate>
+      <p class="login-subtitle">Sign in to access your coaching resources.</p>
+
+      <form id="loginForm">
         <div class="form-group">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" id="email" class="form-input" required autocomplete="username">
+          <label for="email">Email</label>
+          <input type="email" id="email" required autocomplete="email" placeholder="you@example.com">
         </div>
         <div class="form-group">
-          <label for="password" class="form-label">Password</label>
+          <label for="password">Password</label>
           <div class="password-wrapper">
-            <input type="password" id="password" class="form-input" required autocomplete="current-password">
-            <button type="button" class="password-toggle" id="password-toggle">Show</button>
+            <input type="password" id="password" required autocomplete="current-password">
+            <button type="button" class="toggle-password" id="toggleBtn">Show</button>
           </div>
         </div>
-        <div id="message" class="form-error" role="alert"></div>
-        <button type="submit" id="login-btn" class="btn btn-primary btn-block">Sign In</button>
-        <p style="text-align:center;margin-top:16px">
-          <a href="forgot-password.html" class="auth-link">Forgot password?</a>
-        </p>
+
+        <div id="message" class="login-message"></div>
+
+        <button type="submit" class="login-btn" id="submitBtn">Sign In</button>
       </form>
+
+      <a href="forgot-password.html" class="login-forgot">Forgot password?</a>
     </div>
-  </main>
+
+    <p style="margin-top:20px;font-size:9pt;color:rgba(255,255,255,0.75);text-align:center;line-height:1.6;">
+      Strengths-Based Coaching and Counselling<br>
+      <a href="http://www.coach4u.com.au" style="color:rgba(255,255,255,0.75);">www.coach4u.com.au</a> |
+      <a href="mailto:cath@coach4u.com.au" style="color:rgba(255,255,255,0.75);">cath@coach4u.com.au</a> |
+      0402 313 337
+    </p>
+
+  </div>
 
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-    const supabase = createClient(
-      'https://eekefsuaefgpqmjdyniy.supabase.co',
-      'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y'
-    );
+
+    const SUPABASE_URL      = 'https://eekefsuaefgpqmjdyniy.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     const { data: { session } } = await supabase.auth.getSession();
     if (session) window.location.href = 'portal.html';
 
-    document.getElementById('password-toggle').addEventListener('click', () => {
-      const input = document.getElementById('password');
-      const toggle = document.getElementById('password-toggle');
-      const isHidden = input.type === 'password';
-      input.type = isHidden ? 'text' : 'password';
-      toggle.textContent = isHidden ? 'Hide' : 'Show';
+    const form    = document.getElementById('loginForm');
+    const msgEl   = document.getElementById('message');
+    const btn     = document.getElementById('submitBtn');
+    const toggle  = document.getElementById('toggleBtn');
+    const pwInput = document.getElementById('password');
+
+    toggle.addEventListener('click', () => {
+      if (pwInput.type === 'password') {
+        pwInput.type = 'text';
+        toggle.textContent = 'Hide';
+      } else {
+        pwInput.type = 'password';
+        toggle.textContent = 'Show';
+      }
     });
 
-    document.getElementById('login-form').addEventListener('submit', async (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const email    = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      const errEl    = document.getElementById('message');
-      const btn      = document.getElementById('login-btn');
-
       btn.disabled = true;
-      btn.textContent = 'Signing in...';
-      errEl.classList.remove('visible');
+      btn.textContent = 'Signing in…';
+      msgEl.style.display = 'none';
+      msgEl.className = 'login-message';
+
+      const email    = document.getElementById('email').value.trim();
+      const password = pwInput.value;
 
       const { error } = await supabase.auth.signInWithPassword({ email, password });
+
       if (error) {
-        errEl.textContent = error.message;
-        errEl.classList.add('visible');
+        msgEl.textContent = error.message;
+        msgEl.classList.add('error');
+        msgEl.style.display = 'block';
         btn.disabled = false;
         btn.textContent = 'Sign In';
       } else {
@@ -81,5 +102,6 @@
       }
     });
   </script>
+
 </body>
 </html>
