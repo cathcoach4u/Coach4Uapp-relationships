@@ -3,259 +3,133 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Couples Counselling Goals and Outcomes — Coach4U</title>
+  <title>Couples Counselling Goals and Outcomes &mdash; Coach4U</title>
   <style>
     @page { size: landscape; margin: 0; }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif;
-      background: #FFFFFF;
-      color: #000000;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* --- Header --- */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 48px 0;
-    }
-
+    body { font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif; background: #FFFFFF; color: #000000; min-height: 100vh; display: flex; flex-direction: column; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 28px 48px 0; }
     .top-bar-brand img { display: block; height: 40px; width: auto; }
-
-    .top-bar-category {
-      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
-      text-transform: uppercase; color: #003366;
-      background: #E8EEF4; padding: 4px 14px; border-radius: 20px;
-    }
-
+    .top-bar-category { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #003366; background: #E8EEF4; padding: 4px 14px; border-radius: 20px; }
     .back-link { font-size: 0.8rem; color: #003366; text-decoration: none; font-weight: 600; }
     .back-link:hover { text-decoration: underline; }
-
-    /* --- Title --- */
-    .title-section {
-      text-align: center;
-      padding: 24px 48px 8px;
-    }
-
-    .title-section h1 {
-      font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 6px;
-    }
-
+    .title-section { text-align: center; padding: 24px 48px 8px; }
+    .title-section h1 { font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 6px; }
     .title-section h1 em { font-style: italic; font-weight: 400; }
-
-    .title-section p {
-      font-size: 1rem; color: #646464; max-width: 700px; margin: 0 auto;
-    }
-
-    /* --- Goals Grid --- */
-    .goals-grid {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 20px;
-      padding: 20px 48px 16px;
-    }
-
-    .goal-card {
-      border-radius: 14px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .goal-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      margin-bottom: 12px;
-    }
-
-    .goal-card h2 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #003366;
-      margin-bottom: 8px;
-      line-height: 1.3;
-    }
-
-    .goal-card p {
-      font-size: 0.88rem;
-      line-height: 1.5;
-      color: #333;
-    }
-
-    .goal-number {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    /* Card colours */
-    .goal-1 {
-      background: linear-gradient(135deg, #EBF3FF 0%, #D6E5F7 100%);
-      border: 2px solid #A0C4E8;
-    }
+    .title-section p { font-size: 1rem; color: #646464; max-width: 700px; margin: 0 auto; }
+    .goals-grid { flex: 1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; padding: 20px 48px 16px; }
+    .goal-card { border-radius: 14px; padding: 24px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .goal-icon { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 12px; }
+    .goal-card h2 { font-size: 1.05rem; font-weight: 700; color: #003366; margin-bottom: 8px; line-height: 1.3; }
+    .goal-card p { font-size: 0.88rem; line-height: 1.5; color: #333; }
+    .goal-number { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+    .goal-1 { background: linear-gradient(135deg, #EBF3FF 0%, #D6E5F7 100%); border: 2px solid #A0C4E8; }
     .goal-1 .goal-icon { background: #D6E5F7; }
     .goal-1 .goal-number { color: #336699; }
-
-    .goal-2 {
-      background: linear-gradient(135deg, #EBF8EB 0%, #D6F0D6 100%);
-      border: 2px solid #A0D8A0;
-    }
+    .goal-2 { background: linear-gradient(135deg, #EBF8EB 0%, #D6F0D6 100%); border: 2px solid #A0D8A0; }
     .goal-2 .goal-icon { background: #D6F0D6; }
     .goal-2 .goal-number { color: #2D7A2D; }
-
-    .goal-3 {
-      background: linear-gradient(135deg, #FFF8F0 0%, #FFECD6 100%);
-      border: 2px solid #E8C9A0;
-    }
+    .goal-3 { background: linear-gradient(135deg, #FFF8F0 0%, #FFECD6 100%); border: 2px solid #E8C9A0; }
     .goal-3 .goal-icon { background: #FFECD6; }
     .goal-3 .goal-number { color: #996633; }
-
-    .goal-4 {
-      background: linear-gradient(135deg, #F5F0FF 0%, #E8DCFF 100%);
-      border: 2px solid #C4A8E8;
-    }
+    .goal-4 { background: linear-gradient(135deg, #F5F0FF 0%, #E8DCFF 100%); border: 2px solid #C4A8E8; }
     .goal-4 .goal-icon { background: #E8DCFF; }
     .goal-4 .goal-number { color: #664499; }
-
-    .goal-5 {
-      background: linear-gradient(135deg, #FFF0F0 0%, #FFE0E0 100%);
-      border: 2px solid #E8A0A0;
-    }
+    .goal-5 { background: linear-gradient(135deg, #FFF0F0 0%, #FFE0E0 100%); border: 2px solid #E8A0A0; }
     .goal-5 .goal-icon { background: #FFE0E0; }
     .goal-5 .goal-number { color: #994444; }
-
-    .goal-6 {
-      background: linear-gradient(135deg, #F0FAF0 0%, #D8F0D8 100%);
-      border: 2px solid #8DC88D;
-    }
+    .goal-6 { background: linear-gradient(135deg, #F0FAF0 0%, #D8F0D8 100%); border: 2px solid #8DC88D; }
     .goal-6 .goal-icon { background: #D8F0D8; }
     .goal-6 .goal-number { color: #3D7A3D; }
-
-    /* --- Bottom insight --- */
-    .bottom-section {
-      display: flex;
-      gap: 16px;
-      padding: 6px 48px 10px;
-      justify-content: center;
-    }
-
-    .insight-box {
-      background: #003366;
-      color: #FFFFFF;
-      border-radius: 12px;
-      padding: 14px 28px;
-      text-align: center;
-      max-width: 800px;
-      flex: 1;
-    }
-
-    .insight-box h3 {
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #FFD700; margin-bottom: 4px;
-    }
-
+    .bottom-section { display: flex; gap: 16px; padding: 6px 48px 10px; justify-content: center; }
+    .insight-box { background: #003366; color: #FFFFFF; border-radius: 12px; padding: 14px 28px; text-align: center; max-width: 800px; flex: 1; }
+    .insight-box h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #FFD700; margin-bottom: 4px; }
     .insight-box p { font-size: 0.9rem; color: #E0E8F0; line-height: 1.5; }
-
-    /* --- Footer --- */
-    .footer {
-      text-align: center;
-      padding: 6px 48px 20px;
-    }
-
+    .footer { text-align: center; padding: 6px 48px 20px; }
     .footer p { font-size: 9pt; color: #646464; line-height: 1.8; }
-
-    /* --- Print --- */
-    @media print {
-      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    }
-
-    /* --- Mobile --- */
+    @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
     @media (max-width: 900px) {
       .goals-grid { grid-template-columns: 1fr; padding: 12px 24px; }
       .bottom-section { flex-direction: column; align-items: center; padding: 8px 24px; }
       .top-bar, .title-section, .footer { padding-left: 24px; padding-right: 24px; }
     }
   </style>
+  <style>body{visibility:hidden}</style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient('https://eekefsuaefgpqmjdyniy.supabase.co', 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y');
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (!user || userError) {
+      window.location.href = '../../index.html';
+    } else {
+      const { data: profile } = await supabase.from('users').select('membership_status').eq('id', user.id).single();
+      if (!profile || profile.membership_status !== 'active') {
+        window.location.href = '../../inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+        document.getElementById('signOutBtn').addEventListener('click', async () => {
+          await supabase.auth.signOut();
+          window.location.href = '../../index.html';
+        });
+      }
+    }
+  </script>
 </head>
 <body>
 
-  <!-- Header -->
   <div class="top-bar">
     <div class="top-bar-brand"><img src="../../assets/coach4u-logo.jpg" alt="Coach4U"></div>
-    <a href="../../portal.html" class="back-link">&larr; Back to Portal</a>
-    <div class="top-bar-category">Relationships</div>
+    <a href="../../relationships.html" class="back-link">&larr; Relationships</a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="top-bar-category">Relationships</div>
+      <button id="signOutBtn" style="font-size:0.75rem;font-weight:600;color:#003366;background:transparent;border:1px solid #003366;border-radius:6px;padding:4px 10px;cursor:pointer;">Sign Out</button>
+    </div>
   </div>
 
-  <!-- Title -->
   <div class="title-section">
     <h1>Couples Counselling <em>Goals and Outcomes</em></h1>
     <p>Six areas of focus that guide your work together, and what you can expect to build along the way.</p>
   </div>
 
-  <!-- Goals Grid -->
   <div class="goals-grid">
-
     <div class="goal-card goal-1">
       <div class="goal-number">Goal 1</div>
-      <div class="goal-icon">💬</div>
+      <div class="goal-icon">&#128172;</div>
       <h2>Understand and Change Communication Patterns</h2>
       <p>Recognise the habits that create distance, and replace them with ways of speaking and listening that bring you closer.</p>
     </div>
-
     <div class="goal-card goal-2">
       <div class="goal-number">Goal 2</div>
-      <div class="goal-icon">🤝</div>
+      <div class="goal-icon">&#129309;</div>
       <h2>Resolve Conflict in Ways That Deepen Connection</h2>
       <p>Learn to work through disagreements without damaging the relationship. Conflict handled well can actually strengthen your bond.</p>
     </div>
-
     <div class="goal-card goal-3">
       <div class="goal-number">Goal 3</div>
-      <div class="goal-icon">💛</div>
+      <div class="goal-icon">&#128155;</div>
       <h2>Strengthen Your Emotional Bond as Partners</h2>
-      <p>Rebuild emotional closeness by understanding each other's needs, longings, and the ways you each seek connection.</p>
+      <p>Rebuild emotional closeness by understanding each other&rsquo;s needs, longings, and the ways you each seek connection.</p>
     </div>
-
     <div class="goal-card goal-4">
       <div class="goal-number">Goal 4</div>
-      <div class="goal-icon">🌱</div>
+      <div class="goal-icon">&#127807;</div>
       <h2>Promote Growth as Individuals and Together</h2>
-      <p>Support each other's personal development while growing as a team. A strong relationship makes room for both.</p>
+      <p>Support each other&rsquo;s personal development while growing as a team. A strong relationship makes room for both.</p>
     </div>
-
     <div class="goal-card goal-5">
       <div class="goal-number">Goal 5</div>
-      <div class="goal-icon">🛡️</div>
+      <div class="goal-icon">&#128737;&#65039;</div>
       <h2>Build a Relationship That Feels More Secure</h2>
       <p>Create a foundation of trust and safety where both partners feel valued, respected, and confident in the relationship.</p>
     </div>
-
     <div class="goal-card goal-6">
       <div class="goal-number">Goal 6</div>
-      <div class="goal-icon">🌿</div>
+      <div class="goal-icon">&#127807;</div>
       <h2>Create a Sustainable Way to Thrive as a Couple</h2>
       <p>Develop rituals, habits, and tools that keep your relationship healthy long after counselling ends.</p>
     </div>
-
   </div>
 
-  <!-- Bottom -->
   <div class="bottom-section">
     <div class="insight-box">
       <h3>Your journey together</h3>
@@ -263,14 +137,8 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <div class="footer">
-    <p>
-      Strengths-Based Coaching and Counselling<br>
-      www.coach4u.com.au<br>
-      cath@coach4u.com.au<br>
-      0402 313 337
-    </p>
+    <p>Strengths-Based Coaching and Counselling<br>www.coach4u.com.au<br>cath@coach4u.com.au<br>0402 313 337</p>
   </div>
 
 </body>
