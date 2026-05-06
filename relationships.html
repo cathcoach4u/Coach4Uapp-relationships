@@ -44,7 +44,7 @@
     <div class="header-inner">
       <div class="header-left">
         <a href="portal.html" class="header-back">← Dashboard</a>
-        <span class="header-title">Relationships</span>
+        <span class="header-title" id="pageTitle">Relationships</span>
       </div>
       <button id="signOutBtn" class="sign-out-btn">Sign Out</button>
     </div>
@@ -52,7 +52,7 @@
 
   <div class="container">
 
-    <p class="page-subtitle">Coaching resources and worksheets</p>
+    <p class="page-subtitle" id="pageSubtitle">Coaching resources and worksheets</p>
 
     <!-- Understanding Your Relationship -->
     <div id="understanding" class="section-heading">🧭 Understanding Your Relationship</div>
@@ -161,6 +161,31 @@
     <a href="mailto:cath@coach4u.com.au">cath@coach4u.com.au</a> &nbsp;|&nbsp;
     0402 313 337
   </footer>
+
+  <script>
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      const target = document.getElementById(hash);
+      if (target) {
+        // Hide all section headings and resource grids
+        document.querySelectorAll('.section-heading, .resources-grid').forEach(el => {
+          el.style.display = 'none';
+        });
+        // Show only the matching section heading and its resource grid
+        target.style.display = '';
+        const grid = target.nextElementSibling;
+        if (grid && grid.classList.contains('resources-grid')) {
+          grid.style.display = '';
+        }
+        // Update header title (strip leading emoji)
+        const raw = target.textContent.trim();
+        const titleText = raw.replace(/^[\p{Emoji}\s]+/u, '').trim();
+        document.getElementById('pageTitle').textContent = titleText;
+        // Hide the generic subtitle
+        document.getElementById('pageSubtitle').style.display = 'none';
+      }
+    }
+  </script>
 
 </body>
 </html>
