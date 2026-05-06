@@ -3,328 +3,105 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Understanding Your Connection Pulse — Coach4U</title>
+  <title>Understanding Your Connection Pulse &mdash; Coach4U</title>
   <style>
     @page { size: landscape; margin: 0; }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif;
-      background: #FFFFFF;
-      color: #000000;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* --- Header Bar --- */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 48px 0;
-    }
-
-    .top-bar-brand img {
-      display: block;
-      height: 40px;
-      width: auto;
-    }
-
+    body { font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif; background: #FFFFFF; color: #000000; min-height: 100vh; display: flex; flex-direction: column; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 28px 48px 0; }
+    .top-bar-brand img { display: block; height: 40px; width: auto; }
     .back-link { font-size: 0.8rem; color: #003366; text-decoration: none; font-weight: 600; }
     .back-link:hover { text-decoration: underline; }
-
-    .top-bar-category {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #003366;
-      background: #E8EEF4;
-      padding: 4px 14px;
-      border-radius: 20px;
-    }
-
-    /* --- Title Section --- */
-    .title-section {
-      text-align: center;
-      padding: 20px 48px 8px;
-    }
-
-    .title-section h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: #003366;
-      margin-bottom: 6px;
-    }
-
-    .title-section p {
-      font-size: 1rem;
-      color: #646464;
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    /* --- Intro Section --- */
-    .intro-section {
-      max-width: 900px;
-      margin: 16px auto 8px;
-      padding: 0 48px;
-      text-align: center;
-    }
-
-    .intro-section p {
-      font-size: 0.95rem;
-      color: #000000;
-      line-height: 1.6;
-      margin-bottom: 10px;
-    }
-
-    /* --- Gauge Section --- */
-    .gauge-section {
-      flex: 1;
-      padding: 16px 48px 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .gauge-bands {
-      width: 100%;
-      max-width: 1100px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .band {
-      display: flex;
-      align-items: stretch;
-      border-radius: 10px;
-      overflow: hidden;
-      min-height: 72px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    }
-
-    .band-indicator {
-      width: 8px;
-      flex-shrink: 0;
-    }
-
-    .band-score {
-      width: 90px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #FFFFFF;
-      flex-shrink: 0;
-    }
-
-    .band-content {
-      flex: 1;
-      padding: 14px 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .band-name {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .band-desc {
-      font-size: 0.9rem;
-      color: #333333;
-      line-height: 1.45;
-    }
-
-    /* Band colours */
-    .band-disconnected .band-indicator { background: #C0392B; }
-    .band-disconnected .band-score { background: #C0392B; }
-    .band-disconnected .band-name { color: #C0392B; }
-    .band-disconnected { background: #FDEDEB; }
-
-    .band-reactive .band-indicator { background: #E67E22; }
-    .band-reactive .band-score { background: #E67E22; }
-    .band-reactive .band-name { color: #E67E22; }
-    .band-reactive { background: #FDF2E9; }
-
-    .band-intentional .band-indicator { background: #D4AC0D; }
-    .band-intentional .band-score { background: #D4AC0D; }
-    .band-intentional .band-name { color: #7D6608; }
-    .band-intentional { background: #FEF9E7; }
-
-    .band-collaboration .band-indicator { background: #2471A3; }
-    .band-collaboration .band-score { background: #2471A3; }
-    .band-collaboration .band-name { color: #2471A3; }
-    .band-collaboration { background: #EAF2F8; }
-
-    .band-connected .band-indicator { background: #1E8449; }
-    .band-connected .band-score { background: #1E8449; }
-    .band-connected .band-name { color: #1E8449; }
-    .band-connected { background: #E9F7EF; }
-
-    /* --- Insight Box --- */
-    .insight-box {
-      max-width: 1100px;
-      width: 100%;
-      margin: 20px auto 0;
-      background: #003366;
-      border-radius: 10px;
-      padding: 20px 28px;
-      text-align: center;
-    }
-
-    .insight-box p {
-      font-size: 0.95rem;
-      color: #FFFFFF;
-      line-height: 1.55;
-      font-weight: 600;
-      font-style: italic;
-    }
-
-    /* --- Footer --- */
-    .doc-footer {
-      text-align: center;
-      padding: 20px 48px 24px;
-      color: #646464;
-      font-size: 0.8rem;
-    }
-
-    .doc-footer a {
-      color: #003366;
-      text-decoration: none;
-    }
-
+    .top-bar-category { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #003366; background: #E8EEF4; padding: 4px 14px; border-radius: 20px; }
+    .title-section { text-align: center; padding: 20px 48px 8px; }
+    .title-section h1 { font-size: 2.2rem; font-weight: 700; color: #003366; margin-bottom: 6px; }
+    .title-section p { font-size: 1rem; color: #646464; max-width: 680px; margin: 0 auto; }
+    .intro-section { max-width: 900px; margin: 16px auto 8px; padding: 0 48px; text-align: center; }
+    .intro-section p { font-size: 0.95rem; color: #000000; line-height: 1.6; margin-bottom: 10px; }
+    .gauge-section { flex: 1; padding: 16px 48px 8px; display: flex; flex-direction: column; align-items: center; }
+    .gauge-bands { width: 100%; max-width: 1100px; display: flex; flex-direction: column; gap: 10px; }
+    .band { display: flex; align-items: stretch; border-radius: 10px; overflow: hidden; min-height: 72px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+    .band-indicator { width: 8px; flex-shrink: 0; }
+    .band-score { width: 90px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; font-weight: 700; color: #FFFFFF; flex-shrink: 0; }
+    .band-content { flex: 1; padding: 14px 20px; display: flex; flex-direction: column; justify-content: center; }
+    .band-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+    .band-desc { font-size: 0.9rem; color: #333333; line-height: 1.45; }
+    .band-disconnected .band-indicator { background: #C0392B; } .band-disconnected .band-score { background: #C0392B; } .band-disconnected .band-name { color: #C0392B; } .band-disconnected { background: #FDEDEB; }
+    .band-reactive .band-indicator { background: #E67E22; } .band-reactive .band-score { background: #E67E22; } .band-reactive .band-name { color: #E67E22; } .band-reactive { background: #FDF2E9; }
+    .band-intentional .band-indicator { background: #D4AC0D; } .band-intentional .band-score { background: #D4AC0D; } .band-intentional .band-name { color: #7D6608; } .band-intentional { background: #FEF9E7; }
+    .band-collaboration .band-indicator { background: #2471A3; } .band-collaboration .band-score { background: #2471A3; } .band-collaboration .band-name { color: #2471A3; } .band-collaboration { background: #EAF2F8; }
+    .band-connected .band-indicator { background: #1E8449; } .band-connected .band-score { background: #1E8449; } .band-connected .band-name { color: #1E8449; } .band-connected { background: #E9F7EF; }
+    .insight-box { max-width: 1100px; width: 100%; margin: 20px auto 0; background: #003366; border-radius: 10px; padding: 20px 28px; text-align: center; }
+    .insight-box p { font-size: 0.95rem; color: #FFFFFF; line-height: 1.55; font-weight: 600; font-style: italic; }
+    .doc-footer { text-align: center; padding: 20px 48px 24px; color: #646464; font-size: 0.8rem; }
+    .doc-footer a { color: #003366; text-decoration: none; }
     .doc-footer a:hover { text-decoration: underline; }
-
-    /* --- Print --- */
-    @media print {
-      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      .gauge-section { min-height: auto; }
-    }
-
-    /* --- Mobile fallback --- */
+    @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
     @media (max-width: 900px) {
       .top-bar, .title-section, .intro-section, .gauge-section { padding-left: 20px; padding-right: 20px; }
-
-      .band {
-        flex-direction: column;
-        min-height: auto;
-      }
-
-      .band-indicator {
-        width: 100%;
-        height: 6px;
-      }
-
-      .band-score {
-        width: 100%;
-        padding: 8px;
-        font-size: 0.85rem;
-      }
-
-      .band-content {
-        padding: 12px 16px;
-      }
-
-      .insight-box {
-        margin-left: 20px;
-        margin-right: 20px;
-      }
+      .band { flex-direction: column; min-height: auto; }
+      .band-indicator { width: 100%; height: 6px; }
+      .band-score { width: 100%; padding: 8px; font-size: 0.85rem; }
+      .band-content { padding: 12px 16px; }
+      .insight-box { margin-left: 20px; margin-right: 20px; }
     }
   </style>
+  <style>body{visibility:hidden}</style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient('https://eekefsuaefgpqmjdyniy.supabase.co', 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y');
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (!user || userError) {
+      window.location.href = '../../index.html';
+    } else {
+      const { data: profile } = await supabase.from('users').select('membership_status').eq('id', user.id).single();
+      if (!profile || profile.membership_status !== 'active') {
+        window.location.href = '../../inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+        document.getElementById('signOutBtn').addEventListener('click', async () => {
+          await supabase.auth.signOut();
+          window.location.href = '../../index.html';
+        });
+      }
+    }
+  </script>
 </head>
 <body>
 
-  <!-- Top Bar -->
   <div class="top-bar">
     <div class="top-bar-brand"><img src="../../assets/coach4u-logo.jpg" alt="Coach4U"></div>
-    <a href="../../portal.html" class="back-link">&larr; Back to Portal</a>
-    <div class="top-bar-category">Relationships</div>
+    <a href="../../relationships.html" class="back-link">&larr; Relationships</a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="top-bar-category">Relationships</div>
+      <button id="signOutBtn" style="font-size:0.75rem;font-weight:600;color:#003366;background:transparent;border:1px solid #003366;border-radius:6px;padding:4px 10px;cursor:pointer;">Sign Out</button>
+    </div>
   </div>
 
-  <!-- Title -->
   <div class="title-section">
     <h1>Understanding Your Connection Pulse</h1>
     <p>A weekly relational pulse check to tune into the emotional rhythm of your relationship.</p>
   </div>
 
-  <!-- Intro -->
   <div class="intro-section">
-    <p>The Connection Pulse is a way to tune into the emotional rhythm of your relationship and notice how things are going between you. It is not about judgement or getting it "right." It is about building awareness.</p>
+    <p>The Connection Pulse is a way to tune into the emotional rhythm of your relationship and notice how things are going between you. It is not about judgement or getting it &ldquo;right.&rdquo; It is about building awareness.</p>
     <p>Each week, you reflect on how your relationship has felt across key areas like emotional safety, repair, communication, and connection. Your responses generate a score out of 100 that places you somewhere along the Connection Pulse scale.</p>
     <p>This scale is not a label. It is a temperature gauge, a way to check in, reflect honestly, and use what you learn to support meaningful conversations.</p>
   </div>
 
-  <!-- Gauge Bands -->
   <div class="gauge-section">
     <div class="gauge-bands">
-
-      <!-- Connected (top = best) -->
-      <div class="band band-connected">
-        <div class="band-indicator"></div>
-        <div class="band-score">90 – 100</div>
-        <div class="band-content">
-          <div class="band-name">Connected</div>
-          <div class="band-desc">There is emotional openness, trust, and a steady rhythm of connection. You feel supported, secure, and aligned, navigating life as true partners.</div>
-        </div>
-      </div>
-
-      <!-- Collaboration -->
-      <div class="band band-collaboration">
-        <div class="band-indicator"></div>
-        <div class="band-score">70 – 89</div>
-        <div class="band-content">
-          <div class="band-name">Collaboration</div>
-          <div class="band-desc">You are working as a team. Relational tools are being used more consistently. There is empathy, repair, and mutual effort to move through challenges together.</div>
-        </div>
-      </div>
-
-      <!-- Intentional -->
-      <div class="band band-intentional">
-        <div class="band-indicator"></div>
-        <div class="band-score">50 – 69</div>
-        <div class="band-content">
-          <div class="band-name">Intentional</div>
-          <div class="band-desc">You are starting to slow down and notice what is happening beneath the surface. There is more reflection, emotional awareness, and a shared effort to respond with care rather than react automatically.</div>
-        </div>
-      </div>
-
-      <!-- Reactive -->
-      <div class="band band-reactive">
-        <div class="band-indicator"></div>
-        <div class="band-score">30 – 49</div>
-        <div class="band-content">
-          <div class="band-name">Reactive</div>
-          <div class="band-desc">Stress and disconnection show up in repeated cycles or emotional volatility. You are trying to connect, but reactivity often gets in the way. There is growing awareness that something needs to shift.</div>
-        </div>
-      </div>
-
-      <!-- Disconnected -->
-      <div class="band band-disconnected">
-        <div class="band-indicator"></div>
-        <div class="band-score">10 – 29</div>
-        <div class="band-content">
-          <div class="band-name">Disconnected</div>
-          <div class="band-desc">The relationship feels emotionally shut down or distant. Safety and presence are missing, and connection may feel blocked by conflict, overwhelm, or silence.</div>
-        </div>
-      </div>
-
+      <div class="band band-connected"><div class="band-indicator"></div><div class="band-score">90 &ndash; 100</div><div class="band-content"><div class="band-name">Connected</div><div class="band-desc">There is emotional openness, trust, and a steady rhythm of connection. You feel supported, secure, and aligned, navigating life as true partners.</div></div></div>
+      <div class="band band-collaboration"><div class="band-indicator"></div><div class="band-score">70 &ndash; 89</div><div class="band-content"><div class="band-name">Collaboration</div><div class="band-desc">You are working as a team. Relational tools are being used more consistently. There is empathy, repair, and mutual effort to move through challenges together.</div></div></div>
+      <div class="band band-intentional"><div class="band-indicator"></div><div class="band-score">50 &ndash; 69</div><div class="band-content"><div class="band-name">Intentional</div><div class="band-desc">You are starting to slow down and notice what is happening beneath the surface. There is more reflection, emotional awareness, and a shared effort to respond with care rather than react automatically.</div></div></div>
+      <div class="band band-reactive"><div class="band-indicator"></div><div class="band-score">30 &ndash; 49</div><div class="band-content"><div class="band-name">Reactive</div><div class="band-desc">Stress and disconnection show up in repeated cycles or emotional volatility. You are trying to connect, but reactivity often gets in the way. There is growing awareness that something needs to shift.</div></div></div>
+      <div class="band band-disconnected"><div class="band-indicator"></div><div class="band-score">10 &ndash; 29</div><div class="band-content"><div class="band-name">Disconnected</div><div class="band-desc">The relationship feels emotionally shut down or distant. Safety and presence are missing, and connection may feel blocked by conflict, overwhelm, or silence.</div></div></div>
     </div>
-
-    <!-- Insight Box -->
     <div class="insight-box">
       <p>Your Connection Pulse score is not a judgement. It is a snapshot of where things are right now. Wherever you land on the scale, awareness is always the first step toward meaningful change.</p>
     </div>
   </div>
 
-  <!-- Footer -->
   <div class="doc-footer">
     Strengths-Based Coaching and Counselling<br>
     <a href="https://www.coach4u.com.au">www.coach4u.com.au</a><br>

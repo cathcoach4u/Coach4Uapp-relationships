@@ -3,94 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Relationship Journey — Coach4U</title>
+  <title>Your Relationship Journey &mdash; Coach4U</title>
   <style>
     @page { size: landscape; margin: 0; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif;
-      background: #FFFFFF; color: #000000;
-      min-height: 100vh; display: flex; flex-direction: column;
-    }
-
-    .top-bar {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 28px 48px 0;
-    }
+    body { font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif; background: #FFFFFF; color: #000000; min-height: 100vh; display: flex; flex-direction: column; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 28px 48px 0; }
     .top-bar-brand img { display: block; height: 40px; width: auto; }
-    .top-bar-category {
-      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
-      text-transform: uppercase; color: #003366;
-      background: #E8EEF4; padding: 4px 14px; border-radius: 20px;
-    }
+    .top-bar-category { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #003366; background: #E8EEF4; padding: 4px 14px; border-radius: 20px; }
     .back-link { font-size: 0.8rem; color: #003366; text-decoration: none; font-weight: 600; }
     .back-link:hover { text-decoration: underline; }
-
     .title-section { text-align: center; padding: 20px 48px 6px; }
     .title-section h1 { font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 4px; }
     .title-section h1 em { font-style: italic; font-weight: 400; }
     .title-section p { font-size: 0.95rem; color: #646464; max-width: 750px; margin: 0 auto; }
-
-    /* Phase divider */
-    .phase-divider {
-      display: flex; align-items: center; gap: 12px;
-      padding: 8px 48px 4px;
-    }
-    .phase-divider span {
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: #646464; white-space: nowrap;
-    }
-    .phase-divider hr {
-      flex: 1; border: none; border-top: 2px dashed #E0E8F0;
-    }
-
-    /* Journey grid */
-    .journey-grid {
-      display: grid; gap: 12px; padding: 4px 48px 6px;
-    }
+    .phase-divider { display: flex; align-items: center; gap: 12px; padding: 8px 48px 4px; }
+    .phase-divider span { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #646464; white-space: nowrap; }
+    .phase-divider hr { flex: 1; border: none; border-top: 2px dashed #E0E8F0; }
+    .journey-grid { display: grid; gap: 12px; padding: 4px 48px 6px; }
     .grid-unconscious { grid-template-columns: 1fr 1fr 1fr; }
     .grid-fork { grid-template-columns: 1fr; max-width: 700px; margin: 0 auto; width: 100%; padding: 4px 48px 6px; }
     .grid-conscious { grid-template-columns: 1fr 1fr 1fr; }
-
-    .stage-card {
-      border-radius: 12px; padding: 14px 16px;
-      display: flex; flex-direction: column;
-    }
-    .stage-num {
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; margin-bottom: 2px;
-    }
-    .stage-card h2 {
-      font-size: 0.95rem; font-weight: 700; color: #003366;
-      margin-bottom: 3px; display: flex; align-items: center; gap: 6px;
-    }
+    .stage-card { border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; }
+    .stage-num { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
+    .stage-card h2 { font-size: 0.95rem; font-weight: 700; color: #003366; margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
     .stage-card h2 .s-emoji { font-size: 1.1rem; }
-    .stage-card .s-desc {
-      font-size: 0.8rem; line-height: 1.4; margin-bottom: 6px; color: #333;
-    }
-    .stage-card .s-prompts {
-      margin-top: auto;
-    }
-    .stage-card .s-prompts p {
-      font-size: 0.78rem; font-weight: 600; color: #646464;
-      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px;
-    }
-    .write-line {
-      border-bottom: 1.5px dashed #CCC; padding: 5px 0;
-      font-size: 0.78rem; color: #555; font-style: italic;
-    }
-
-    /* Stage colours */
+    .stage-card .s-desc { font-size: 0.8rem; line-height: 1.4; margin-bottom: 6px; color: #333; }
+    .stage-card .s-prompts { margin-top: auto; }
+    .stage-card .s-prompts p { font-size: 0.78rem; font-weight: 600; color: #646464; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
+    .write-line { border-bottom: 1.5px dashed #CCC; padding: 5px 0; font-size: 0.78rem; color: #555; font-style: italic; }
     .stage-honeymoon { background: linear-gradient(135deg, #FFF0F5 0%, #FFE0EB 100%); border: 1.5px solid #E8A0B8; }
     .stage-honeymoon .stage-num { color: #994466; }
     .stage-commitment { background: linear-gradient(135deg, #FFF5F0 0%, #FFE8D6 100%); border: 1.5px solid #E8B8A0; }
     .stage-commitment .stage-num { color: #996644; }
     .stage-power { background: linear-gradient(135deg, #FFF0F0 0%, #FFE0E0 100%); border: 1.5px solid #E8A0A0; }
     .stage-power .stage-num { color: #994444; }
-    .stage-crisis {
-      background: linear-gradient(135deg, #FFF8F0 0%, #FFECD6 100%); border: 2px solid #E8C9A0;
-      display: flex; flex-direction: row; gap: 16px; align-items: stretch;
-    }
+    .stage-crisis { background: linear-gradient(135deg, #FFF8F0 0%, #FFECD6 100%); border: 2px solid #E8C9A0; display: flex; flex-direction: row; gap: 16px; align-items: stretch; }
     .stage-crisis .stage-num { color: #996633; }
     .fork-side { flex: 1; }
     .fork-side h3 { font-size: 0.85rem; font-weight: 700; color: #003366; margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
@@ -102,23 +50,12 @@
     .stage-awakening .stage-num { color: #336699; }
     .stage-mature { background: linear-gradient(135deg, #F5F0FF 0%, #E8DCFF 100%); border: 1.5px solid #C4A8E8; }
     .stage-mature .stage-num { color: #664499; }
-
-    /* Bottom */
-    .bottom-section {
-      display: flex; gap: 16px; padding: 6px 48px 8px; justify-content: center;
-    }
-    .insight-box {
-      background: #003366; color: #FFFFFF; border-radius: 12px;
-      padding: 14px 28px; text-align: center; max-width: 800px; flex: 1;
-    }
-    .insight-box h3 {
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #FFD700; margin-bottom: 4px;
-    }
+    .bottom-section { display: flex; gap: 16px; padding: 6px 48px 8px; justify-content: center; }
+    .insight-box { background: #003366; color: #FFFFFF; border-radius: 12px; padding: 14px 28px; text-align: center; max-width: 800px; flex: 1; }
+    .insight-box h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #FFD700; margin-bottom: 4px; }
     .insight-box p { font-size: 0.88rem; color: #E0E8F0; line-height: 1.5; }
     .footer { text-align: center; padding: 6px 48px 20px; }
     .footer p { font-size: 9pt; color: #646464; line-height: 1.8; }
-
     @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
     @media (max-width: 900px) {
       .journey-grid, .grid-unconscious, .grid-conscious { grid-template-columns: 1fr; }
@@ -130,13 +67,36 @@
       .journey-grid { padding-left: 24px; padding-right: 24px; }
     }
   </style>
+  <style>body{visibility:hidden}</style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient('https://eekefsuaefgpqmjdyniy.supabase.co', 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y');
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (!user || userError) {
+      window.location.href = '../../index.html';
+    } else {
+      const { data: profile } = await supabase.from('users').select('membership_status').eq('id', user.id).single();
+      if (!profile || profile.membership_status !== 'active') {
+        window.location.href = '../../inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+        document.getElementById('signOutBtn').addEventListener('click', async () => {
+          await supabase.auth.signOut();
+          window.location.href = '../../index.html';
+        });
+      }
+    }
+  </script>
 </head>
 <body>
 
   <div class="top-bar">
     <div class="top-bar-brand"><img src="../../assets/coach4u-logo.jpg" alt="Coach4U"></div>
-    <a href="../../portal.html" class="back-link">&larr; Back to Portal</a>
-    <div class="top-bar-category">Relationships</div>
+    <a href="../../relationships.html" class="back-link">&larr; Relationships</a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="top-bar-category">Relationships</div>
+      <button id="signOutBtn" style="font-size:0.75rem;font-weight:600;color:#003366;background:transparent;border:1px solid #003366;border-radius:6px;padding:4px 10px;cursor:pointer;">Sign Out</button>
+    </div>
   </div>
 
   <div class="title-section">
@@ -144,128 +104,34 @@
     <p>A workbook to explore where you have been, where you are now, and where you are growing together.</p>
   </div>
 
-  <!-- Unconscious Stages -->
-  <div class="phase-divider">
-    <span>Unconscious Stages</span><hr>
-  </div>
-
+  <div class="phase-divider"><span>Unconscious Stages</span><hr></div>
   <div class="journey-grid grid-unconscious">
-    <div class="stage-card stage-honeymoon">
-      <div class="stage-num">Stage 1</div>
-      <h2><span class="s-emoji">✨</span> The Honeymoon</h2>
-      <div class="s-desc">Chemistry-driven, fuelled by attraction and familiarity. It can feel magical but lacks deep knowledge or conscious intention.</div>
-      <div class="s-prompts">
-        <p>Reflect</p>
-        <div class="write-line">What initially drew you to each other?</div>
-        <div class="write-line">Are there idealised beliefs you now see differently?</div>
-      </div>
-    </div>
-
-    <div class="stage-card stage-commitment">
-      <div class="stage-num">Stage 2</div>
-      <h2><span class="s-emoji">🤝</span> The Commitment</h2>
-      <div class="s-desc">Often emerges 6-18 months in. A shift from passion to partnership. Can bring up expectations and early disappointments.</div>
-      <div class="s-prompts">
-        <p>Reflect</p>
-        <div class="write-line">What expectations did you bring into the relationship?</div>
-        <div class="write-line">How do you each define commitment?</div>
-      </div>
-    </div>
-
-    <div class="stage-card stage-power">
-      <div class="stage-num">Stage 3</div>
-      <h2><span class="s-emoji">⚡</span> The Power Struggle</h2>
-      <div class="s-desc">Marked by conflict, unmet needs, and differentiation. Often triggered by deeper attachment wounds.</div>
-      <div class="s-prompts">
-        <p>Reflect</p>
-        <div class="write-line">What patterns tend to repeat during conflict?</div>
-        <div class="write-line">What might your partner be protecting when they react?</div>
-      </div>
-    </div>
+    <div class="stage-card stage-honeymoon"><div class="stage-num">Stage 1</div><h2><span class="s-emoji">&#10024;</span> The Honeymoon</h2><div class="s-desc">Chemistry-driven, fuelled by attraction and familiarity. It can feel magical but lacks deep knowledge or conscious intention.</div><div class="s-prompts"><p>Reflect</p><div class="write-line">What initially drew you to each other?</div><div class="write-line">Are there idealised beliefs you now see differently?</div></div></div>
+    <div class="stage-card stage-commitment"><div class="stage-num">Stage 2</div><h2><span class="s-emoji">&#129309;</span> The Commitment</h2><div class="s-desc">Often emerges 6&ndash;18 months in. A shift from passion to partnership. Can bring up expectations and early disappointments.</div><div class="s-prompts"><p>Reflect</p><div class="write-line">What expectations did you bring into the relationship?</div><div class="write-line">How do you each define commitment?</div></div></div>
+    <div class="stage-card stage-power"><div class="stage-num">Stage 3</div><h2><span class="s-emoji">&#9889;</span> The Power Struggle</h2><div class="s-desc">Marked by conflict, unmet needs, and differentiation. Often triggered by deeper attachment wounds.</div><div class="s-prompts"><p>Reflect</p><div class="write-line">What patterns tend to repeat during conflict?</div><div class="write-line">What might your partner be protecting when they react?</div></div></div>
   </div>
 
-  <!-- Fork in the Road -->
-  <div class="phase-divider">
-    <span>The Turning Point</span><hr>
-  </div>
-
+  <div class="phase-divider"><span>The Turning Point</span><hr></div>
   <div class="journey-grid grid-fork">
     <div class="stage-card stage-crisis">
-      <div class="fork-side">
-        <div class="stage-num">Stage 4</div>
-        <h3><span class="s-emoji">🔻</span> Despair / Exit</h3>
-        <div class="s-desc">Turning away from the relationship through distractions (work, parenting), disconnection, or separation.</div>
-        <div class="s-prompts" style="margin-top: 8px;">
-          <div class="write-line">Are there "exits" that show up for you?</div>
-        </div>
-      </div>
+      <div class="fork-side"><div class="stage-num">Stage 4</div><h3><span class="s-emoji">&#128315;</span> Despair / Exit</h3><div class="s-desc">Turning away from the relationship through distractions (work, parenting), disconnection, or separation.</div><div class="s-prompts" style="margin-top:8px;"><div class="write-line">Are there &ldquo;exits&rdquo; that show up for you?</div></div></div>
       <div class="fork-divider"></div>
-      <div class="fork-side">
-        <div class="stage-num">Stage 4</div>
-        <h3><span class="s-emoji">🌱</span> Recommitment / Hope</h3>
-        <div class="s-desc">Choosing to stay and rebuild with new agreements, shared responsibility, and an openness to change.</div>
-        <div class="s-prompts" style="margin-top: 8px;">
-          <div class="write-line">What would recommitting mean for you?</div>
-        </div>
-      </div>
+      <div class="fork-side"><div class="stage-num">Stage 4</div><h3><span class="s-emoji">&#127807;</span> Recommitment / Hope</h3><div class="s-desc">Choosing to stay and rebuild with new agreements, shared responsibility, and an openness to change.</div><div class="s-prompts" style="margin-top:8px;"><div class="write-line">What would recommitting mean for you?</div></div></div>
     </div>
   </div>
 
-  <!-- Conscious Stages -->
-  <div class="phase-divider">
-    <span>Conscious Stages</span><hr>
-  </div>
-
+  <div class="phase-divider"><span>Conscious Stages</span><hr></div>
   <div class="journey-grid grid-conscious">
-    <div class="stage-card stage-work">
-      <div class="stage-num">Stage 5</div>
-      <h2><span class="s-emoji">🔧</span> The Work</h2>
-      <div class="s-desc">True psychological and relational growth. Consistent effort, emotional safety, and honest self-reflection. Old patterns may resurface as you rewire.</div>
-      <div class="s-prompts">
-        <p>Reflect</p>
-        <div class="write-line">What relational habits are you actively working on?</div>
-        <div class="write-line">What does intentional love look like to you?</div>
-      </div>
-    </div>
-
-    <div class="stage-card stage-awakening">
-      <div class="stage-num">Stage 6</div>
-      <h2><span class="s-emoji">🌅</span> The Awakening</h2>
-      <div class="s-desc">Co-regulation, emotional integration, and ease. A felt sense of flow where both partners connect past experiences with present understanding.</div>
-      <div class="s-prompts">
-        <p>Reflect</p>
-        <div class="write-line">What feels different now compared to early stages?</div>
-        <div class="write-line">How do you manage emotions together and individually?</div>
-      </div>
-    </div>
-
-    <div class="stage-card stage-mature">
-      <div class="stage-num">Stage 7</div>
-      <h2><span class="s-emoji">💜</span> Mature Love</h2>
-      <div class="s-desc">Love is integrated, secure, and evolving. Conflict is navigated with calm, gratitude is expressed freely, and the relationship becomes a space for ongoing learning.</div>
-      <div class="s-prompts">
-        <p>Reflect</p>
-        <div class="write-line">What does gratitude look like in your relationship?</div>
-        <div class="write-line">What legacy are you building together?</div>
-      </div>
-    </div>
+    <div class="stage-card stage-work"><div class="stage-num">Stage 5</div><h2><span class="s-emoji">&#128295;</span> The Work</h2><div class="s-desc">True psychological and relational growth. Consistent effort, emotional safety, and honest self-reflection. Old patterns may resurface as you rewire.</div><div class="s-prompts"><p>Reflect</p><div class="write-line">What relational habits are you actively working on?</div><div class="write-line">What does intentional love look like to you?</div></div></div>
+    <div class="stage-card stage-awakening"><div class="stage-num">Stage 6</div><h2><span class="s-emoji">&#127749;</span> The Awakening</h2><div class="s-desc">Co-regulation, emotional integration, and ease. A felt sense of flow where both partners connect past experiences with present understanding.</div><div class="s-prompts"><p>Reflect</p><div class="write-line">What feels different now compared to early stages?</div><div class="write-line">How do you manage emotions together and individually?</div></div></div>
+    <div class="stage-card stage-mature"><div class="stage-num">Stage 7</div><h2><span class="s-emoji">&#128156;</span> Mature Love</h2><div class="s-desc">Love is integrated, secure, and evolving. Conflict is navigated with calm, gratitude is expressed freely, and the relationship becomes a space for ongoing learning.</div><div class="s-prompts"><p>Reflect</p><div class="write-line">What does gratitude look like in your relationship?</div><div class="write-line">What legacy are you building together?</div></div></div>
   </div>
 
   <div class="bottom-section">
-    <div class="insight-box">
-      <h3>Your path, your pace</h3>
-      <p>Every relationship follows its own journey. There is no skipping stages, but there is always the possibility of growth. Wherever you are right now is exactly where your journey continues.</p>
-    </div>
+    <div class="insight-box"><h3>Your path, your pace</h3><p>Every relationship follows its own journey. There is no skipping stages, but there is always the possibility of growth. Wherever you are right now is exactly where your journey continues.</p></div>
   </div>
 
-  <div class="footer">
-    <p>
-      Strengths-Based Coaching and Counselling<br>
-      www.coach4u.com.au<br>
-      cath@coach4u.com.au<br>
-      0402 313 337
-    </p>
-  </div>
+  <div class="footer"><p>Strengths-Based Coaching and Counselling<br>www.coach4u.com.au<br>cath@coach4u.com.au<br>0402 313 337</p></div>
 
 </body>
 </html>

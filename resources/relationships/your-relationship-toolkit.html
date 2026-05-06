@@ -3,198 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Relationship Toolkit — Coach4U</title>
+  <title>Your Relationship Toolkit &mdash; Coach4U</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif;
-      background: #FFFFFF;
-      color: #000000;
-      font-size: 11pt;
-      line-height: 1.6;
-      max-width: 1200px;
-      margin: 0 auto;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* --- Header --- */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 48px 0;
-    }
-
+    body { font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif; background: #FFFFFF; color: #000000; font-size: 11pt; line-height: 1.6; max-width: 1200px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 28px 48px 0; }
     .header img { display: block; height: 40px; width: auto; }
-
-    .header-badge {
-      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
-      text-transform: uppercase; color: #003366;
-      background: #E8EEF4; padding: 4px 14px; border-radius: 20px;
-    }
-
+    .header-badge { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #003366; background: #E8EEF4; padding: 4px 14px; border-radius: 20px; }
     .back-link { font-size: 0.8rem; color: #003366; text-decoration: none; font-weight: 600; }
     .back-link:hover { text-decoration: underline; }
-
-    /* --- Title --- */
-    .title-section {
-      text-align: center;
-      padding: 32px 48px 12px;
-    }
-
-    .title-section h1 {
-      font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 8px;
-    }
-
+    .title-section { text-align: center; padding: 32px 48px 12px; }
+    .title-section h1 { font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 8px; }
     .title-section h1 em { font-style: italic; font-weight: 400; }
-
-    .title-section p {
-      font-size: 1.1rem; color: #646464; max-width: 600px; margin: 0 auto;
-    }
-
-    /* --- Cards Grid --- */
-    .toolkit-grid {
-      flex: 1;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-      padding: 24px 48px 32px;
-    }
-
-    .toolkit-card {
-      border-radius: 16px;
-      padding: 28px 28px 24px;
-      text-decoration: none;
-      color: #000000;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-    }
-
-    .toolkit-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0, 51, 102, 0.12);
-    }
-
-    .toolkit-card .card-emoji {
-      font-size: 2.4rem;
-      margin-bottom: 10px;
-    }
-
-    .toolkit-card h2 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #003366;
-      margin-bottom: 8px;
-    }
-
-    .toolkit-card p {
-      font-size: 0.95rem;
-      line-height: 1.5;
-      color: #333;
-      flex: 1;
-    }
-
-    .toolkit-card .card-cta {
-      margin-top: 14px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #003366;
-      letter-spacing: 0.05em;
-    }
-
+    .title-section p { font-size: 1.1rem; color: #646464; max-width: 600px; margin: 0 auto; }
+    .toolkit-grid { flex: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; padding: 24px 48px 32px; }
+    .toolkit-card { border-radius: 16px; padding: 28px 28px 24px; text-decoration: none; color: #000000; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+    .toolkit-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,51,102,0.12); }
+    .toolkit-card .card-emoji { font-size: 2.4rem; margin-bottom: 10px; }
+    .toolkit-card h2 { font-size: 1.25rem; font-weight: 700; color: #003366; margin-bottom: 8px; }
+    .toolkit-card p { font-size: 0.95rem; line-height: 1.5; color: #333; flex: 1; }
+    .toolkit-card .card-cta { margin-top: 14px; font-size: 0.85rem; font-weight: 700; color: #003366; letter-spacing: 0.05em; }
     .card-1 { background: linear-gradient(135deg, #FFF5EB 0%, #FFECD6 100%); border: 2px solid #E8C9A0; }
     .card-2 { background: linear-gradient(135deg, #EBF8EB 0%, #D6F0D6 100%); border: 2px solid #A0D8A0; }
     .card-3 { background: linear-gradient(135deg, #EBF3FF 0%, #D6E5F7 100%); border: 2px solid #A0C4E8; }
     .card-4 { background: linear-gradient(135deg, #FFF0F0 0%, #FFE0E0 100%); border: 2px solid #E8A0A0; }
     .card-5 { background: linear-gradient(135deg, #F8F5FF 0%, #EDE8FF 100%); border: 2px solid #C0B0E8; }
-
-    /* --- Footer --- */
-    .footer {
-      text-align: center;
-      padding: 24px 48px 32px;
-      border-top: 1px solid #E8EEF4;
-    }
-
+    .footer { text-align: center; padding: 24px 48px 32px; border-top: 1px solid #E8EEF4; }
     .footer p { font-size: 9pt; color: #646464; line-height: 1.8; }
-
-    /* --- Mobile --- */
     @media (max-width: 768px) {
-      .header, .title-section, .toolkit-grid, .footer {
-        padding-left: 24px;
-        padding-right: 24px;
-      }
+      .header, .title-section, .toolkit-grid, .footer { padding-left: 24px; padding-right: 24px; }
       .toolkit-grid { grid-template-columns: 1fr; }
     }
   </style>
+  <style>body{visibility:hidden}</style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient('https://eekefsuaefgpqmjdyniy.supabase.co', 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y');
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (!user || userError) {
+      window.location.href = '../../index.html';
+    } else {
+      const { data: profile } = await supabase.from('users').select('membership_status').eq('id', user.id).single();
+      if (!profile || profile.membership_status !== 'active') {
+        window.location.href = '../../inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+        document.getElementById('signOutBtn').addEventListener('click', async () => {
+          await supabase.auth.signOut();
+          window.location.href = '../../index.html';
+        });
+      }
+    }
+  </script>
 </head>
 <body>
 
-  <!-- Header -->
   <div class="header">
     <img src="../../assets/coach4u-logo.jpg" alt="Coach4U">
-    <a href="../../portal.html" class="back-link">&larr; Back to Portal</a>
-    <span class="header-badge">Relationships</span>
+    <a href="../../relationships.html" class="back-link">&larr; Relationships</a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="header-badge">Relationships</span>
+      <button id="signOutBtn" style="font-size:0.75rem;font-weight:600;color:#003366;background:transparent;border:1px solid #003366;border-radius:6px;padding:4px 10px;cursor:pointer;">Sign Out</button>
+    </div>
   </div>
 
-  <!-- Title -->
   <div class="title-section">
     <h1>Your <em>Relationship Toolkit</em></h1>
     <p>Five practical resources to help you understand, strengthen, and grow your relationship together.</p>
   </div>
 
-  <!-- Cards -->
   <div class="toolkit-grid">
-
     <a href="pursuer-avoider-dynamics.html" class="toolkit-card card-1">
-      <div class="card-emoji">🔥🧊</div>
+      <div class="card-emoji">&#128293;&#129398;</div>
       <h2>Pursuer and Avoider Dynamics</h2>
       <p>Understand the dance between reaching out and pulling away. Learn to recognise your pattern and break the cycle together.</p>
       <div class="card-cta">View resource &rarr;</div>
     </a>
-
     <a href="communication-and-imago-dialogue.html" class="toolkit-card card-2">
-      <div class="card-emoji">🪞✅💗</div>
+      <div class="card-emoji">&#129710;&#9989;&#128151;</div>
       <h2>Communication and Imago Dialogue</h2>
       <p>Three steps to truly hear each other: Mirror, Validate, and Empathise. Practical scripts for when emotions are high.</p>
       <div class="card-cta">View resource &rarr;</div>
     </a>
-
     <a href="your-strengths-as-a-couple.html" class="toolkit-card card-3">
-      <div class="card-emoji">🌟💚⭐</div>
+      <div class="card-emoji">&#127775;&#128154;&#11088;</div>
       <h2>Your Strengths as a Couple</h2>
       <p>Discover what each of you brings to the relationship and how to use your strengths intentionally as a team.</p>
       <div class="card-cta">View resource &rarr;</div>
     </a>
-
     <a href="the-4-relationship-killers.html" class="toolkit-card card-4">
-      <div class="card-emoji">⚔️🛡️😤🧱</div>
+      <div class="card-emoji">&#9876;&#65039;&#128737;&#65039;&#128548;&#129521;</div>
       <h2>The 4 Relationship Killers</h2>
       <p>Recognise criticism, defensiveness, contempt, and stonewalling, and learn the antidote that repairs each one.</p>
       <div class="card-cta">View resource &rarr;</div>
     </a>
-
     <a href="growing-together-weekly-check-in.html" class="toolkit-card card-5">
-      <div class="card-emoji">🌱📖</div>
+      <div class="card-emoji">&#127807;&#128214;</div>
       <h2>Growing Together: Weekly Check-In</h2>
       <p>A simple 15-minute ritual to stay connected. Appreciate, check your temperature, and make one request each week.</p>
       <div class="card-cta">View resource &rarr;</div>
     </a>
-
   </div>
 
-  <!-- Footer -->
   <div class="footer">
-    <p>
-      Strengths-Based Coaching and Counselling<br>
-      www.coach4u.com.au<br>
-      cath@coach4u.com.au<br>
-      0402 313 337
-    </p>
+    <p>Strengths-Based Coaching and Counselling<br>www.coach4u.com.au<br>cath@coach4u.com.au<br>0402 313 337</p>
   </div>
 
 </body>

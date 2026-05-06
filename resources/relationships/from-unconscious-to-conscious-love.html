@@ -3,351 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>From Unconscious to Conscious Love — Coach4U</title>
+  <title>From Unconscious to Conscious Love &mdash; Coach4U</title>
   <style>
     @page { size: landscape; margin: 0; }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif;
-      background: #FFFFFF;
-      color: #000000;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* --- Header --- */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 48px 0;
-    }
-
-    .top-bar-brand img {
-      display: block;
-      height: 40px;
-      width: auto;
-    }
-
-    .top-bar-category {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #003366;
-      background: #E8EEF4;
-      padding: 4px 14px;
-      border-radius: 20px;
-    }
-
-    .back-link {
-      font-size: 0.8rem;
-      color: #003366;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
+    body { font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif; background: #FFFFFF; color: #000000; min-height: 100vh; display: flex; flex-direction: column; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 28px 48px 0; }
+    .top-bar-brand img { display: block; height: 40px; width: auto; }
+    .top-bar-category { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #003366; background: #E8EEF4; padding: 4px 14px; border-radius: 20px; }
+    .back-link { font-size: 0.8rem; color: #003366; text-decoration: none; font-weight: 600; }
     .back-link:hover { text-decoration: underline; }
-
-    /* --- Title --- */
-    .title-section {
-      text-align: center;
-      padding: 20px 48px 6px;
-    }
-
-    .title-section h1 {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #003366;
-      margin-bottom: 4px;
-    }
-
-    .title-section .subtitle {
-      font-size: 1rem;
-      color: #646464;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    /* --- Phase Labels --- */
-    .phase-labels {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      padding: 12px 48px 4px;
-      flex-wrap: wrap;
-    }
-
-    .phase-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 4px 16px;
-      border-radius: 20px;
-    }
-
-    .phase-label.unconscious {
-      background: #FDE8E8;
-      color: #993333;
-    }
-
-    .phase-label.fork {
-      background: #FFF3D6;
-      color: #996B00;
-    }
-
-    .phase-label.conscious {
-      background: #E0F0E8;
-      color: #2E6B4A;
-    }
-
-    /* --- Journey Path --- */
-    .journey-container {
-      flex: 1;
-      padding: 8px 32px 12px;
-      overflow-x: auto;
-    }
-
-    .journey-path {
-      display: flex;
-      gap: 14px;
-      min-width: 1100px;
-      align-items: stretch;
-    }
-
-    /* --- Divider --- */
-    .phase-divider {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 0 4px;
-      flex-shrink: 0;
-    }
-
-    .phase-divider .divider-line {
-      width: 2px;
-      flex: 1;
-      background: #CCCCCC;
-      border-radius: 1px;
-    }
-
-    .phase-divider .divider-label {
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #999999;
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      padding: 8px 0;
-    }
-
-    /* --- Stage Card --- */
-    .stage-card {
-      flex: 1;
-      min-width: 150px;
-      border-radius: 14px;
-      padding: 16px 14px 14px;
-      display: flex;
-      flex-direction: column;
-      border: 2px solid transparent;
-      position: relative;
-    }
-
-    .stage-number {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .stage-emoji {
-      font-size: 1.8rem;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .stage-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #003366;
-      margin-bottom: 6px;
-      line-height: 1.2;
-    }
-
-    .stage-overview {
-      font-size: 0.82rem;
-      line-height: 1.45;
-      color: #333333;
-      margin-bottom: auto;
-    }
-
-    .stage-reflection {
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 8px;
-      font-size: 0.78rem;
-      font-style: italic;
-      line-height: 1.4;
-    }
-
-    .stage-reflection .reflection-label {
-      font-style: normal;
-      font-weight: 700;
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    /* --- Unconscious Stages (warm pinks/reds) --- */
-    .stage-1 {
-      background: linear-gradient(135deg, #FFF0F0 0%, #FFE4E4 100%);
-      border-color: #F0C0C0;
-    }
+    .title-section { text-align: center; padding: 20px 48px 6px; }
+    .title-section h1 { font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 4px; }
+    .title-section .subtitle { font-size: 1rem; color: #646464; max-width: 700px; margin: 0 auto; }
+    .phase-labels { display: flex; justify-content: center; gap: 24px; padding: 12px 48px 4px; flex-wrap: wrap; }
+    .phase-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 16px; border-radius: 20px; }
+    .phase-label.unconscious { background: #FDE8E8; color: #993333; }
+    .phase-label.fork { background: #FFF3D6; color: #996B00; }
+    .phase-label.conscious { background: #E0F0E8; color: #2E6B4A; }
+    .journey-container { flex: 1; padding: 8px 32px 12px; overflow-x: auto; }
+    .journey-path { display: flex; gap: 14px; min-width: 1100px; align-items: stretch; }
+    .phase-divider { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 4px; flex-shrink: 0; }
+    .phase-divider .divider-line { width: 2px; flex: 1; background: #CCCCCC; border-radius: 1px; }
+    .phase-divider .divider-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #999999; writing-mode: vertical-rl; text-orientation: mixed; padding: 8px 0; }
+    .stage-card { flex: 1; min-width: 150px; border-radius: 14px; padding: 16px 14px 14px; display: flex; flex-direction: column; border: 2px solid transparent; position: relative; }
+    .stage-number { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+    .stage-emoji { font-size: 1.8rem; line-height: 1; margin-bottom: 6px; }
+    .stage-title { font-size: 1rem; font-weight: 700; color: #003366; margin-bottom: 6px; line-height: 1.2; }
+    .stage-overview { font-size: 0.82rem; line-height: 1.45; color: #333333; margin-bottom: auto; }
+    .stage-reflection { margin-top: 10px; padding: 10px 12px; border-radius: 8px; font-size: 0.78rem; font-style: italic; line-height: 1.4; }
+    .stage-reflection .reflection-label { font-style: normal; font-weight: 700; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+    .stage-1 { background: linear-gradient(135deg, #FFF0F0 0%, #FFE4E4 100%); border-color: #F0C0C0; }
     .stage-1 .stage-number { color: #CC5566; }
-    .stage-1 .stage-reflection {
-      background: rgba(204, 85, 102, 0.1);
-      color: #883344;
-    }
+    .stage-1 .stage-reflection { background: rgba(204,85,102,0.1); color: #883344; }
     .stage-1 .reflection-label { color: #CC5566; }
-
-    .stage-2 {
-      background: linear-gradient(135deg, #FFF2EC 0%, #FFE6D9 100%);
-      border-color: #F0C4AA;
-    }
+    .stage-2 { background: linear-gradient(135deg, #FFF2EC 0%, #FFE6D9 100%); border-color: #F0C4AA; }
     .stage-2 .stage-number { color: #CC6644; }
-    .stage-2 .stage-reflection {
-      background: rgba(204, 102, 68, 0.1);
-      color: #884422;
-    }
+    .stage-2 .stage-reflection { background: rgba(204,102,68,0.1); color: #884422; }
     .stage-2 .reflection-label { color: #CC6644; }
-
-    .stage-3 {
-      background: linear-gradient(135deg, #FFF5EB 0%, #FFECD6 100%);
-      border-color: #E8C9A0;
-    }
+    .stage-3 { background: linear-gradient(135deg, #FFF5EB 0%, #FFECD6 100%); border-color: #E8C9A0; }
     .stage-3 .stage-number { color: #BB7733; }
-    .stage-3 .stage-reflection {
-      background: rgba(187, 119, 51, 0.1);
-      color: #885522;
-    }
+    .stage-3 .stage-reflection { background: rgba(187,119,51,0.1); color: #885522; }
     .stage-3 .reflection-label { color: #BB7733; }
-
-    /* --- Fork Stage (amber) --- */
-    .stage-4 {
-      background: linear-gradient(135deg, #FFFBE6 0%, #FFF3CC 100%);
-      border-color: #E8D480;
-      border-width: 3px;
-    }
+    .stage-4 { background: linear-gradient(135deg, #FFFBE6 0%, #FFF3CC 100%); border-color: #E8D480; border-width: 3px; }
     .stage-4 .stage-number { color: #AA8800; }
-    .stage-4 .stage-reflection {
-      background: rgba(170, 136, 0, 0.1);
-      color: #776600;
-    }
+    .stage-4 .stage-reflection { background: rgba(170,136,0,0.1); color: #776600; }
     .stage-4 .reflection-label { color: #AA8800; }
-
-    /* --- Conscious Stages (greens/blues) --- */
-    .stage-5 {
-      background: linear-gradient(135deg, #ECFAEF 0%, #D6F0DC 100%);
-      border-color: #A0D8B0;
-    }
+    .stage-5 { background: linear-gradient(135deg, #ECFAEF 0%, #D6F0DC 100%); border-color: #A0D8B0; }
     .stage-5 .stage-number { color: #3B8855; }
-    .stage-5 .stage-reflection {
-      background: rgba(59, 136, 85, 0.1);
-      color: #2A6640;
-    }
+    .stage-5 .stage-reflection { background: rgba(59,136,85,0.1); color: #2A6640; }
     .stage-5 .reflection-label { color: #3B8855; }
-
-    .stage-6 {
-      background: linear-gradient(135deg, #EAF4FA 0%, #D4E8F4 100%);
-      border-color: #A0C8E0;
-    }
+    .stage-6 { background: linear-gradient(135deg, #EAF4FA 0%, #D4E8F4 100%); border-color: #A0C8E0; }
     .stage-6 .stage-number { color: #337799; }
-    .stage-6 .stage-reflection {
-      background: rgba(51, 119, 153, 0.1);
-      color: #225566;
-    }
+    .stage-6 .stage-reflection { background: rgba(51,119,153,0.1); color: #225566; }
     .stage-6 .reflection-label { color: #337799; }
-
-    .stage-7 {
-      background: linear-gradient(135deg, #EBF0FA 0%, #D6E2F4 100%);
-      border-color: #A0B8D8;
-    }
+    .stage-7 { background: linear-gradient(135deg, #EBF0FA 0%, #D6E2F4 100%); border-color: #A0B8D8; }
     .stage-7 .stage-number { color: #335599; }
-    .stage-7 .stage-reflection {
-      background: rgba(51, 85, 153, 0.1);
-      color: #334477;
-    }
+    .stage-7 .stage-reflection { background: rgba(51,85,153,0.1); color: #334477; }
     .stage-7 .reflection-label { color: #335599; }
-
-    /* --- Insight Box --- */
-    .insight-box {
-      margin: 12px 48px;
-      background: #003366;
-      color: #FFFFFF;
-      border-radius: 12px;
-      padding: 18px 28px;
-      text-align: center;
-      font-size: 0.92rem;
-      line-height: 1.5;
-    }
-
-    /* --- Footer --- */
-    footer {
-      text-align: center;
-      padding: 16px 48px 20px;
-      font-size: 9pt;
-      color: #646464;
-      line-height: 1.6;
-    }
-
-    /* --- Responsive --- */
+    .insight-box { margin: 12px 48px; background: #003366; color: #FFFFFF; border-radius: 12px; padding: 18px 28px; text-align: center; font-size: 0.92rem; line-height: 1.5; }
+    footer { text-align: center; padding: 16px 48px 20px; font-size: 9pt; color: #646464; line-height: 1.6; }
     @media (max-width: 1100px) {
-      .journey-path {
-        flex-direction: column;
-        min-width: unset;
-        gap: 12px;
-      }
-
-      .phase-divider {
-        flex-direction: row;
-        padding: 4px 0;
-      }
-
-      .phase-divider .divider-line {
-        width: auto;
-        height: 2px;
-        flex: 1;
-      }
-
-      .phase-divider .divider-label {
-        writing-mode: horizontal-tb;
-        padding: 0 12px;
-      }
-
-      .stage-card {
-        min-width: unset;
-      }
-
-      .journey-container {
-        overflow-x: visible;
-        padding: 8px 24px 12px;
-      }
-
+      .journey-path { flex-direction: column; min-width: unset; gap: 12px; }
+      .phase-divider { flex-direction: row; padding: 4px 0; }
+      .phase-divider .divider-line { width: auto; height: 2px; flex: 1; }
+      .phase-divider .divider-label { writing-mode: horizontal-tb; padding: 0 12px; }
+      .stage-card { min-width: unset; }
+      .journey-container { overflow-x: visible; padding: 8px 24px 12px; }
       .top-bar { padding: 20px 24px 0; }
       .title-section { padding: 16px 24px 6px; }
       .insight-box { margin: 12px 24px; }
       footer { padding: 16px 24px 20px; }
     }
-
     @media (max-width: 600px) {
       .title-section h1 { font-size: 1.5rem; }
       .phase-labels { gap: 8px; }
@@ -357,142 +84,111 @@
       footer { padding: 12px 16px 16px; }
     }
   </style>
+  <style>body{visibility:hidden}</style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient('https://eekefsuaefgpqmjdyniy.supabase.co', 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y');
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (!user || userError) {
+      window.location.href = '../../index.html';
+    } else {
+      const { data: profile } = await supabase.from('users').select('membership_status').eq('id', user.id).single();
+      if (!profile || profile.membership_status !== 'active') {
+        window.location.href = '../../inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+        document.getElementById('signOutBtn').addEventListener('click', async () => {
+          await supabase.auth.signOut();
+          window.location.href = '../../index.html';
+        });
+      }
+    }
+  </script>
 </head>
 <body>
 
-  <!-- Header -->
   <div class="top-bar">
     <div class="top-bar-brand">
-      <a href="../../portal.html" class="back-link">&larr; Back to Portal</a>
+      <a href="../../relationships.html" class="back-link">&larr; Relationships</a>
     </div>
     <img src="../../assets/coach4u-logo.jpg" alt="Coach4U" style="height:40px;width:auto;">
-    <span class="top-bar-category">Relationships</span>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="top-bar-category">Relationships</span>
+      <button id="signOutBtn" style="font-size:0.75rem;font-weight:600;color:#003366;background:transparent;border:1px solid #003366;border-radius:6px;padding:4px 10px;cursor:pointer;">Sign Out</button>
+    </div>
   </div>
 
-  <!-- Title -->
   <div class="title-section">
     <h1>From Unconscious to Conscious Love</h1>
     <p class="subtitle">Your relationship journey through seven stages of growth and awareness.</p>
   </div>
 
-  <!-- Phase Labels -->
   <div class="phase-labels">
     <span class="phase-label unconscious">Unconscious (Stages 1-3)</span>
     <span class="phase-label fork">Fork in the Road (Stage 4)</span>
     <span class="phase-label conscious">Conscious (Stages 5-7)</span>
   </div>
 
-  <!-- Journey Path -->
   <div class="journey-container">
     <div class="journey-path">
-
-      <!-- Stage 1 -->
       <div class="stage-card stage-1">
         <span class="stage-number">Stage 1</span>
-        <span class="stage-emoji">💕</span>
+        <span class="stage-emoji">&#128149;</span>
         <div class="stage-title">The Honeymoon</div>
         <p class="stage-overview">A chemistry-driven phase fuelled by attraction and familiarity. Often idealised, this stage can feel magical but lacks deep knowledge or conscious intention.</p>
-        <div class="stage-reflection">
-          <span class="reflection-label">Reflect</span>
-          What initially drew you to each other? Are there idealised beliefs you now see differently?
-        </div>
+        <div class="stage-reflection"><span class="reflection-label">Reflect</span>What initially drew you to each other? Are there idealised beliefs you now see differently?</div>
       </div>
-
-      <!-- Stage 2 -->
       <div class="stage-card stage-2">
         <span class="stage-number">Stage 2</span>
-        <span class="stage-emoji">🤝</span>
+        <span class="stage-emoji">&#129309;</span>
         <div class="stage-title">The Commitment</div>
-        <p class="stage-overview">Often emerges 6-18 months in. A shift from passion to partnership. Can bring up expectations and early disappointments.</p>
-        <div class="stage-reflection">
-          <span class="reflection-label">Reflect</span>
-          What expectations did you bring into the relationship? How do you each define commitment?
-        </div>
+        <p class="stage-overview">Often emerges 6&ndash;18 months in. A shift from passion to partnership. Can bring up expectations and early disappointments.</p>
+        <div class="stage-reflection"><span class="reflection-label">Reflect</span>What expectations did you bring into the relationship? How do you each define commitment?</div>
       </div>
-
-      <!-- Stage 3 -->
       <div class="stage-card stage-3">
         <span class="stage-number">Stage 3</span>
-        <span class="stage-emoji">⚡</span>
+        <span class="stage-emoji">&#9889;</span>
         <div class="stage-title">The Power Struggle</div>
         <p class="stage-overview">Marked by conflict, unmet needs, and differentiation. Often triggered by deeper attachment wounds.</p>
-        <div class="stage-reflection">
-          <span class="reflection-label">Reflect</span>
-          What patterns tend to repeat during conflict? What might your partner be protecting when they react?
-        </div>
+        <div class="stage-reflection"><span class="reflection-label">Reflect</span>What patterns tend to repeat during conflict? What might your partner be protecting when they react?</div>
       </div>
-
-      <!-- Divider: Unconscious → Fork -->
-      <div class="phase-divider">
-        <div class="divider-line"></div>
-        <span class="divider-label">Turning Point</span>
-        <div class="divider-line"></div>
-      </div>
-
-      <!-- Stage 4 -->
+      <div class="phase-divider"><div class="divider-line"></div><span class="divider-label">Turning Point</span><div class="divider-line"></div></div>
       <div class="stage-card stage-4">
         <span class="stage-number">Stage 4</span>
-        <span class="stage-emoji">🔀</span>
+        <span class="stage-emoji">&#128256;</span>
         <div class="stage-title">The Crisis (Fork in the Road)</div>
         <p class="stage-overview">A major turning point. Two paths: Despair/Exit (turning away, distractions, disconnection) or Recommitment/Hope (choosing to stay and rebuild with new agreements).</p>
-        <div class="stage-reflection">
-          <span class="reflection-label">Reflect</span>
-          Have you faced a turning point? How did you respond? Are there "exits" that show up?
-        </div>
+        <div class="stage-reflection"><span class="reflection-label">Reflect</span>Have you faced a turning point? How did you respond? Are there &ldquo;exits&rdquo; that show up?</div>
       </div>
-
-      <!-- Divider: Fork → Conscious -->
-      <div class="phase-divider">
-        <div class="divider-line"></div>
-        <span class="divider-label">Growth Begins</span>
-        <div class="divider-line"></div>
-      </div>
-
-      <!-- Stage 5 -->
+      <div class="phase-divider"><div class="divider-line"></div><span class="divider-label">Growth Begins</span><div class="divider-line"></div></div>
       <div class="stage-card stage-5">
         <span class="stage-number">Stage 5</span>
-        <span class="stage-emoji">🌱</span>
+        <span class="stage-emoji">&#127807;</span>
         <div class="stage-title">The Work</div>
         <p class="stage-overview">True psychological and relational growth happens here. Consistent effort, emotional safety, and honest self-reflection. Patterns from the past may reappear as partners work to rewire and reconnect.</p>
-        <div class="stage-reflection">
-          <span class="reflection-label">Reflect</span>
-          What relational habits are you actively working on? What does intentional love look like to you?
-        </div>
+        <div class="stage-reflection"><span class="reflection-label">Reflect</span>What relational habits are you actively working on? What does intentional love look like to you?</div>
       </div>
-
-      <!-- Stage 6 -->
       <div class="stage-card stage-6">
         <span class="stage-number">Stage 6</span>
-        <span class="stage-emoji">🌊</span>
+        <span class="stage-emoji">&#127754;</span>
         <div class="stage-title">The Awakening</div>
         <p class="stage-overview">Co-regulation, emotional integration, and ease. A felt sense of flow where both partners can connect past experiences with present understanding. Emotional skills used with increasing consistency.</p>
-        <div class="stage-reflection">
-          <span class="reflection-label">Reflect</span>
-          What feels different now compared to early stages? How do you manage emotions together and individually?
-        </div>
+        <div class="stage-reflection"><span class="reflection-label">Reflect</span>What feels different now compared to early stages? How do you manage emotions together and individually?</div>
       </div>
-
-      <!-- Stage 7 -->
       <div class="stage-card stage-7">
         <span class="stage-number">Stage 7</span>
-        <span class="stage-emoji">🌟</span>
+        <span class="stage-emoji">&#127775;</span>
         <div class="stage-title">Mature Love</div>
         <p class="stage-overview">Love is integrated, secure, and evolving. Conflict is navigated with calm, gratitude is expressed freely, and the relationship becomes a space for ongoing learning, support, and shared legacy.</p>
-        <div class="stage-reflection">
-          <span class="reflection-label">Reflect</span>
-          What does gratitude look like in your relationship? What legacy are you building together?
-        </div>
+        <div class="stage-reflection"><span class="reflection-label">Reflect</span>What does gratitude look like in your relationship? What legacy are you building together?</div>
       </div>
-
     </div>
   </div>
 
-  <!-- Insight Box -->
   <div class="insight-box">
     Every relationship follows its own path and pace. There is no skipping stages, but there is always the possibility of growth. Wherever you are right now is exactly where your journey continues.
   </div>
 
-  <!-- Footer -->
   <footer>
     Strengths-Based Coaching and Counselling<br>
     www.coach4u.com.au<br>

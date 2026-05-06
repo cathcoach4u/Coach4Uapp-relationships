@@ -3,265 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daily Connection Rituals — Coach4U</title>
+  <title>Daily Connection Rituals &mdash; Coach4U</title>
   <style>
     @page { size: landscape; margin: 0; }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif;
-      background: #FFFFFF;
-      color: #000000;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* --- Header Bar --- */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 48px 0;
-    }
-
-    .top-bar-brand img {
-      display: block;
-      height: 40px;
-      width: auto;
-    }
-
+    body { font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif; background: #FFFFFF; color: #000000; min-height: 100vh; display: flex; flex-direction: column; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 28px 48px 0; }
+    .top-bar-brand img { display: block; height: 40px; width: auto; }
     .back-link { font-size: 0.8rem; color: #003366; text-decoration: none; font-weight: 600; }
     .back-link:hover { text-decoration: underline; }
-
-    .top-bar-category {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #003366;
-      background: #E8EEF4;
-      padding: 4px 14px;
-      border-radius: 20px;
-    }
-
-    /* --- Title Section --- */
-    .title-section {
-      text-align: center;
-      padding: 20px 48px 8px;
-    }
-
-    .title-section h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: #003366;
-      margin-bottom: 6px;
-    }
-
-    .title-section h1 em {
-      font-style: italic;
-      color: #4A6FA5;
-    }
-
-    .title-section p {
-      font-size: 1rem;
-      color: #646464;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* --- Wave Container --- */
-    .wave-container {
-      flex: 1;
-      position: relative;
-      padding: 0 48px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-height: 500px;
-    }
-
-    /* SVG Wave */
-    .wave-bg {
-      position: absolute;
-      left: 48px;
-      right: 48px;
-      top: 50%;
-      transform: translateY(-30%);
-      height: 120px;
-      z-index: 0;
-    }
-
-    /* --- Rituals Row --- */
-    .rituals-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      position: relative;
-      z-index: 1;
-      gap: 20px;
-    }
-
-    /* --- Single Ritual --- */
-    .ritual-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      max-width: 220px;
-    }
-
-    /* Offset items to follow wave */
+    .top-bar-category { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #003366; background: #E8EEF4; padding: 4px 14px; border-radius: 20px; }
+    .title-section { text-align: center; padding: 20px 48px 8px; }
+    .title-section h1 { font-size: 2.2rem; font-weight: 700; color: #003366; margin-bottom: 6px; }
+    .title-section h1 em { font-style: italic; color: #4A6FA5; }
+    .title-section p { font-size: 1rem; color: #646464; max-width: 600px; margin: 0 auto; }
+    .wave-container { flex: 1; position: relative; padding: 0 48px; display: flex; flex-direction: column; justify-content: center; min-height: 500px; }
+    .wave-bg { position: absolute; left: 48px; right: 48px; top: 50%; transform: translateY(-30%); height: 120px; z-index: 0; }
+    .rituals-row { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; gap: 20px; }
+    .ritual-item { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 220px; }
     .ritual-item:nth-child(1) { margin-top: 20px; }
     .ritual-item:nth-child(2) { margin-top: 60px; }
     .ritual-item:nth-child(3) { margin-top: 80px; }
     .ritual-item:nth-child(4) { margin-top: 50px; }
     .ritual-item:nth-child(5) { margin-top: 10px; }
-
-    /* Emoji */
-    .ritual-emoji {
-      font-size: 3rem;
-      line-height: 1;
-      margin-bottom: 8px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-    }
-
-    /* Time Badge */
-    .time-badge {
-      display: inline-block;
-      padding: 3px 12px;
-      border-radius: 20px;
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .badge-morning   { background: #FFF3E0; color: #E65100; }
+    .ritual-emoji { font-size: 3rem; line-height: 1; margin-bottom: 8px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+    .time-badge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+    .badge-morning { background: #FFF3E0; color: #E65100; }
     .badge-departure { background: #FFF8E1; color: #F57F17; }
-    .badge-midday    { background: #E3F2FD; color: #1565C0; }
-    .badge-evening   { background: #FBE9E7; color: #BF360C; }
-    .badge-night     { background: #E8EAF6; color: #1A237E; }
-
-    /* Ritual Name */
-    .ritual-name {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #003366;
-      margin-bottom: 10px;
-      line-height: 1.2;
-    }
-
-    /* What To Do Box */
-    .what-to-do {
-      background: #FFF8F0;
-      border: 1px solid #FFE0B2;
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin-bottom: 10px;
-      width: 100%;
-    }
-
-    .what-to-do-label {
-      font-size: 0.55rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #E65100;
-      margin-bottom: 4px;
-    }
-
-    .what-to-do p {
-      font-size: 0.8rem;
-      line-height: 1.45;
-      color: #333333;
-    }
-
-    /* Signal Box */
-    .signal-box {
-      background: #003366;
-      border-radius: 10px;
-      padding: 12px 14px;
-      width: 100%;
-    }
-
-    .signal-box-label {
-      font-size: 0.55rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 4px;
-    }
-
-    .signal-box p {
-      font-size: 0.85rem;
-      font-weight: 600;
-      font-style: italic;
-      line-height: 1.35;
-      color: #FFFFFF;
-    }
-
-    /* --- Footer --- */
-    .doc-footer {
-      text-align: center;
-      padding: 20px 48px 24px;
-      color: #646464;
-      font-size: 0.8rem;
-    }
-
-    .doc-footer a {
-      color: #003366;
-      text-decoration: none;
-    }
-
+    .badge-midday { background: #E3F2FD; color: #1565C0; }
+    .badge-evening { background: #FBE9E7; color: #BF360C; }
+    .badge-night { background: #E8EAF6; color: #1A237E; }
+    .ritual-name { font-size: 1rem; font-weight: 700; color: #003366; margin-bottom: 10px; line-height: 1.2; }
+    .what-to-do { background: #FFF8F0; border: 1px solid #FFE0B2; border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; width: 100%; }
+    .what-to-do-label { font-size: 0.55rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #E65100; margin-bottom: 4px; }
+    .what-to-do p { font-size: 0.8rem; line-height: 1.45; color: #333333; }
+    .signal-box { background: #003366; border-radius: 10px; padding: 12px 14px; width: 100%; }
+    .signal-box-label { font-size: 0.55rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+    .signal-box p { font-size: 0.85rem; font-weight: 600; font-style: italic; line-height: 1.35; color: #FFFFFF; }
+    .doc-footer { text-align: center; padding: 20px 48px 24px; color: #646464; font-size: 0.8rem; }
+    .doc-footer a { color: #003366; text-decoration: none; }
     .doc-footer a:hover { text-decoration: underline; }
-
-    /* --- Print --- */
-    @media print {
-      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      .wave-container { min-height: auto; }
-    }
-
-    /* --- Mobile fallback --- */
+    @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } .wave-container { min-height: auto; } }
     @media (max-width: 900px) {
-      .rituals-row {
-        flex-direction: column;
-        align-items: center;
-      }
-      .ritual-item {
-        margin-top: 0 !important;
-        max-width: 400px;
-        margin-bottom: 24px;
-      }
+      .rituals-row { flex-direction: column; align-items: center; }
+      .ritual-item { margin-top: 0 !important; max-width: 400px; margin-bottom: 24px; }
       .wave-bg { display: none; }
       .wave-container { min-height: auto; padding: 24px; }
       .top-bar, .title-section { padding-left: 24px; padding-right: 24px; }
     }
   </style>
+  <style>body{visibility:hidden}</style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient('https://eekefsuaefgpqmjdyniy.supabase.co', 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y');
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (!user || userError) {
+      window.location.href = '../../index.html';
+    } else {
+      const { data: profile } = await supabase.from('users').select('membership_status').eq('id', user.id).single();
+      if (!profile || profile.membership_status !== 'active') {
+        window.location.href = '../../inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+        document.getElementById('signOutBtn').addEventListener('click', async () => {
+          await supabase.auth.signOut();
+          window.location.href = '../../index.html';
+        });
+      }
+    }
+  </script>
 </head>
 <body>
 
-  <!-- Top Bar -->
   <div class="top-bar">
     <div class="top-bar-brand"><img src="../../assets/coach4u-logo.jpg" alt="Coach4U"></div>
-    <a href="../../portal.html" class="back-link">&larr; Back to Portal</a>
-    <div class="top-bar-category">Relationships</div>
+    <a href="../../relationships.html" class="back-link">&larr; Relationships</a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="top-bar-category">Relationships</div>
+      <button id="signOutBtn" style="font-size:0.75rem;font-weight:600;color:#003366;background:transparent;border:1px solid #003366;border-radius:6px;padding:4px 10px;cursor:pointer;">Sign Out</button>
+    </div>
   </div>
 
-  <!-- Title -->
   <div class="title-section">
     <h1>Daily <em>Connection Rituals</em></h1>
     <p>Five moments across your day to build safety, presence, and connection with your partner.</p>
   </div>
 
-  <!-- Wave + Rituals -->
   <div class="wave-container">
-
-    <!-- Wave SVG -->
     <svg class="wave-bg" viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -275,89 +103,45 @@
       <path d="M0,60 C100,20 200,90 350,50 C500,10 550,80 700,70 C850,60 900,20 1050,50 C1150,70 1200,40 1200,40 L1200,120 L0,120 Z" fill="url(#waveGrad)" />
       <path d="M0,60 C100,20 200,90 350,50 C500,10 550,80 700,70 C850,60 900,20 1050,50 C1150,70 1200,40 1200,40" fill="none" stroke="url(#waveGrad)" stroke-width="3" opacity="0.6" />
     </svg>
-
-    <!-- Rituals -->
     <div class="rituals-row">
-
-      <!-- 1. Waking Up -->
       <div class="ritual-item">
-        <div class="ritual-emoji">🌅</div>
+        <div class="ritual-emoji">&#127749;</div>
         <span class="time-badge badge-morning">Morning</span>
         <div class="ritual-name">Waking Up</div>
-        <div class="what-to-do">
-          <div class="what-to-do-label">What to do</div>
-          <p>Before the day begins, make gentle eye contact or reach out with a touch. Let your partner know they are seen.</p>
-        </div>
-        <div class="signal-box">
-          <div class="signal-box-label">Say this</div>
-          <p>"Good morning, I'm glad you're here."</p>
-        </div>
+        <div class="what-to-do"><div class="what-to-do-label">What to do</div><p>Before the day begins, make gentle eye contact or reach out with a touch. Let your partner know they are seen.</p></div>
+        <div class="signal-box"><div class="signal-box-label">Say this</div><p>&ldquo;Good morning, I&rsquo;m glad you&rsquo;re here.&rdquo;</p></div>
       </div>
-
-      <!-- 2. Leaving -->
       <div class="ritual-item">
-        <div class="ritual-emoji">🚪</div>
+        <div class="ritual-emoji">&#128682;</div>
         <span class="time-badge badge-departure">Departure</span>
         <div class="ritual-name">Leaving / Parting</div>
-        <div class="what-to-do">
-          <div class="what-to-do-label">What to do</div>
-          <p>Pause before you go. A meaningful goodbye builds a bridge until you are together again.</p>
-        </div>
-        <div class="signal-box">
-          <div class="signal-box-label">Say this</div>
-          <p>"I'll be back at 6. I'm thinking of you."</p>
-        </div>
+        <div class="what-to-do"><div class="what-to-do-label">What to do</div><p>Pause before you go. A meaningful goodbye builds a bridge until you are together again.</p></div>
+        <div class="signal-box"><div class="signal-box-label">Say this</div><p>&ldquo;I&rsquo;ll be back at 6. I&rsquo;m thinking of you.&rdquo;</p></div>
       </div>
-
-      <!-- 3. Sharing Food -->
       <div class="ritual-item">
-        <div class="ritual-emoji">🍽️</div>
+        <div class="ritual-emoji">&#127869;&#65039;</div>
         <span class="time-badge badge-midday">Midday</span>
         <div class="ritual-name">Sharing Food</div>
-        <div class="what-to-do">
-          <div class="what-to-do-label">What to do</div>
-          <p>Put the screens away. Be curious about each other without problem-solving. Let silence feel safe.</p>
-        </div>
-        <div class="signal-box">
-          <div class="signal-box-label">Say this</div>
-          <p>"Tell me one thing about your day."</p>
-        </div>
+        <div class="what-to-do"><div class="what-to-do-label">What to do</div><p>Put the screens away. Be curious about each other without problem-solving. Let silence feel safe.</p></div>
+        <div class="signal-box"><div class="signal-box-label">Say this</div><p>&ldquo;Tell me one thing about your day.&rdquo;</p></div>
       </div>
-
-      <!-- 4. Arriving -->
       <div class="ritual-item">
-        <div class="ritual-emoji">🏠</div>
+        <div class="ritual-emoji">&#127968;</div>
         <span class="time-badge badge-evening">Evening</span>
         <div class="ritual-name">Arriving / Reuniting</div>
-        <div class="what-to-do">
-          <div class="what-to-do-label">What to do</div>
-          <p>Stop what you are doing. Greet your partner at the door. A warm, unhurried hug says "you matter more than tasks."</p>
-        </div>
-        <div class="signal-box">
-          <div class="signal-box-label">Say this</div>
-          <p>"Welcome home. I'm glad you're here."</p>
-        </div>
+        <div class="what-to-do"><div class="what-to-do-label">What to do</div><p>Stop what you are doing. Greet your partner at the door. A warm, unhurried hug says &ldquo;you matter more than tasks.&rdquo;</p></div>
+        <div class="signal-box"><div class="signal-box-label">Say this</div><p>&ldquo;Welcome home. I&rsquo;m glad you&rsquo;re here.&rdquo;</p></div>
       </div>
-
-      <!-- 5. Going to Sleep -->
       <div class="ritual-item">
-        <div class="ritual-emoji">🌙</div>
+        <div class="ritual-emoji">&#127769;</div>
         <span class="time-badge badge-night">Night</span>
         <div class="ritual-name">Going to Sleep</div>
-        <div class="what-to-do">
-          <div class="what-to-do-label">What to do</div>
-          <p>Keep the bedroom phone-free and argument-free. Close the day with cuddles and appreciation.</p>
-        </div>
-        <div class="signal-box">
-          <div class="signal-box-label">Say this</div>
-          <p>"We are okay."</p>
-        </div>
+        <div class="what-to-do"><div class="what-to-do-label">What to do</div><p>Keep the bedroom phone-free and argument-free. Close the day with cuddles and appreciation.</p></div>
+        <div class="signal-box"><div class="signal-box-label">Say this</div><p>&ldquo;We are okay.&rdquo;</p></div>
       </div>
-
     </div>
   </div>
 
-  <!-- Footer -->
   <div class="doc-footer">
     Strengths-Based Coaching and Counselling &middot;
     <a href="https://www.coach4u.com.au">www.coach4u.com.au</a> &middot;

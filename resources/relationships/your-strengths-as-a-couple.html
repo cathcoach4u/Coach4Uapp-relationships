@@ -3,358 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Strengths as a Couple — Coach4U</title>
+  <title>Your Strengths as a Couple &mdash; Coach4U</title>
   <style>
     @page { size: landscape; margin: 0; }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif;
-      background: #FFFFFF;
-      color: #000000;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* --- Header --- */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 48px 0;
-    }
-
+    body { font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif; background: #FFFFFF; color: #000000; min-height: 100vh; display: flex; flex-direction: column; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 28px 48px 0; }
     .top-bar-brand img { display: block; height: 40px; width: auto; }
-
-    .top-bar-category {
-      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
-      text-transform: uppercase; color: #003366;
-      background: #E8EEF4; padding: 4px 14px; border-radius: 20px;
-    }
-
+    .top-bar-category { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #003366; background: #E8EEF4; padding: 4px 14px; border-radius: 20px; }
     .back-link { font-size: 0.8rem; color: #003366; text-decoration: none; font-weight: 600; }
     .back-link:hover { text-decoration: underline; }
-
-    /* --- Title --- */
-    .title-section {
-      text-align: center;
-      padding: 24px 48px 8px;
-    }
-
-    .title-section h1 {
-      font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 6px;
-    }
-
+    .title-section { text-align: center; padding: 24px 48px 8px; }
+    .title-section h1 { font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 6px; }
     .title-section h1 em { font-style: italic; font-weight: 400; }
-
-    .title-section p {
-      font-size: 1rem; color: #646464; max-width: 700px; margin: 0 auto;
-    }
-
-    /* --- Main 3-column Layout --- */
-    .strengths-layout {
-      flex: 1;
-      display: flex;
-      gap: 24px;
-      padding: 20px 48px 12px;
-      align-items: stretch;
-    }
-
-    /* --- Column Cards --- */
-    .strength-column {
-      flex: 1;
-      border-radius: 16px;
-      padding: 24px 24px 20px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .strength-column.partner-a {
-      background: linear-gradient(135deg, #FFF5EB 0%, #FFECD6 100%);
-      border: 2px solid #E8C9A0;
-    }
-
-    .strength-column.together {
-      background: linear-gradient(135deg, #EBF8EB 0%, #D6F0D6 100%);
-      border: 2px solid #A0D8A0;
-    }
-
-    .strength-column.partner-b {
-      background: linear-gradient(135deg, #EBF3FF 0%, #D6E5F7 100%);
-      border: 2px solid #A0C4E8;
-    }
-
-    .col-header {
-      text-align: center;
-      margin-bottom: 16px;
-    }
-
-    .col-emoji {
-      font-size: 2.4rem;
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .col-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: #003366;
-    }
-
-    .col-subtitle {
-      font-size: 0.82rem;
-      color: #646464;
-      font-style: italic;
-    }
-
-    /* --- Prompt Cards --- */
-    .prompt-card {
-      background: #FFFFFF;
-      border-radius: 10px;
-      padding: 14px 16px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-
-    .prompt-card h3 {
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .partner-a .prompt-card h3 { color: #996633; }
-    .together .prompt-card h3 { color: #4A8A4A; }
-    .partner-b .prompt-card h3 { color: #336699; }
-
-    .prompt-card p {
-      font-size: 0.92rem;
-      line-height: 1.45;
-    }
-
-    .write-line {
-      border-bottom: 1px dashed #C0C0C0;
-      height: 28px;
-      margin: 6px 0;
-    }
-
-    /* --- In Action Section --- */
-    .in-action {
-      margin-top: auto;
-      padding-top: 12px;
-    }
-
-    .in-action-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .partner-a .in-action-label { color: #996633; }
-    .together .in-action-label { color: #4A8A4A; }
-    .partner-b .in-action-label { color: #336699; }
-
-    .in-action p {
-      font-size: 0.88rem;
-      font-style: italic;
-      color: #333;
-      line-height: 1.4;
-    }
-
-    /* --- Bottom Insight --- */
-    .bottom-insight {
-      display: flex;
-      gap: 16px;
-      padding: 8px 48px 12px;
-      justify-content: center;
-    }
-
-    .insight-card {
-      background: #003366;
-      color: #FFFFFF;
-      border-radius: 12px;
-      padding: 14px 24px;
-      text-align: center;
-      max-width: 500px;
-    }
-
-    .insight-card h3 {
-      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #FFD700; margin-bottom: 6px;
-    }
-
-    .insight-card p {
-      font-size: 0.92rem; color: #E0E8F0; line-height: 1.5;
-    }
-
-    .appreciation-card {
-      background: #FFF8F0;
-      border: 2px solid #E8C9A0;
-      border-radius: 12px;
-      padding: 14px 24px;
-      max-width: 500px;
-    }
-
-    .appreciation-card h3 {
-      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #996633; margin-bottom: 6px;
-      text-align: center;
-    }
-
-    .appreciation-card ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .appreciation-card li {
-      font-size: 0.88rem;
-      padding: 4px 0;
-      padding-left: 18px;
-      position: relative;
-      font-style: italic;
-      color: #333;
-    }
-
-    .appreciation-card li::before {
-      content: '"';
-      position: absolute;
-      left: 0;
-      color: #996633;
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
-
-    /* --- Footer --- */
-    .footer {
-      text-align: center;
-      padding: 8px 48px 20px;
-    }
-
+    .title-section p { font-size: 1rem; color: #646464; max-width: 700px; margin: 0 auto; }
+    .strengths-layout { flex: 1; display: flex; gap: 24px; padding: 20px 48px 12px; align-items: stretch; }
+    .strength-column { flex: 1; border-radius: 16px; padding: 24px 24px 20px; display: flex; flex-direction: column; }
+    .strength-column.partner-a { background: linear-gradient(135deg, #FFF5EB 0%, #FFECD6 100%); border: 2px solid #E8C9A0; }
+    .strength-column.together { background: linear-gradient(135deg, #EBF8EB 0%, #D6F0D6 100%); border: 2px solid #A0D8A0; }
+    .strength-column.partner-b { background: linear-gradient(135deg, #EBF3FF 0%, #D6E5F7 100%); border: 2px solid #A0C4E8; }
+    .col-header { text-align: center; margin-bottom: 16px; }
+    .col-emoji { font-size: 2.4rem; display: block; margin-bottom: 6px; }
+    .col-title { font-size: 1.2rem; font-weight: 700; color: #003366; }
+    .col-subtitle { font-size: 0.82rem; color: #646464; font-style: italic; }
+    .prompt-card { background: #FFFFFF; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+    .prompt-card h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+    .partner-a .prompt-card h3 { color: #996633; } .together .prompt-card h3 { color: #4A8A4A; } .partner-b .prompt-card h3 { color: #336699; }
+    .prompt-card p { font-size: 0.92rem; line-height: 1.45; }
+    .write-line { border-bottom: 1px dashed #C0C0C0; height: 28px; margin: 6px 0; }
+    .in-action { margin-top: auto; padding-top: 12px; }
+    .in-action-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+    .partner-a .in-action-label { color: #996633; } .together .in-action-label { color: #4A8A4A; } .partner-b .in-action-label { color: #336699; }
+    .in-action p { font-size: 0.88rem; font-style: italic; color: #333; line-height: 1.4; }
+    .bottom-insight { display: flex; gap: 16px; padding: 8px 48px 12px; justify-content: center; }
+    .insight-card { background: #003366; color: #FFFFFF; border-radius: 12px; padding: 14px 24px; text-align: center; max-width: 500px; }
+    .insight-card h3 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #FFD700; margin-bottom: 6px; }
+    .insight-card p { font-size: 0.92rem; color: #E0E8F0; line-height: 1.5; }
+    .appreciation-card { background: #FFF8F0; border: 2px solid #E8C9A0; border-radius: 12px; padding: 14px 24px; max-width: 500px; }
+    .appreciation-card h3 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #996633; margin-bottom: 6px; text-align: center; }
+    .appreciation-card ul { list-style: none; padding: 0; }
+    .appreciation-card li { font-size: 0.88rem; padding: 4px 0; padding-left: 18px; position: relative; font-style: italic; color: #333; }
+    .appreciation-card li::before { content: '"'; position: absolute; left: 0; color: #996633; font-weight: 700; font-size: 1.1rem; }
+    .footer { text-align: center; padding: 8px 48px 20px; }
     .footer p { font-size: 9pt; color: #646464; line-height: 1.8; }
-
-    /* --- Print --- */
-    @media print {
-      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    }
-
-    /* --- Mobile --- */
+    @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
     @media (max-width: 900px) {
       .strengths-layout { flex-direction: column; padding: 16px 24px; }
       .bottom-insight { flex-direction: column; align-items: center; padding: 8px 24px; }
       .top-bar, .title-section, .footer { padding-left: 24px; padding-right: 24px; }
     }
   </style>
+  <style>body{visibility:hidden}</style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient('https://eekefsuaefgpqmjdyniy.supabase.co', 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y');
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (!user || userError) {
+      window.location.href = '../../index.html';
+    } else {
+      const { data: profile } = await supabase.from('users').select('membership_status').eq('id', user.id).single();
+      if (!profile || profile.membership_status !== 'active') {
+        window.location.href = '../../inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+        document.getElementById('signOutBtn').addEventListener('click', async () => {
+          await supabase.auth.signOut();
+          window.location.href = '../../index.html';
+        });
+      }
+    }
+  </script>
 </head>
 <body>
 
-  <!-- Header -->
   <div class="top-bar">
     <div class="top-bar-brand"><img src="../../assets/coach4u-logo.jpg" alt="Coach4U"></div>
-    <a href="your-relationship-toolkit.html" class="back-link">&larr; Back to Toolkit</a>
-    <div class="top-bar-category">Relationships</div>
+    <a href="../../relationships.html" class="back-link">&larr; Relationships</a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="top-bar-category">Relationships</div>
+      <button id="signOutBtn" style="font-size:0.75rem;font-weight:600;color:#003366;background:transparent;border:1px solid #003366;border-radius:6px;padding:4px 10px;cursor:pointer;">Sign Out</button>
+    </div>
   </div>
 
-  <!-- Title -->
   <div class="title-section">
     <h1>Your <em>Strengths as a Couple</em></h1>
     <p>What you focus on grows. When you notice strengths, you create more of them.</p>
   </div>
 
-  <!-- Three Columns -->
   <div class="strengths-layout">
-
-    <!-- Partner A -->
     <div class="strength-column partner-a">
-      <div class="col-header">
-        <span class="col-emoji">🌟</span>
-        <div class="col-title">My Strengths</div>
-        <div class="col-subtitle">What I bring to this relationship</div>
-      </div>
-
-      <div class="prompt-card">
-        <h3>Reflect</h3>
-        <p>What do I do well in this relationship?</p>
-        <div class="write-line"></div>
-        <div class="write-line"></div>
-      </div>
-
-      <div class="prompt-card">
-        <h3>Discover</h3>
-        <p>What strengths do others notice in me? (e.g. patience, humour, loyalty, empathy, directness)</p>
-        <div class="write-line"></div>
-        <div class="write-line"></div>
-      </div>
-
-      <div class="in-action">
-        <div class="in-action-label">Use it this week</div>
-        <p>If your strength is patience, take the lead in slowing things down during a tense moment.</p>
-      </div>
+      <div class="col-header"><span class="col-emoji">&#127775;</span><div class="col-title">My Strengths</div><div class="col-subtitle">What I bring to this relationship</div></div>
+      <div class="prompt-card"><h3>Reflect</h3><p>What do I do well in this relationship?</p><div class="write-line"></div><div class="write-line"></div></div>
+      <div class="prompt-card"><h3>Discover</h3><p>What strengths do others notice in me? (e.g. patience, humour, loyalty, empathy, directness)</p><div class="write-line"></div><div class="write-line"></div></div>
+      <div class="in-action"><div class="in-action-label">Use it this week</div><p>If your strength is patience, take the lead in slowing things down during a tense moment.</p></div>
     </div>
-
-    <!-- Together -->
     <div class="strength-column together">
-      <div class="col-header">
-        <span class="col-emoji">💚</span>
-        <div class="col-title">Our Strengths</div>
-        <div class="col-subtitle">What we are strong at together</div>
-      </div>
-
-      <div class="prompt-card">
-        <h3>Reflect</h3>
-        <p>What do we handle well as a team?</p>
-        <div class="write-line"></div>
-        <div class="write-line"></div>
-      </div>
-
-      <div class="prompt-card">
-        <h3>Discover</h3>
-        <p>When have we been at our best together? What made that possible?</p>
-        <div class="write-line"></div>
-        <div class="write-line"></div>
-      </div>
-
-      <div class="in-action">
-        <div class="in-action-label">Use it this week</div>
-        <p>Divide a task this week based on who is naturally better at it. Play to your strengths as a team.</p>
-      </div>
+      <div class="col-header"><span class="col-emoji">&#128154;</span><div class="col-title">Our Strengths</div><div class="col-subtitle">What we are strong at together</div></div>
+      <div class="prompt-card"><h3>Reflect</h3><p>What do we handle well as a team?</p><div class="write-line"></div><div class="write-line"></div></div>
+      <div class="prompt-card"><h3>Discover</h3><p>When have we been at our best together? What made that possible?</p><div class="write-line"></div><div class="write-line"></div></div>
+      <div class="in-action"><div class="in-action-label">Use it this week</div><p>Divide a task this week based on who is naturally better at it. Play to your strengths as a team.</p></div>
     </div>
-
-    <!-- Partner B -->
     <div class="strength-column partner-b">
-      <div class="col-header">
-        <span class="col-emoji">⭐</span>
-        <div class="col-title">Partner's Strengths</div>
-        <div class="col-subtitle">What I see and value in you</div>
-      </div>
-
-      <div class="prompt-card">
-        <h3>Reflect</h3>
-        <p>What does my partner do well in this relationship?</p>
-        <div class="write-line"></div>
-        <div class="write-line"></div>
-      </div>
-
-      <div class="prompt-card">
-        <h3>Discover</h3>
-        <p>What three strengths do I most admire in my partner?</p>
-        <div class="write-line"></div>
-        <div class="write-line"></div>
-      </div>
-
-      <div class="in-action">
-        <div class="in-action-label">Use it this week</div>
-        <p>After a repair moment, lean on your partner's strength. If writing is easier than talking, write a note.</p>
-      </div>
+      <div class="col-header"><span class="col-emoji">&#11088;</span><div class="col-title">Partner&rsquo;s Strengths</div><div class="col-subtitle">What I see and value in you</div></div>
+      <div class="prompt-card"><h3>Reflect</h3><p>What does my partner do well in this relationship?</p><div class="write-line"></div><div class="write-line"></div></div>
+      <div class="prompt-card"><h3>Discover</h3><p>What three strengths do I most admire in my partner?</p><div class="write-line"></div><div class="write-line"></div></div>
+      <div class="in-action"><div class="in-action-label">Use it this week</div><p>After a repair moment, lean on your partner&rsquo;s strength. If writing is easier than talking, write a note.</p></div>
     </div>
-
   </div>
 
-  <!-- Bottom Section -->
   <div class="bottom-insight">
     <div class="appreciation-card">
       <h3>Strengths-based conversations</h3>
@@ -370,14 +126,8 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <div class="footer">
-    <p>
-      Strengths-Based Coaching and Counselling<br>
-      www.coach4u.com.au<br>
-      cath@coach4u.com.au<br>
-      0402 313 337
-    </p>
+    <p>Strengths-Based Coaching and Counselling<br>www.coach4u.com.au<br>cath@coach4u.com.au<br>0402 313 337</p>
   </div>
 
 </body>

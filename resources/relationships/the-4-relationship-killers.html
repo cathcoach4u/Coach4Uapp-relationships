@@ -3,346 +3,120 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The 4 Relationship Killers — Coach4U</title>
+  <title>The 4 Relationship Killers &mdash; Coach4U</title>
   <style>
     @page { size: landscape; margin: 0; }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif;
-      background: #FFFFFF;
-      color: #000000;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* --- Header --- */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 48px 0;
-    }
-
+    body { font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif; background: #FFFFFF; color: #000000; min-height: 100vh; display: flex; flex-direction: column; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 28px 48px 0; }
     .top-bar-brand img { display: block; height: 40px; width: auto; }
-
-    .top-bar-category {
-      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
-      text-transform: uppercase; color: #003366;
-      background: #E8EEF4; padding: 4px 14px; border-radius: 20px;
-    }
-
+    .top-bar-category { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #003366; background: #E8EEF4; padding: 4px 14px; border-radius: 20px; }
     .back-link { font-size: 0.8rem; color: #003366; text-decoration: none; font-weight: 600; }
     .back-link:hover { text-decoration: underline; }
-
-    /* --- Title --- */
-    .title-section {
-      text-align: center;
-      padding: 24px 48px 4px;
-    }
-
-    .title-section h1 {
-      font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 4px;
-    }
-
+    .title-section { text-align: center; padding: 24px 48px 4px; }
+    .title-section h1 { font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 4px; }
     .title-section h1 em { font-style: italic; font-weight: 400; }
-
-    .title-section p {
-      font-size: 1rem; color: #646464; max-width: 720px; margin: 0 auto;
-    }
-
-    .title-section .reference {
-      font-size: 0.75rem;
-      color: #999999;
-      margin-top: 4px;
-    }
-
-    /* --- Four Cards Layout --- */
-    .killers-grid {
-      flex: 1;
-      display: flex;
-      gap: 20px;
-      padding: 16px 48px 12px;
-      align-items: stretch;
-    }
-
-    .killer-card {
-      flex: 1;
-      border-radius: 16px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* --- Killer Section (Top, Red/Warning) --- */
-    .killer-top {
-      padding: 20px 20px 16px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
+    .title-section p { font-size: 1rem; color: #646464; max-width: 720px; margin: 0 auto; }
+    .title-section .reference { font-size: 0.75rem; color: #999999; margin-top: 4px; }
+    .killers-grid { flex: 1; display: flex; gap: 20px; padding: 16px 48px 12px; align-items: stretch; }
+    .killer-card { flex: 1; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+    .killer-top { padding: 20px 20px 16px; flex: 1; display: flex; flex-direction: column; }
     .card-1 .killer-top { background: linear-gradient(135deg, #FFF0F0 0%, #FFE0E0 100%); border: 2px solid #E8A0A0; border-bottom: none; border-radius: 16px 16px 0 0; }
     .card-2 .killer-top { background: linear-gradient(135deg, #FFF5EB 0%, #FFECD6 100%); border: 2px solid #E8C9A0; border-bottom: none; border-radius: 16px 16px 0 0; }
     .card-3 .killer-top { background: linear-gradient(135deg, #F5F0FF 0%, #E8DCFF 100%); border: 2px solid #C8A0E8; border-bottom: none; border-radius: 16px 16px 0 0; }
     .card-4 .killer-top { background: linear-gradient(135deg, #F0F0F5 0%, #E0E0EA 100%); border: 2px solid #B0B0C8; border-bottom: none; border-radius: 16px 16px 0 0; }
-
-    .killer-emoji {
-      font-size: 2.2rem;
-      text-align: center;
-      margin-bottom: 6px;
-    }
-
-    .killer-name {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #003366;
-      text-align: center;
-      margin-bottom: 8px;
-    }
-
-    .killer-desc {
-      font-size: 0.88rem;
-      line-height: 1.45;
-      text-align: center;
-      color: #333;
-    }
-
-    .killer-example {
-      margin-top: auto;
-      padding-top: 10px;
-      font-size: 0.82rem;
-      font-style: italic;
-      color: #666;
-      text-align: center;
-    }
-
-    .killer-example span {
-      display: block;
-      font-style: normal;
-      font-weight: 700;
-      font-size: 0.7rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 3px;
-    }
-
-    .card-1 .killer-example span { color: #CC4444; }
-    .card-2 .killer-example span { color: #CC8833; }
-    .card-3 .killer-example span { color: #8844AA; }
-    .card-4 .killer-example span { color: #666688; }
-
-    /* --- Antidote Section (Bottom, Green) --- */
-    .antidote {
-      padding: 14px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
+    .killer-emoji { font-size: 2.2rem; text-align: center; margin-bottom: 6px; }
+    .killer-name { font-size: 1.15rem; font-weight: 700; color: #003366; text-align: center; margin-bottom: 8px; }
+    .killer-desc { font-size: 0.88rem; line-height: 1.45; text-align: center; color: #333; }
+    .killer-example { margin-top: auto; padding-top: 10px; font-size: 0.82rem; font-style: italic; color: #666; text-align: center; }
+    .killer-example span { display: block; font-style: normal; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3px; }
+    .card-1 .killer-example span { color: #CC4444; } .card-2 .killer-example span { color: #CC8833; } .card-3 .killer-example span { color: #8844AA; } .card-4 .killer-example span { color: #666688; }
+    .antidote { padding: 14px 20px; display: flex; flex-direction: column; align-items: center; }
     .card-1 .antidote { background: #E8F5E8; border: 2px solid #A0D8A0; border-top: 2px dashed #A0D8A0; border-radius: 0 0 16px 16px; }
     .card-2 .antidote { background: #E8F5E8; border: 2px solid #A0D8A0; border-top: 2px dashed #A0D8A0; border-radius: 0 0 16px 16px; }
     .card-3 .antidote { background: #E8F5E8; border: 2px solid #A0D8A0; border-top: 2px dashed #A0D8A0; border-radius: 0 0 16px 16px; }
     .card-4 .antidote { background: #E8F5E8; border: 2px solid #A0D8A0; border-top: 2px dashed #A0D8A0; border-radius: 0 0 16px 16px; }
-
-    .antidote-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #4A8A4A;
-      margin-bottom: 6px;
-    }
-
-    .antidote-emoji {
-      font-size: 1.4rem;
-      margin-bottom: 4px;
-    }
-
-    .antidote p {
-      font-size: 0.85rem;
-      text-align: center;
-      color: #2A6A2A;
-      line-height: 1.4;
-    }
-
-    .antidote .say-this {
-      font-style: italic;
-      font-weight: 600;
-      margin-top: 6px;
-      color: #1A5A1A;
-    }
-
-    /* --- Bottom Bar --- */
-    .bottom-bar {
-      display: flex;
-      gap: 16px;
-      padding: 6px 48px 10px;
-      justify-content: center;
-    }
-
-    .bottom-card {
-      background: #003366;
-      color: #FFFFFF;
-      border-radius: 12px;
-      padding: 12px 24px;
-      text-align: center;
-      max-width: 540px;
-    }
-
-    .bottom-card h3 {
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #FFD700; margin-bottom: 4px;
-    }
-
+    .antidote-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4A8A4A; margin-bottom: 6px; }
+    .antidote-emoji { font-size: 1.4rem; margin-bottom: 4px; }
+    .antidote p { font-size: 0.85rem; text-align: center; color: #2A6A2A; line-height: 1.4; }
+    .antidote .say-this { font-style: italic; font-weight: 600; margin-top: 6px; color: #1A5A1A; }
+    .bottom-bar { display: flex; gap: 16px; padding: 6px 48px 10px; justify-content: center; }
+    .bottom-card { background: #003366; color: #FFFFFF; border-radius: 12px; padding: 12px 24px; text-align: center; max-width: 540px; }
+    .bottom-card h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #FFD700; margin-bottom: 4px; }
     .bottom-card p { font-size: 0.88rem; color: #E0E8F0; line-height: 1.5; }
-
-    /* --- Footer --- */
-    .footer {
-      text-align: center;
-      padding: 6px 48px 20px;
-    }
-
+    .footer { text-align: center; padding: 6px 48px 20px; }
     .footer p { font-size: 9pt; color: #646464; line-height: 1.8; }
-
-    /* --- Print --- */
-    @media print {
-      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    }
-
-    /* --- Mobile --- */
+    @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
     @media (max-width: 900px) {
-      .killers-grid {
-        flex-direction: column;
-        padding: 12px 24px;
-      }
-      .killers-grid .killer-card { flex-direction: row; }
-      .killers-grid .killer-card .killer-top { border-radius: 16px 0 0 16px; border: 2px solid; border-right: none; }
-      .killers-grid .killer-card .antidote { border-radius: 0 16px 16px 0; border-top: 2px solid #A0D8A0; border-left: 2px dashed #A0D8A0; }
+      .killers-grid { flex-direction: column; padding: 12px 24px; }
       .bottom-bar { flex-direction: column; align-items: center; padding: 8px 24px; }
       .top-bar, .title-section, .footer { padding-left: 24px; padding-right: 24px; }
     }
   </style>
+  <style>body{visibility:hidden}</style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient('https://eekefsuaefgpqmjdyniy.supabase.co', 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y');
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (!user || userError) {
+      window.location.href = '../../index.html';
+    } else {
+      const { data: profile } = await supabase.from('users').select('membership_status').eq('id', user.id).single();
+      if (!profile || profile.membership_status !== 'active') {
+        window.location.href = '../../inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+        document.getElementById('signOutBtn').addEventListener('click', async () => {
+          await supabase.auth.signOut();
+          window.location.href = '../../index.html';
+        });
+      }
+    }
+  </script>
 </head>
 <body>
 
-  <!-- Header -->
   <div class="top-bar">
     <div class="top-bar-brand"><img src="../../assets/coach4u-logo.jpg" alt="Coach4U"></div>
-    <a href="your-relationship-toolkit.html" class="back-link">&larr; Back to Toolkit</a>
-    <div class="top-bar-category">Relationships</div>
+    <a href="../../relationships.html" class="back-link">&larr; Relationships</a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="top-bar-category">Relationships</div>
+      <button id="signOutBtn" style="font-size:0.75rem;font-weight:600;color:#003366;background:transparent;border:1px solid #003366;border-radius:6px;padding:4px 10px;cursor:pointer;">Sign Out</button>
+    </div>
   </div>
 
-  <!-- Title -->
   <div class="title-section">
     <h1>The 4 <em>Relationship Killers</em></h1>
     <p>Four communication patterns that erode connection, and the antidotes that repair it.</p>
-    <div class="reference">Based on Dr John Gottman's research on relationship stability</div>
+    <div class="reference">Based on Dr John Gottman&rsquo;s research on relationship stability</div>
   </div>
 
-  <!-- Four Cards -->
   <div class="killers-grid">
-
-    <!-- 1. Criticism -->
     <div class="killer-card card-1">
-      <div class="killer-top">
-        <div class="killer-emoji">⚔️</div>
-        <div class="killer-name">Criticism</div>
-        <div class="killer-desc">Attacking your partner's character rather than raising a specific concern. It sounds like blame and makes your partner feel fundamentally flawed.</div>
-        <div class="killer-example">
-          <span>Sounds like</span>
-          "You never think about anyone but yourself."
-        </div>
-      </div>
-      <div class="antidote">
-        <div class="antidote-label">Antidote: Gentle start-up</div>
-        <div class="antidote-emoji">🌱</div>
-        <p>Begin with "I feel..." rather than "You always..." Share your need, not an accusation.</p>
-        <p class="say-this">"I felt hurt when that happened. I need us to talk about it."</p>
-      </div>
+      <div class="killer-top"><div class="killer-emoji">&#9876;&#65039;</div><div class="killer-name">Criticism</div><div class="killer-desc">Attacking your partner&rsquo;s character rather than raising a specific concern. It sounds like blame and makes your partner feel fundamentally flawed.</div><div class="killer-example"><span>Sounds like</span>&ldquo;You never think about anyone but yourself.&rdquo;</div></div>
+      <div class="antidote"><div class="antidote-label">Antidote: Gentle start-up</div><div class="antidote-emoji">&#127807;</div><p>Begin with &ldquo;I feel...&rdquo; rather than &ldquo;You always...&rdquo; Share your need, not an accusation.</p><p class="say-this">&ldquo;I felt hurt when that happened. I need us to talk about it.&rdquo;</p></div>
     </div>
-
-    <!-- 2. Defensiveness -->
     <div class="killer-card card-2">
-      <div class="killer-top">
-        <div class="killer-emoji">🛡️</div>
-        <div class="killer-name">Defensiveness</div>
-        <div class="killer-desc">Deflecting responsibility, making excuses, or counter-attacking. It tells your partner their feelings do not matter and blocks resolution.</div>
-        <div class="killer-example">
-          <span>Sounds like</span>
-          "That's not my fault. You're the one who..."
-        </div>
-      </div>
-      <div class="antidote">
-        <div class="antidote-label">Antidote: Take responsibility</div>
-        <div class="antidote-emoji">🤲</div>
-        <p>Accept even a small part. Owning something opens the door to repair.</p>
-        <p class="say-this">"You're right, I could have handled that better."</p>
-      </div>
+      <div class="killer-top"><div class="killer-emoji">&#128737;&#65039;</div><div class="killer-name">Defensiveness</div><div class="killer-desc">Deflecting responsibility, making excuses, or counter-attacking. It tells your partner their feelings do not matter and blocks resolution.</div><div class="killer-example"><span>Sounds like</span>&ldquo;That&rsquo;s not my fault. You&rsquo;re the one who...&rdquo;</div></div>
+      <div class="antidote"><div class="antidote-label">Antidote: Take responsibility</div><div class="antidote-emoji">&#129330;</div><p>Accept even a small part. Owning something opens the door to repair.</p><p class="say-this">&ldquo;You&rsquo;re right, I could have handled that better.&rdquo;</p></div>
     </div>
-
-    <!-- 3. Contempt -->
     <div class="killer-card card-3">
-      <div class="killer-top">
-        <div class="killer-emoji">😤</div>
-        <div class="killer-name">Contempt</div>
-        <div class="killer-desc">Disrespect, sarcasm, eye-rolling, or mocking. Contempt comes from a place of superiority and is the single strongest predictor of relationship breakdown.</div>
-        <div class="killer-example">
-          <span>Sounds like</span>
-          "Oh please. You think that was helpful?"
-        </div>
-      </div>
-      <div class="antidote">
-        <div class="antidote-label">Antidote: Build appreciation</div>
-        <div class="antidote-emoji">💛</div>
-        <p>Actively build a culture of respect and gratitude. Notice what your partner does well.</p>
-        <p class="say-this">"I appreciate that you tried. It matters to me."</p>
-      </div>
+      <div class="killer-top"><div class="killer-emoji">&#128548;</div><div class="killer-name">Contempt</div><div class="killer-desc">Disrespect, sarcasm, eye-rolling, or mocking. Contempt comes from a place of superiority and is the single strongest predictor of relationship breakdown.</div><div class="killer-example"><span>Sounds like</span>&ldquo;Oh please. You think that was helpful?&rdquo;</div></div>
+      <div class="antidote"><div class="antidote-label">Antidote: Build appreciation</div><div class="antidote-emoji">&#128155;</div><p>Actively build a culture of respect and gratitude. Notice what your partner does well.</p><p class="say-this">&ldquo;I appreciate that you tried. It matters to me.&rdquo;</p></div>
     </div>
-
-    <!-- 4. Stonewalling -->
     <div class="killer-card card-4">
-      <div class="killer-top">
-        <div class="killer-emoji">🧱</div>
-        <div class="killer-name">Stonewalling</div>
-        <div class="killer-desc">Shutting down, withdrawing, or going completely silent. Often a response to feeling flooded or overwhelmed. It leaves your partner feeling abandoned mid-conversation.</div>
-        <div class="killer-example">
-          <span>Sounds like</span>
-          Silence. Walking away. Blank stare.
-        </div>
-      </div>
-      <div class="antidote">
-        <div class="antidote-label">Antidote: Planned break</div>
-        <div class="antidote-emoji">⏸️</div>
-        <p>Take a break with a promise to return. Self-soothe, then come back to the conversation.</p>
-        <p class="say-this">"I need 20 minutes to calm down, then I will come back."</p>
-      </div>
+      <div class="killer-top"><div class="killer-emoji">&#129521;</div><div class="killer-name">Stonewalling</div><div class="killer-desc">Shutting down, withdrawing, or going completely silent. Often a response to feeling flooded or overwhelmed. It leaves your partner feeling abandoned mid-conversation.</div><div class="killer-example"><span>Sounds like</span>Silence. Walking away. Blank stare.</div></div>
+      <div class="antidote"><div class="antidote-label">Antidote: Planned break</div><div class="antidote-emoji">&#9208;&#65039;</div><p>Take a break with a promise to return. Self-soothe, then come back to the conversation.</p><p class="say-this">&ldquo;I need 20 minutes to calm down, then I will come back.&rdquo;</p></div>
     </div>
-
   </div>
 
-  <!-- Bottom -->
   <div class="bottom-bar">
-    <div class="bottom-card">
-      <h3>Try this</h3>
-      <p>Together, identify which of the four killers shows up most in your relationship. Agree on one antidote you will both practise this week.</p>
-    </div>
-    <div class="bottom-card">
-      <h3>Remember</h3>
-      <p>These patterns are common. Noticing them is the first step. Choosing the antidote, even imperfectly, changes everything over time.</p>
-    </div>
+    <div class="bottom-card"><h3>Try this</h3><p>Together, identify which of the four killers shows up most in your relationship. Agree on one antidote you will both practise this week.</p></div>
+    <div class="bottom-card"><h3>Remember</h3><p>These patterns are common. Noticing them is the first step. Choosing the antidote, even imperfectly, changes everything over time.</p></div>
   </div>
 
-  <!-- Footer -->
   <div class="footer">
-    <p>
-      Strengths-Based Coaching and Counselling<br>
-      www.coach4u.com.au<br>
-      cath@coach4u.com.au<br>
-      0402 313 337
-    </p>
+    <p>Strengths-Based Coaching and Counselling<br>www.coach4u.com.au<br>cath@coach4u.com.au<br>0402 313 337</p>
   </div>
 
 </body>

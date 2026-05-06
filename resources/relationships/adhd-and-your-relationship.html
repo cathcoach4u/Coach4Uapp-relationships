@@ -31,7 +31,6 @@
     .title-section h1 em { font-style: italic; font-weight: 400; }
     .title-section p { font-size: 0.95rem; color: #646464; max-width: 750px; margin: 0 auto; }
 
-    /* Framework strip */
     .framework-strip {
       display: flex; gap: 0; padding: 14px 48px 6px;
       justify-content: center; align-items: stretch;
@@ -55,7 +54,6 @@
       font-size: 1rem; color: #999; z-index: 1;
     }
 
-    /* Tools grid */
     .tools-grid {
       flex: 1; display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -106,7 +104,6 @@
       border: 2px solid #C4A8E8;
     }
 
-    /* Bottom */
     .bottom-section {
       display: flex; gap: 16px; padding: 4px 48px 8px; justify-content: center;
     }
@@ -132,13 +129,36 @@
       .top-bar, .title-section, .footer { padding-left: 24px; padding-right: 24px; }
     }
   </style>
+  <style>body{visibility:hidden}</style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient('https://eekefsuaefgpqmjdyniy.supabase.co', 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y');
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (!user || userError) {
+      window.location.href = '../../index.html';
+    } else {
+      const { data: profile } = await supabase.from('users').select('membership_status').eq('id', user.id).single();
+      if (!profile || profile.membership_status !== 'active') {
+        window.location.href = '../../inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+        document.getElementById('signOutBtn').addEventListener('click', async () => {
+          await supabase.auth.signOut();
+          window.location.href = '../../index.html';
+        });
+      }
+    }
+  </script>
 </head>
 <body>
 
   <div class="top-bar">
     <div class="top-bar-brand"><img src="../../assets/coach4u-logo.jpg" alt="Coach4U"></div>
-    <a href="../../portal.html" class="back-link">&larr; Back to Portal</a>
-    <div class="top-bar-category">Relationships</div>
+    <a href="../../relationships.html" class="back-link">&larr; Relationships</a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="top-bar-category">Relationships</div>
+      <button id="signOutBtn" style="font-size:0.75rem;font-weight:600;color:#003366;background:transparent;border:1px solid #003366;border-radius:6px;padding:4px 10px;cursor:pointer;">Sign Out</button>
+    </div>
   </div>
 
   <div class="title-section">
@@ -146,7 +166,6 @@
     <p>The Coach4U approach and key tools for supporting ADHD-affected couples.</p>
   </div>
 
-  <!-- 4-Phase Framework -->
   <div class="framework-strip">
     <div class="fw-step fw-step-1">
       <div class="fw-num">Phase 1</div>
@@ -173,21 +192,20 @@
     </div>
   </div>
 
-  <!-- Tools Grid -->
   <div class="tools-grid">
 
     <div class="tool-card tool-strengths">
-      <h2><span class="t-emoji">💪</span> Strengths-Based Foundation</h2>
+      <h2><span class="t-emoji">&#128170;</span> Strengths-Based Foundation</h2>
       <div class="t-sub">Gallup CliftonStrengths + Best of Us Tool</div>
       <ul>
         <li><span class="li-dot">&bull;</span> Understand what each partner brings and needs</li>
-        <li><span class="li-dot">&bull;</span> Reframe frustration as "strengths under stress"</li>
+        <li><span class="li-dot">&bull;</span> Reframe frustration as &ldquo;strengths under stress&rdquo;</li>
         <li><span class="li-dot">&bull;</span> Build compassion, appreciation, and identity clarity</li>
       </ul>
     </div>
 
     <div class="tool-card tool-communication">
-      <h2><span class="t-emoji">💬</span> Communication and Connection</h2>
+      <h2><span class="t-emoji">&#128172;</span> Communication and Connection</h2>
       <div class="t-sub">Imago Dialogue</div>
       <ul>
         <li><span class="li-dot">&bull;</span> Structured conversation for listening, mirroring, validation and empathy</li>
@@ -196,8 +214,8 @@
     </div>
 
     <div class="tool-card tool-gottman">
-      <h2><span class="t-emoji">🛡️</span> Conflict and Repair</h2>
-      <div class="t-sub">The 4 Relationship Killers and antidotes (based on Gottman's research)</div>
+      <h2><span class="t-emoji">&#128737;&#65039;</span> Conflict and Repair</h2>
+      <div class="t-sub">The 4 Relationship Killers and antidotes (based on Gottman&rsquo;s research)</div>
       <ul>
         <li><span class="li-dot">&bull;</span> Recognise and counter criticism, defensiveness, contempt, and stonewalling</li>
         <li><span class="li-dot">&bull;</span> Pursuer-Avoider pattern awareness and repair</li>
@@ -206,7 +224,7 @@
     </div>
 
     <div class="tool-card tool-eft">
-      <h2><span class="t-emoji">💚</span> Emotional Safety and Attachment</h2>
+      <h2><span class="t-emoji">&#128154;</span> Emotional Safety and Attachment</h2>
       <div class="t-sub">Emotionally Focused Therapy (EFT)</div>
       <ul>
         <li><span class="li-dot">&bull;</span> Recognise emotional responses and unmet needs</li>
@@ -215,7 +233,7 @@
     </div>
 
     <div class="tool-card tool-brain">
-      <h2><span class="t-emoji">🧠</span> Brain Awareness and Regulation</h2>
+      <h2><span class="t-emoji">&#129504;</span> Brain Awareness and Regulation</h2>
       <div class="t-sub">Understanding brain-based reactivity</div>
       <ul>
         <li><span class="li-dot">&bull;</span> Normalise fight, flight, freeze, and fawn responses</li>
@@ -226,10 +244,10 @@
     </div>
 
     <div class="tool-card tool-presence">
-      <h2><span class="t-emoji">🌿</span> Presence and Conscious Relating</h2>
+      <h2><span class="t-emoji">&#127807;</span> Presence and Conscious Relating</h2>
       <div class="t-sub">Crossing the Bridge</div>
       <ul>
-        <li><span class="li-dot">&bull;</span> Step into each other's world with curiosity</li>
+        <li><span class="li-dot">&bull;</span> Step into each other&rsquo;s world with curiosity</li>
         <li><span class="li-dot">&bull;</span> Encourage respectful invitations to connect</li>
         <li><span class="li-dot">&bull;</span> Pause during intensity and respond with calm</li>
         <li><span class="li-dot">&bull;</span> Use appreciation to stay connected</li>
@@ -241,7 +259,7 @@
   <div class="bottom-section">
     <div class="insight-box">
       <h3>Your pace, your path</h3>
-      <p>All tools are chosen and paced based on each couple's needs and capacity. The goal is to move from reacting to choosing how you relate, even during stress.</p>
+      <p>All tools are chosen and paced based on each couple&rsquo;s needs and capacity. The goal is to move from reacting to choosing how you relate, even during stress.</p>
     </div>
   </div>
 
