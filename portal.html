@@ -26,15 +26,14 @@
     } else {
       const { data: profile } = await supabase
         .from('users')
-        .select('membership_status, name, email')
+        .select('membership_status, name')
         .eq('id', user.id)
         .single();
 
       if (!profile || profile.membership_status !== 'active') {
         window.location.href = 'inactive.html';
       } else {
-        document.getElementById('memberName').textContent  = profile.name || user.user_metadata?.name || user.email;
-        document.getElementById('memberEmail').textContent = profile.email || user.email;
+        document.getElementById('memberName').textContent = profile.name || user.user_metadata?.name || user.email;
         document.body.style.visibility = 'visible';
 
         document.getElementById('signOutBtn').addEventListener('click', async () => {
@@ -63,8 +62,6 @@
     <!-- Membership Card -->
     <div class="membership-card">
       <div class="member-name" id="memberName">—</div>
-      <div class="member-email" id="memberEmail">—</div>
-      <span class="membership-badge">Active Member</span>
     </div>
 
     <!-- Modules -->
