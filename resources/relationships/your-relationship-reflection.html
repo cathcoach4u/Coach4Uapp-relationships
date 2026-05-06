@@ -3,336 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Relationship Reflection — Coach4U</title>
+  <title>Your Relationship Reflection &mdash; Coach4U</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif;
-      background: #FFFFFF;
-      color: #000000;
-      font-size: 11pt;
-      line-height: 1.6;
-      max-width: 1200px;
-      margin: 0 auto;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* --- Header --- */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 28px 48px 0;
-    }
-
+    body { font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif; background: #FFFFFF; color: #000000; font-size: 11pt; line-height: 1.6; max-width: 1200px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 28px 48px 0; }
     .header img { display: block; height: 40px; width: auto; }
-
-    .header-badge {
-      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em;
-      text-transform: uppercase; color: #003366;
-      background: #E8EEF4; padding: 4px 14px; border-radius: 20px;
-    }
-
+    .header-badge { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #003366; background: #E8EEF4; padding: 4px 14px; border-radius: 20px; }
     .back-link { font-size: 0.8rem; color: #003366; text-decoration: none; font-weight: 600; }
     .back-link:hover { text-decoration: underline; }
-
-    /* --- Title --- */
-    .title-section {
-      text-align: center;
-      padding: 32px 48px 12px;
-    }
-
-    .title-section h1 {
-      font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 8px;
-    }
-
-    .title-section p {
-      font-size: 1.1rem; color: #646464; max-width: 680px; margin: 0 auto;
-    }
-
-    /* --- Reflection Grid --- */
-    .reflection-grid {
-      flex: 1;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      padding: 24px 48px 32px;
-    }
-
-    .reflection-card {
-      border-radius: 16px;
-      padding: 28px 28px 24px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .card-number {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #FFFFFF;
-      background: rgba(0, 0, 0, 0.15);
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .card-emoji {
-      font-size: 1.8rem;
-      flex-shrink: 0;
-    }
-
-    .card-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #003366;
-    }
-
-    .reflection-card ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      flex: 1;
-    }
-
-    .reflection-card li {
-      font-size: 0.95rem;
-      line-height: 1.5;
-      color: #333;
-      margin-bottom: 14px;
-      padding-bottom: 4px;
-    }
-
-    .reflection-card li .question {
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .write-line {
-      display: block;
-      width: 100%;
-      border-bottom: 1px dashed #B0B0B0;
-      height: 22px;
-    }
-
-    /* Card colours */
-    .card-love-story {
-      background: linear-gradient(135deg, #FFF8F0 0%, #FFECD6 100%);
-      border: 2px solid #E8C9A0;
-    }
-
-    .card-exits {
-      background: linear-gradient(135deg, #FFF2F0 0%, #FFE0DB 100%);
-      border: 2px solid #E8A0A0;
-    }
-
-    .card-working {
-      background: linear-gradient(135deg, #EBF8EB 0%, #D6F0D6 100%);
-      border: 2px solid #A0D8A0;
-    }
-
-    .card-childhood {
-      background: linear-gradient(135deg, #F3EEFF 0%, #E8E0FF 100%);
-      border: 2px solid #C0B0E8;
-    }
-
-    /* --- Insight Box --- */
-    .insight-box {
-      background: #003366;
-      color: #FFFFFF;
-      border-radius: 12px;
-      padding: 24px 32px;
-      margin: 0 48px 32px;
-      text-align: center;
-      font-size: 1rem;
-      line-height: 1.7;
-    }
-
-    /* --- Footer --- */
-    .footer {
-      text-align: center;
-      padding: 24px 48px 32px;
-      border-top: 1px solid #E8EEF4;
-    }
-
+    .title-section { text-align: center; padding: 32px 48px 12px; }
+    .title-section h1 { font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 8px; }
+    .title-section p { font-size: 1.1rem; color: #646464; max-width: 680px; margin: 0 auto; }
+    .reflection-grid { flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 24px 48px 32px; }
+    .reflection-card { border-radius: 16px; padding: 28px 28px 24px; display: flex; flex-direction: column; }
+    .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .card-number { font-size: 0.75rem; font-weight: 700; color: #FFFFFF; background: rgba(0,0,0,0.15); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .card-emoji { font-size: 1.8rem; flex-shrink: 0; }
+    .card-title { font-size: 1.25rem; font-weight: 700; color: #003366; }
+    .reflection-card ul { list-style: none; padding: 0; margin: 0; flex: 1; }
+    .reflection-card li { font-size: 0.95rem; line-height: 1.5; color: #333; margin-bottom: 14px; padding-bottom: 4px; }
+    .reflection-card li .question { display: block; margin-bottom: 4px; }
+    .write-line { display: block; width: 100%; border-bottom: 1px dashed #B0B0B0; height: 22px; }
+    .card-love-story { background: linear-gradient(135deg, #FFF8F0 0%, #FFECD6 100%); border: 2px solid #E8C9A0; }
+    .card-exits { background: linear-gradient(135deg, #FFF2F0 0%, #FFE0DB 100%); border: 2px solid #E8A0A0; }
+    .card-working { background: linear-gradient(135deg, #EBF8EB 0%, #D6F0D6 100%); border: 2px solid #A0D8A0; }
+    .card-childhood { background: linear-gradient(135deg, #F3EEFF 0%, #E8E0FF 100%); border: 2px solid #C0B0E8; }
+    .insight-box { background: #003366; color: #FFFFFF; border-radius: 12px; padding: 24px 32px; margin: 0 48px 32px; text-align: center; font-size: 1rem; line-height: 1.7; }
+    .footer { text-align: center; padding: 24px 48px 32px; border-top: 1px solid #E8EEF4; }
     .footer p { font-size: 9pt; color: #646464; line-height: 1.8; }
-
-    /* --- Mobile --- */
     @media (max-width: 768px) {
-      .header, .title-section, .footer {
-        padding-left: 24px;
-        padding-right: 24px;
-      }
-      .reflection-grid {
-        grid-template-columns: 1fr;
-        padding-left: 24px;
-        padding-right: 24px;
-      }
-      .insight-box {
-        margin-left: 24px;
-        margin-right: 24px;
-      }
+      .header, .title-section, .footer { padding-left: 24px; padding-right: 24px; }
+      .reflection-grid { grid-template-columns: 1fr; padding-left: 24px; padding-right: 24px; }
+      .insight-box { margin-left: 24px; margin-right: 24px; }
     }
-
-    /* --- Print / Landscape hint --- */
-    @media print {
-      body { max-width: none; }
-      .reflection-grid { grid-template-columns: repeat(2, 1fr); }
-      .back-link { display: none; }
-    }
+    @media print { body { max-width: none; } .reflection-grid { grid-template-columns: repeat(2, 1fr); } .back-link { display: none; } }
   </style>
+  <style>body{visibility:hidden}</style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient('https://eekefsuaefgpqmjdyniy.supabase.co', 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y');
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (!user || userError) {
+      window.location.href = '../../index.html';
+    } else {
+      const { data: profile } = await supabase.from('users').select('membership_status').eq('id', user.id).single();
+      if (!profile || profile.membership_status !== 'active') {
+        window.location.href = '../../inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+        document.getElementById('signOutBtn').addEventListener('click', async () => {
+          await supabase.auth.signOut();
+          window.location.href = '../../index.html';
+        });
+      }
+    }
+  </script>
 </head>
 <body>
 
-  <!-- Header -->
   <div class="header">
     <img src="../../assets/coach4u-logo.jpg" alt="Coach4U">
-    <a href="../../portal.html" class="back-link">&larr; Back to Portal</a>
-    <span class="header-badge">Relationships</span>
+    <a href="../../relationships.html" class="back-link">&larr; Relationships</a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="header-badge">Relationships</span>
+      <button id="signOutBtn" style="font-size:0.75rem;font-weight:600;color:#003366;background:transparent;border:1px solid #003366;border-radius:6px;padding:4px 10px;cursor:pointer;">Sign Out</button>
+    </div>
   </div>
 
-  <!-- Title -->
   <div class="title-section">
     <h1>Your Relationship Reflection</h1>
     <p>A personal space to reflect on your relationship journey, your patterns, and your growth.</p>
   </div>
 
-  <!-- Reflection Cards -->
   <div class="reflection-grid">
-
-    <!-- 1. Your Love Story -->
     <div class="reflection-card card-love-story">
-      <div class="card-header">
-        <span class="card-number">1</span>
-        <span class="card-emoji">💛</span>
-        <span class="card-title">Your Love Story</span>
-      </div>
+      <div class="card-header"><span class="card-number">1</span><span class="card-emoji">&#128155;</span><span class="card-title">Your Love Story</span></div>
       <ul>
-        <li>
-          <span class="question">What drew you to each other?</span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-        </li>
-        <li>
-          <span class="question">What attracted your partner to you?</span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-        </li>
-        <li>
-          <span class="question">What did you miss seeing?</span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-        </li>
-        <li>
-          <span class="question">What did they miss seeing?</span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-        </li>
-        <li>
-          <span class="question">What childhood desires and familiarities do you recognise?</span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-        </li>
+        <li><span class="question">What drew you to each other?</span><span class="write-line"></span><span class="write-line"></span></li>
+        <li><span class="question">What attracted your partner to you?</span><span class="write-line"></span><span class="write-line"></span></li>
+        <li><span class="question">What did you miss seeing?</span><span class="write-line"></span><span class="write-line"></span></li>
+        <li><span class="question">What did they miss seeing?</span><span class="write-line"></span><span class="write-line"></span></li>
+        <li><span class="question">What childhood desires and familiarities do you recognise?</span><span class="write-line"></span><span class="write-line"></span></li>
       </ul>
     </div>
-
-    <!-- 2. Your Exits -->
     <div class="reflection-card card-exits">
-      <div class="card-header">
-        <span class="card-number">2</span>
-        <span class="card-emoji">🚪</span>
-        <span class="card-title">Your Exits</span>
-      </div>
+      <div class="card-header"><span class="card-number">2</span><span class="card-emoji">&#128682;</span><span class="card-title">Your Exits</span></div>
       <ul>
-        <li>
-          <span class="question">What escapes have you relied on?</span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-        </li>
-        <li>
-          <span class="question">What escapes has your partner relied on?</span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-        </li>
+        <li><span class="question">What escapes have you relied on?</span><span class="write-line"></span><span class="write-line"></span><span class="write-line"></span></li>
+        <li><span class="question">What escapes has your partner relied on?</span><span class="write-line"></span><span class="write-line"></span><span class="write-line"></span></li>
       </ul>
     </div>
-
-    <!-- 3. Working On It -->
     <div class="reflection-card card-working">
-      <div class="card-header">
-        <span class="card-number">3</span>
-        <span class="card-emoji">🌱</span>
-        <span class="card-title">Working On It</span>
-      </div>
+      <div class="card-header"><span class="card-number">3</span><span class="card-emoji">&#127807;</span><span class="card-title">Working On It</span></div>
       <ul>
-        <li>
-          <span class="question">What are you currently working on?</span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-        </li>
-        <li>
-          <span class="question">What is your partner currently working on?</span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-        </li>
+        <li><span class="question">What are you currently working on?</span><span class="write-line"></span><span class="write-line"></span><span class="write-line"></span></li>
+        <li><span class="question">What is your partner currently working on?</span><span class="write-line"></span><span class="write-line"></span><span class="write-line"></span></li>
       </ul>
     </div>
-
-    <!-- 4. Childhood Needs -->
     <div class="reflection-card card-childhood">
-      <div class="card-header">
-        <span class="card-number">4</span>
-        <span class="card-emoji">🧸</span>
-        <span class="card-title">Childhood Needs</span>
-      </div>
+      <div class="card-header"><span class="card-number">4</span><span class="card-emoji">&#129528;</span><span class="card-title">Childhood Needs</span></div>
       <ul>
-        <li>
-          <span class="question">What needs do you tend to or seek care for in your relationship?</span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-        </li>
-        <li>
-          <span class="question">Which needs of your partner do you tend to, or do they try to tend to in your relationship?</span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-          <span class="write-line"></span>
-        </li>
+        <li><span class="question">What needs do you tend to or seek care for in your relationship?</span><span class="write-line"></span><span class="write-line"></span><span class="write-line"></span></li>
+        <li><span class="question">Which needs of your partner do you tend to, or do they try to tend to in your relationship?</span><span class="write-line"></span><span class="write-line"></span><span class="write-line"></span></li>
       </ul>
     </div>
-
   </div>
 
-  <!-- Insight Box -->
   <div class="insight-box">
     These reflections are for you. There are no right answers. The goal is honest awareness, not perfection. Take your time, and return to these questions as your understanding deepens.
   </div>
 
-  <!-- Footer -->
   <div class="footer">
-    <p>
-      Strengths-Based Coaching and Counselling<br>
-      www.coach4u.com.au<br>
-      cath@coach4u.com.au<br>
-      0402 313 337
-    </p>
+    <p>Strengths-Based Coaching and Counselling<br>www.coach4u.com.au<br>cath@coach4u.com.au<br>0402 313 337</p>
   </div>
 
 </body>
