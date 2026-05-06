@@ -1,124 +1,86 @@
-# Coach4U — Client Resource Portal
+# Coach4U Relationships — Client Resource Portal
 
-A password-protected resource library for Coach4U coaching clients. Clients enter a shared access code and can browse/download resources across four categories: Relationships, Business, Leadership, and Strengths.
+A membership-gated resource library for Coach4U relationship coaching and counselling clients. Clients sign in with their email and password and access coaching resources organised into six modules.
 
 ## Tech Stack
 
-- **Frontend:** Static HTML, CSS, JavaScript (no build tools)
-- **Auth & Storage:** [Supabase](https://supabase.com) (free tier)
-- **Hosting:** GitHub Pages, Netlify, or any static host
+- **Frontend:** Static HTML + CSS (no build tools)
+- **Auth & Data:** [Supabase](https://supabase.com) — email/password auth, membership status check
+- **Hosting:** GitHub Pages
 
-## Supabase Setup (One-Time)
+## How It Works
 
-### 1. Create a Supabase Project
+1. Client visits the site and logs in at `index.html` with their email and password
+2. Supabase confirms the session and checks `users.membership_status = 'active'`
+3. Active members land on `portal.html` — the dashboard with 8 module cards
+4. Each module card opens a dedicated page with resources for that topic
+5. Inactive or unknown members are redirected to `inactive.html`
 
-1. Go to [supabase.com](https://supabase.com) and sign up / log in
-2. Click **New Project**, give it a name (e.g. "coach4u")
-3. Choose a region close to your clients
-4. Set a database password and save it somewhere safe
-5. Wait for the project to finish setting up
+## Site Structure
 
-### 2. Get Your API Credentials
-
-1. Go to **Settings → API** in your Supabase dashboard
-2. Copy the **Project URL** (looks like `https://abcdefg.supabase.co`)
-3. Copy the **anon / public** key
-4. Open `js/supabase-config.js` and replace the placeholder values:
-
-```js
-const SUPABASE_URL = 'https://your-project-id.supabase.co';
-const SUPABASE_ANON_KEY = 'your-anon-key-here';
+```
+index.html                    ← Login
+forgot-password.html          ← Password reset request
+reset-password.html           ← Password reset (via email link)
+inactive.html                 ← Shown for inactive memberships
+portal.html                   ← Dashboard (8 module cards)
+downloads.html                ← Printable PDFs and worksheets
+understanding.html            ← Module: Understanding Your Relationship
+communication.html            ← Module: Communication and Connection
+daily-practice.html           ← Module: Daily Practice
+healing.html                  ← Module: Healing and Trust
+transitions.html              ← Module: Navigating Transitions
+specialised.html              ← Module: Specialised Support
+relationships.html            ← Full section overview (reference)
+resources/relationships/      ← Individual resource/worksheet pages
+css/style.css                 ← Stylesheet
+assets/                       ← Images and icons
 ```
 
-### 3. Set Up the Access Code
+## Dashboard Modules
 
-1. In your Supabase dashboard, go to **SQL Editor**
-2. Paste and run this SQL:
+| Module | Page | Status |
+|--------|------|--------|
+| Understanding Your Relationship | `understanding.html` | Live |
+| Communication and Connection | `communication.html` | Live |
+| Daily Practice | `daily-practice.html` | Live |
+| Healing and Trust | `healing.html` | Live |
+| Navigating Transitions | `transitions.html` | Live |
+| Specialised Support | `specialised.html` | Live |
+| Downloads | `downloads.html` | Live |
+| Account | — | Coming Soon |
+
+## Adding a New Resource
+
+1. Create the resource page in `resources/relationships/your-resource.html` (copy auth guard from an existing resource page)
+2. Add a `resource-item` entry to the relevant module page (`understanding.html`, `communication.html`, etc.)
+
+## Adding a New Member
+
+Run in **Supabase Dashboard → SQL Editor**:
 
 ```sql
--- Create table for the shared access code
-CREATE TABLE access_codes (
-  id int PRIMARY KEY DEFAULT 1,
-  code text NOT NULL,
-  CONSTRAINT single_row CHECK (id = 1)
-);
-
--- Set your access code (change 'your-access-code-here' to whatever you want)
-INSERT INTO access_codes (code) VALUES ('your-access-code-here');
-
--- Lock down direct access to the table
-ALTER TABLE access_codes ENABLE ROW LEVEL SECURITY;
-
--- Create the verification function (clients never see the code)
-CREATE OR REPLACE FUNCTION verify_access_code(input_code text)
-RETURNS boolean
-LANGUAGE sql
-SECURITY DEFINER
-AS $$
-  SELECT EXISTS (SELECT 1 FROM access_codes WHERE code = input_code);
-$$;
+INSERT INTO users (id, email, membership_status)
+SELECT id, email, 'active'
+FROM auth.users
+WHERE LOWER(email) = LOWER('email@here.com');
 ```
 
-3. To change the code later, run:
+The client must first sign up via `index.html` before running this.
 
-```sql
-UPDATE access_codes SET code = 'new-code-here' WHERE id = 1;
-```
+## Supabase Credentials
 
-### 4. Create the Storage Bucket
+| | |
+|---|---|
+| Project URL | `https://eekefsuaefgpqmjdyniy.supabase.co` |
+| Anon Key | `sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y` |
 
-1. Go to **Storage** in your Supabase dashboard
-2. Click **New Bucket**, name it `resources`, and set it to **Private**
-3. Inside the bucket, create these folders:
-   - `relationships/`
-   - `business/`
-   - `leadership/`
-   - `strengths/`
+## Deployment
 
-### 5. Set Storage Permissions
+Push to `main` — GitHub Pages deploys automatically from the root.
 
-1. Go to **Storage → Policies** for the `resources` bucket
-2. Add a policy that allows `SELECT` for the `anon` role (so signed URLs work):
-   - Policy name: `Allow signed URL access`
-   - Allowed operation: `SELECT`
-   - Target roles: `anon`
-   - Policy: `true`
+## Branding
 
-## Uploading Documents
-
-1. Go to **Supabase Dashboard → Storage → resources**
-2. Navigate to the appropriate folder (e.g. `relationships/`)
-3. Click **Upload** and select your files
-4. Files appear automatically in the portal — no code changes needed
-
-**Naming tip:** File names are cleaned up for display. `my-great-worksheet.pdf` shows as "My Great Worksheet". Use hyphens or underscores to separate words.
-
-## Deployment (GitHub Pages)
-
-1. Push your code to the `main` branch
-2. Go to **GitHub → Settings → Pages**
-3. Set Source to **Deploy from a branch**
-4. Select the `main` branch and `/ (root)` folder
-5. Your site will be live at `https://your-username.github.io/external-Coach4U-resources/`
-
-## Changing the Access Code
-
-Run this in **Supabase Dashboard → SQL Editor**:
-
-```sql
-UPDATE access_codes SET code = 'new-code-here' WHERE id = 1;
-```
-
-Clients with active sessions will keep access until their session expires (24 hours or when they close the browser tab). New logins will need the new code.
-
-## File Structure
-
-```
-index.html              ← Login page
-portal.html             ← Resource library (protected)
-css/styles.css          ← Design system
-js/supabase-config.js   ← Supabase credentials
-js/auth.js              ← Access code verification
-js/resources.js         ← Document fetching & rendering
-assets/coach4u-logo.svg ← Brand logo
-```
+- **Owner:** Cath Baker — Coach4U
+- **Contact:** cath@coach4u.com.au | 0402 313 337 | www.coach4u.com.au
+- **Tone:** Australian English, warm, professional, strengths-based

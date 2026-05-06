@@ -7,7 +7,7 @@
 
 ## Stylesheet
 
-This app uses a **local** stylesheet: `css/styles.css`. Edit it directly for style changes.
+This app uses a **local** stylesheet: `css/style.css`. Edit it directly for style changes.
 
 The shared CDN stylesheet (`https://cathcoach4u.github.io/coach4u-shared/css/style.css`) is **not** currently used here.
 
@@ -50,7 +50,22 @@ WHERE LOWER(email) = LOWER('email@here.com');
 
 ### App Overview
 
-**Coach4U Relationships** is a membership-gated client resource library. After signing in with email and password, clients with `membership_status = 'active'` can browse and view resources across four categories: Relationships, Business, Leadership, and Strengths.
+**Coach4U Relationships** is a membership-gated client resource library for relationship coaching and counselling. After signing in with email and password, clients with `membership_status = 'active'` land on the dashboard (`portal.html`) and can navigate into 6 relationship coaching modules plus Downloads and Account.
+
+The 6 modules map directly to the section headings that existed in the original `relationships.html` — each is now its own standalone page.
+
+### Dashboard Module Cards (portal.html)
+
+| Card | Links to | Status |
+|------|----------|--------|
+| Understanding Your Relationship | `understanding.html` | Active |
+| Communication and Connection | `communication.html` | Active |
+| Daily Practice | `daily-practice.html` | Active |
+| Healing and Trust | `healing.html` | Active |
+| Navigating Transitions | `transitions.html` | Active |
+| Specialised Support | `specialised.html` | Active |
+| Downloads | `downloads.html` | Active |
+| Account | — | Coming Soon |
 
 ### Pages
 
@@ -60,38 +75,62 @@ WHERE LOWER(email) = LOWER('email@here.com');
 | `forgot-password.html` | No | Send password reset email |
 | `reset-password.html` | No | Update password via reset token |
 | `inactive.html` | No | Shown when membership is inactive |
-| `portal.html` | Yes | Resource library |
-| `resources/relationships/*.html` | Yes | Individual resource pages |
+| `portal.html` | Yes | Dashboard — 8 module cards |
+| `downloads.html` | Yes | Printable PDFs and worksheets |
+| `understanding.html` | Yes | Understanding Your Relationship resources |
+| `communication.html` | Yes | Communication and Connection resources |
+| `daily-practice.html` | Yes | Daily Practice resources |
+| `healing.html` | Yes | Healing and Trust resources |
+| `transitions.html` | Yes | Navigating Transitions resources |
+| `specialised.html` | Yes | Specialised Support resources |
+| `relationships.html` | Yes | Full overview of all sections (legacy — kept as reference) |
+| `resources/relationships/*.html` | Yes | Individual resource/worksheet pages |
 
 ### Resource Structure
 
-Resources are hardcoded in `portal.html` as static links. To add a new resource, add the file to `resources/` and add a new `<article class="card document-card">` entry in `portal.html`. Every new resource page must include the standard auth guard (see below).
+Each module page (`understanding.html`, `communication.html`, etc.) contains a `resources-grid` with `resource-item` entries linking to individual resource pages in `resources/relationships/`.
+
+To add a resource to a module:
+1. Create the resource page in `resources/relationships/your-resource.html` (include auth guard — see template below)
+2. Add a `resource-item` entry to the relevant module page
+
+```html
+<div class="resource-item">
+  <strong style="color:var(--primary);font-size:14px;line-height:1.4;">Resource Title</strong>
+  <a href="resources/relationships/your-resource.html" target="_blank" class="btn btn-primary">View</a>
+</div>
+```
+
+To add a new module to the dashboard, create a new HTML page and add an `app-card` entry to `portal.html`.
 
 ### Auth Guard Template
 
-For pages at root level (`portal.html`):
+For module pages at root level:
 
 ```html
 <style>body{visibility:hidden}</style>
 <script type="module">
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-  const supabase = createClient(
-    'https://eekefsuaefgpqmjdyniy.supabase.co',
-    'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y'
-  );
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) {
+  const SUPABASE_URL      = 'https://eekefsuaefgpqmjdyniy.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y';
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  if (!user || userError) {
     window.location.href = 'index.html';
   } else {
     const { data: profile } = await supabase
       .from('users')
       .select('membership_status')
-      .eq('id', session.user.id)
+      .eq('id', user.id)
       .single();
-    if (profile?.membership_status !== 'active') {
+    if (!profile || profile.membership_status !== 'active') {
       window.location.href = 'inactive.html';
     } else {
       document.body.style.visibility = 'visible';
+      document.getElementById('signOutBtn').addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = 'index.html';
+      });
     }
   }
 </script>
@@ -106,7 +145,7 @@ For pages in `resources/relationships/` use `'../../index.html'` and `'../../ina
 - **Type:** Coaching and counselling practice (NOT psychology)
 - **Colour palette:** Dark Blue `#1B3664` (headings/primary), Mid Blue `#5684C4` (secondary/accent), Dark Grey `#2D2D2D` (body text), Light Grey `#DDDDDD` (borders/neutral), White `#FFFFFF` (background)
 - **Font:** Inter Bold (headings) + Montserrat Regular (body) via Google Fonts; Aptos/Calibri as fallback
-- **Logo:** `assets/coach4u-logo.jpg` — top left
+- **Logo:** `assets/coach4u-icon.jpeg` — top left
 - **Tone:** Australian English, warm, professional, strengths-based, no exclamation marks, no em dashes
 
 ### Key Terminology
