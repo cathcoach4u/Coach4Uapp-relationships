@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Relationship Coach — Daily Practice</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="theme-color" content="#003366">
+  <style>body{visibility:hidden}</style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const SUPABASE_URL      = 'https://eekefsuaefgpqmjdyniy.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (!user || userError) {
+      window.location.href = 'index.html';
+    } else {
+      const { data: profile } = await supabase
+        .from('users')
+        .select('membership_status')
+        .eq('id', user.id)
+        .single();
+      if (!profile || profile.membership_status !== 'active') {
+        window.location.href = 'inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+        document.getElementById('signOutBtn').addEventListener('click', async () => {
+          await supabase.auth.signOut();
+          window.location.href = 'index.html';
+        });
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="portal.html" class="header-back">← Dashboard</a>
+        <span class="header-title">Daily Practice</span>
+      </div>
+      <button id="signOutBtn" class="sign-out-btn">Sign Out</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <p class="page-subtitle">Coaching resources and worksheets</p>
+
+    <div class="resources-grid">
+      <div class="resource-item">
+        <strong style="color:var(--primary);font-size:14px;line-height:1.4;">Daily Connection Rituals</strong>
+        <a href="resources/relationships/daily-connection-rituals.html" target="_blank" class="btn btn-primary">View</a>
+      </div>
+      <div class="resource-item">
+        <strong style="color:var(--primary);font-size:14px;line-height:1.4;">Growing Together: Weekly Check-In</strong>
+        <a href="resources/relationships/growing-together-weekly-check-in.html" target="_blank" class="btn btn-primary">View</a>
+      </div>
+      <div class="resource-item">
+        <strong style="color:var(--primary);font-size:14px;line-height:1.4;">Weekly Connection Check-In</strong>
+        <a href="resources/relationships/weekly-connection-check-in.html" target="_blank" class="btn btn-primary">View</a>
+      </div>
+      <div class="resource-item">
+        <strong style="color:var(--primary);font-size:14px;line-height:1.4;">Understanding Your Connection Pulse</strong>
+        <a href="resources/relationships/understanding-your-connection-pulse.html" target="_blank" class="btn btn-primary">View</a>
+      </div>
+    </div>
+  </div>
+
+  <footer style="text-align:center;padding:32px 0;margin-top:16px;border-top:1px solid var(--divider);color:var(--text-muted);font-size:12px;line-height:1.8;">
+    Strengths-Based Coaching and Counselling<br>
+    <a href="https://www.coach4u.com.au">www.coach4u.com.au</a> &nbsp;|&nbsp;
+    <a href="mailto:cath@coach4u.com.au">cath@coach4u.com.au</a> &nbsp;|&nbsp;
+    0402 313 337
+  </footer>
+
+</body>
+</html>
