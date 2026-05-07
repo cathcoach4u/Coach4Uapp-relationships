@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Strengths Profile &mdash; Coach4U</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <meta name="theme-color" content="#003366">
+  <style>
+    body { visibility: hidden; }
+    .report-section {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 16px;
+    }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .domain-bar {
+      display: flex;
+      border-radius: 6px;
+      overflow: hidden;
+      height: 30px;
+    }
+    .domain-segment {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      padding: 0 6px;
+    }
+    .theme-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-radius: 20px;
+      padding: 4px 10px 4px 5px;
+      font-size: 12px;
+      font-weight: 600;
+      margin: 3px 2px;
+      color: #fff;
+    }
+    .theme-rank {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .partners-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 640px) {
+      .partners-grid { grid-template-columns: 1fr; }
+    }
+    .partner-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #94a3b8;
+    }
+    .print-btn {
+      background: #003366;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .print-btn:hover { background: #1a4d80; }
+    @media print {
+      .no-print { display: none !important; }
+      body { visibility: visible !important; }
+      .report-section, .partner-card { break-inside: avoid; }
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    const SUPABASE_URL      = 'https://eekefsuaefgpqmjdyniy.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y';
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const DOMAIN_MAP = {
+      'Achiever':'EXE','Arranger':'EXE','Belief':'EXE','Consistency':'EXE',
+      'Deliberative':'EXE','Discipline':'EXE','Focus':'EXE','Responsibility':'EXE','Restorative':'EXE',
+      'Activator':'INF','Command':'INF','Communication':'INF','Competition':'INF',
+      'Maximizer':'INF','Maximiser':'INF','Self-Assurance':'INF','Significance':'INF','Woo':'INF',
+      'Adaptability':'REL','Connectedness':'REL','Developer':'REL','Empathy':'REL',
+      'Harmony':'REL','Includer':'REL','Individualization':'REL','Individualisation':'REL',
+      'Positivity':'REL','Relator':'REL',
+      'Analytical':'STR','Context':'STR','Futuristic':'STR','Ideation':'STR',
+      'Input':'STR','Intellection':'STR','Learner':'STR','Strategic':'STR'
+    };
+
+    const DOMAIN_META = {
+      EXE: { label: 'Executing',    bg: '#6D28D9' },
+      INF: { label: 'Influencing',  bg: '#EA580C' },
+      REL: { label: 'Relationship', bg: '#2563EB' },
+      STR: { label: 'Strategic',    bg: '#16A34A' }
+    };
+
+    const DOMAIN_ORDER = ['EXE', 'INF', 'REL', 'STR'];
+
+    function getDomain(theme) { return DOMAIN_MAP[theme] || null; }
+
+    function domainCounts(themes) {
+      const counts = { EXE: 0, INF: 0, REL: 0, STR: 0 };
+      themes.forEach(t => { const d = getDomain(t); if (d) counts[d]++; });
+      return counts;
+    }
+
+    function renderDomainBar(counts) {
+      const total = Object.values(counts).reduce((a, b) => a + b, 0) || 1;
+      const segments = DOMAIN_ORDER
+        .filter(d => counts[d] > 0)
+        .map(d => {
+          const meta = DOMAIN_META[d];
+          return `<div class="domain-segment" style="flex:${counts[d]};background:${meta.bg};">${d} ${counts[d]}</div>`;
+        });
+      return `<div class="domain-bar">${segments.join('')}</div>`;
+    }
+
+    function renderDomainLegend(counts) {
+      return DOMAIN_ORDER
+        .filter(d => counts[d] > 0)
+        .map(d => {
+          const meta = DOMAIN_META[d];
+          return `<span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#64748b;margin-right:14px;">
+            <span style="width:10px;height:10px;border-radius:2px;background:${meta.bg};display:inline-block;flex-shrink:0;"></span>
+            ${meta.label}: ${counts[d]}
+          </span>`;
+        }).join('');
+    }
+
+    function renderThemePill(theme, rank) {
+      const domain = getDomain(theme);
+      const meta   = domain ? DOMAIN_META[domain] : { bg: '#64748b' };
+      return `<span class="theme-pill" style="background:${meta.bg};">
+        <span class="theme-rank">${rank}</span>${theme}
+      </span>`;
+    }
+
+    function renderPartnerCard(name, themes) {
+      const counts = domainCounts(themes);
+      const pills  = themes.map((t, i) => renderThemePill(t, i + 1)).join('');
+      return `<div class="partner-card">
+        <div style="font-size:15px;font-weight:700;color:#003366;margin-bottom:12px;">${name}</div>
+        <div style="margin-bottom:8px;">${renderDomainBar(counts)}</div>
+        <div style="margin-bottom:14px;margin-top:5px;">${renderDomainLegend(counts)}</div>
+        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#94a3b8;font-weight:700;margin-bottom:8px;">Top ${themes.length} Themes</div>
+        <div>${pills}</div>
+      </div>`;
+    }
+
+    function renderReport(couple, userId) {
+      const app = document.getElementById('app');
+
+      if (!couple) {
+        app.innerHTML = `<div class="empty-state">
+          <div style="font-size:40px;margin-bottom:16px;">&#128170;</div>
+          <div style="font-size:16px;font-weight:600;color:#475569;margin-bottom:8px;">Strengths profile not yet set up</div>
+          <div style="font-size:13px;line-height:1.7;max-width:380px;margin:0 auto;">
+            Once your coach has linked your CliftonStrengths results, your profile will appear here.<br>
+            Contact <a href="mailto:cath@coach4u.com.au" style="color:#003366;font-weight:600;">cath@coach4u.com.au</a> if you have any questions.
+          </div>
+        </div>`;
+        return;
+      }
+
+      const isA         = couple.user_a_id === userId;
+      const myName      = isA ? couple.name_a : couple.name_b;
+      const partnerName = isA ? couple.name_b : couple.name_a;
+      const myStrengths = (isA ? couple.strengths_a : couple.strengths_b) || [];
+      const ptStrengths = (isA ? couple.strengths_b : couple.strengths_a) || [];
+      const coupleLabel = couple.couple_label || [myName, partnerName].filter(Boolean).join(' & ');
+      const sharedThemes    = myStrengths.filter(t => ptStrengths.includes(t));
+      const combinedCounts  = domainCounts([...myStrengths, ...ptStrengths]);
+
+      const sharedPills = sharedThemes.length
+        ? sharedThemes.map(t => {
+            const d    = getDomain(t);
+            const meta = d ? DOMAIN_META[d] : { bg: '#64748b' };
+            return `<span style="display:inline-block;background:${meta.bg};color:#fff;border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;margin:3px;">${t}</span>`;
+          }).join('')
+        : '<span style="color:#94a3b8;font-size:13px;font-style:italic;">No shared themes in top 10</span>';
+
+      app.innerHTML = `
+        <div class="report-section" style="border-left:4px solid #003366;">
+          <div style="font-size:20px;font-weight:800;color:#003366;margin-bottom:4px;">${coupleLabel}</div>
+          <div style="font-size:13px;color:#64748b;">Pair comparison &middot; ${sharedThemes.length} shared theme${sharedThemes.length !== 1 ? 's' : ''}</div>
+        </div>
+
+        <div class="report-section" style="background:#f0fdf4;border-color:#bbf7d0;">
+          <div class="section-label" style="color:#15803d;">Shared Themes (${sharedThemes.length})</div>
+          <div>${sharedPills}</div>
+        </div>
+
+        <div class="report-section">
+          <div class="section-label" style="color:#94a3b8;">Domain Balance &mdash; Combined</div>
+          <div style="margin-bottom:8px;">${renderDomainBar(combinedCounts)}</div>
+          <div style="margin-top:6px;">${renderDomainLegend(combinedCounts)}</div>
+        </div>
+
+        <div class="partners-grid">
+          ${renderPartnerCard(myName || 'You', myStrengths)}
+          ${renderPartnerCard(partnerName || 'Partner', ptStrengths)}
+        </div>`;
+    }
+
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (!user || userError) {
+      window.location.href = '../../index.html';
+    } else {
+      const { data: profile } = await supabase
+        .from('users')
+        .select('membership_status')
+        .eq('id', user.id)
+        .single();
+      if (!profile || profile.membership_status !== 'active') {
+        window.location.href = '../../inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+        document.getElementById('signOutBtn').addEventListener('click', async () => {
+          await supabase.auth.signOut();
+          window.location.href = '../../index.html';
+        });
+        const { data: couple } = await supabase
+          .from('couple_strengths')
+          .select('*')
+          .or(`user_a_id.eq.${user.id},user_b_id.eq.${user.id}`)
+          .maybeSingle();
+        renderReport(couple, user.id);
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="../../communication.html" class="header-back">&larr; Communication</a>
+        <span class="header-title">Strengths Profile</span>
+      </div>
+      <button id="signOutBtn" class="sign-out-btn">Sign Out</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;" class="no-print">
+      <p class="page-subtitle">Your CliftonStrengths pair comparison</p>
+      <button class="print-btn" onclick="window.print()">&#128424; Print</button>
+    </div>
+    <div id="app">
+      <div style="text-align:center;padding:60px;color:#94a3b8;font-size:14px;">Loading&hellip;</div>
+    </div>
+  </div>
+
+  <footer style="text-align:center;padding:32px 0;margin-top:16px;border-top:1px solid var(--divider);color:var(--text-muted);font-size:12px;line-height:1.8;" class="no-print">
+    Strengths-Based Coaching and Counselling<br>
+    <a href="https://www.coach4u.com.au">www.coach4u.com.au</a> &nbsp;|&nbsp;
+    <a href="mailto:cath@coach4u.com.au">cath@coach4u.com.au</a> &nbsp;|&nbsp;
+    0402 313 337
+  </footer>
+
+</body>
+</html>
