@@ -22,6 +22,10 @@
         window.location.href = '../../inactive.html';
       } else {
         document.body.style.visibility = 'visible';
+        document.getElementById('signOutBtn').addEventListener('click', async () => {
+          await supabase.auth.signOut();
+          window.location.href = '../../index.html';
+        });
       }
     }
   </script>
@@ -31,10 +35,10 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="header-left">
-        <a href="#" onclick="history.back(); return false;" class="header-back">&larr; Back</a>
+        <a href="../../communication.html" class="header-back">&larr; Back</a>
         <span class="header-title">Issue Clarifier</span>
       </div>
-      
+      <button id="signOutBtn" class="sign-out-btn">Sign Out</button>
     </div>
   </header>
 
@@ -224,7 +228,7 @@
     <div class="act-card act-hidden" id="step4">
       <div class="act-step-label">Step 4 of 4</div>
       <h2 class="act-step-title">Your Imago opening message</h2>
-      <p class="act-step-prompt">Here is a prepared statement based on what you clarified. Edit it until it feels true &mdash; then use it to invite your partner into the dialogue.</p>
+      <p class="act-step-prompt">Here is a prepared statement based on what you clarified. Edit it until it feels true &mdash; then use it to begin the dialogue with your partner.</p>
 
       <div class="act-summary-banner">
         <div class="act-summary-label">Your clarified perspective</div>
@@ -239,8 +243,9 @@
           <textarea id="imagoStatement" class="act-textarea" rows="4" placeholder="I feel&hellip; when&hellip; What I need is&hellip;"></textarea>
         </div>
         <div>
-          <label>How will you invite your partner into this conversation?</label>
-          <textarea id="inviteStatement" class="act-textarea" rows="2" placeholder="e.g. Would you be willing to have a conversation with me when you are ready?"></textarea>
+          <label>The Imago invitation</label>
+          <p class="act-step-hint" style="margin-bottom:8px; margin-top:2px">In Imago, the Sender formally asks: <em>&ldquo;Can we have a dialogue?&rdquo;</em> This specific phrase signals both partners are choosing to enter a safe, structured space together. Your partner responds yes &mdash; or names a time that works for them.</p>
+          <textarea id="inviteStatement" class="act-textarea" rows="2" placeholder="Can we have a dialogue? I have something I&rsquo;d like to share with you."></textarea>
         </div>
       </div>
 
@@ -248,10 +253,7 @@
         <div class="act-info-card-title">The Imago Dialogue &mdash; what happens next</div>
         <div class="act-info-row">
           <span class="act-info-label">1. Mirror</span>
-          <span>
-            <strong>Word for word:</strong> Your partner slows down and repeats your exact words back, without changing, summarising, or interpreting. <em>&ldquo;What I hear you saying is&hellip;&rdquo;</em> Then: <em>&ldquo;Did I get that right? Is there more?&rdquo;</em><br><br>
-            <strong>Summarise:</strong> Once you have said everything you need to say, your partner reflects the overall meaning back in their own words, checking they have understood the whole message.
-          </span>
+          <span>Your partner reflects back what they heard: <em>&ldquo;What I hear you saying is&hellip;&rdquo;</em></span>
         </div>
         <div class="act-info-row">
           <span class="act-info-label">2. Validate</span>
@@ -264,8 +266,9 @@
       </div>
 
       <div class="act-context-box">
-        <div class="act-context-box-title">Before you begin the dialogue</div>
-        <p>Choose a calm moment &mdash; not when either of you is rushed, tired, or already activated. Make a request, not a demand: <em>&ldquo;Would you be willing to talk when you&rsquo;re ready?&rdquo;</em> After you share, your partner takes a turn &mdash; they become the Sender and you become the Receiver, mirroring them with the same care.</p>
+        <div class="act-context-box-title">The dialogue request</div>
+        <p>The Imago process begins with intention, not urgency. Ask: <em>&ldquo;Can we have a dialogue?&rdquo;</em> Your partner can say yes now, or offer a specific time: <em>&ldquo;Not right now &mdash; can we do this after dinner?&rdquo;</em> Agreeing to a time is just as valid as saying yes immediately.</p>
+        <p>Once you both agree, share your statement. When you have finished, roles switch &mdash; your partner becomes the Sender and you become the Receiver, mirroring them with the same care and presence.</p>
       </div>
 
       <div class="act-button-row">
@@ -380,7 +383,7 @@
 
       document.getElementById('imagoStatement').value = statement
       document.getElementById('inviteStatement').value =
-        'Would you be willing to have a conversation with me when you are ready? I have something I’d like to share with you.'
+        'Can we have a dialogue? I have something I’d like to share with you.'
     }
   </script>
 
