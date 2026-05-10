@@ -1,6 +1,6 @@
 /* ============================================
    Coach4U Activity Design System — css/activity.css
-   Version: 1.0
+   Version: 1.1
    Source of truth: coach4u-shared/templates/css/activity.css
 
    Use on: multi-step tools, worksheets, reflections, builders.
@@ -27,6 +27,11 @@
   --act-shadow-md:    0 4px 16px rgba(27, 54, 100, 0.08);
   --act-font-body:    'Montserrat', sans-serif;
   --act-font-heading: 'Inter', sans-serif;
+  /* Weight tokens — override any of these per-page to adjust text density */
+  --act-weight-body:      400;
+  --act-weight-medium:    500;
+  --act-weight-semibold:  600;
+  --act-weight-bold:      700;
 }
 
 /* ----- Body ----- */
@@ -38,6 +43,7 @@ body.activity-page {
   background: var(--act-bg);
   font-family: var(--act-font-body);
   font-size: 1rem;
+  font-weight: var(--act-weight-body);
   line-height: 1.5;
   color: var(--act-dark-grey);
 }
@@ -53,7 +59,7 @@ body.activity-page {
   text-decoration: none;
   font-family: var(--act-font-heading);
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: var(--act-weight-semibold);
   transition: color 0.15s;
 }
 .act-back-link:hover { color: var(--act-dark-blue); text-decoration: none; }
@@ -62,7 +68,7 @@ body.activity-page {
 .act-header { text-align: center; margin-bottom: 36px; }
 .act-header h1 {
   font-family: var(--act-font-heading);
-  font-weight: 700;
+  font-weight: var(--act-weight-bold);
   color: var(--act-dark-blue);
   font-size: 2rem;
   letter-spacing: -0.5px;
@@ -71,6 +77,7 @@ body.activity-page {
 .act-header p {
   color: var(--act-dark-grey);
   font-size: 1rem;
+  font-weight: var(--act-weight-body);
   max-width: 540px;
   margin: 0 auto;
   line-height: 1.6;
@@ -92,7 +99,7 @@ body.activity-page {
   font-family: var(--act-font-heading);
   font-size: 0.85rem;
   color: var(--act-light-grey);
-  font-weight: 600;
+  font-weight: var(--act-weight-semibold);
 }
 .act-progress-step .num {
   width: 26px; height: 26px;
@@ -123,7 +130,7 @@ body.activity-page {
 .act-step-label {
   font-family: var(--act-font-body);
   font-size: 0.78rem;
-  font-weight: 600;
+  font-weight: var(--act-weight-semibold);
   color: var(--act-light-blue);
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -131,7 +138,7 @@ body.activity-page {
 }
 .act-step-title {
   font-family: var(--act-font-heading);
-  font-weight: 700;
+  font-weight: var(--act-weight-bold);
   color: var(--act-dark-blue);
   font-size: 1.35rem;
   margin-bottom: 8px;
@@ -141,6 +148,7 @@ body.activity-page {
 .act-step-prompt {
   color: var(--act-dark-grey);
   font-size: 0.95rem;
+  font-weight: var(--act-weight-body);
   margin-bottom: 8px;
   line-height: 1.65;
 }
@@ -148,6 +156,7 @@ body.activity-page {
   color: var(--act-light-blue);
   font-size: 0.85rem;
   font-style: italic;
+  font-weight: var(--act-weight-body);
   margin-bottom: 20px;
 }
 
@@ -161,13 +170,13 @@ body.activity-page {
 }
 .act-reference-label {
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: var(--act-weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--act-light-blue);
   margin-bottom: 4px;
 }
-.act-reference-text { font-size: 0.88rem; color: var(--act-dark-grey); line-height: 1.5; }
+.act-reference-text { font-size: 0.88rem; font-weight: var(--act-weight-body); color: var(--act-dark-grey); line-height: 1.5; }
 
 /* ----- Core / Large Emoji Tiles ----- */
 .act-core-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
@@ -182,7 +191,7 @@ body.activity-page {
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: var(--act-font-heading);
-  font-weight: 600;
+  font-weight: var(--act-weight-semibold);
   color: var(--act-dark-blue);
   font-size: 1rem;
   display: flex;
@@ -193,7 +202,7 @@ body.activity-page {
 }
 .act-core-tile:hover { border-color: var(--act-light-blue); transform: translateY(-2px); box-shadow: var(--act-shadow-md); }
 .act-core-tile.selected { background: var(--act-dark-blue); border-color: var(--act-dark-blue); color: white; }
-.act-core-tile.selected::after { content: "\2713"; position: absolute; top: 8px; right: 10px; font-size: 0.85rem; font-weight: 700; }
+.act-core-tile.selected::after { content: "\2713"; position: absolute; top: 8px; right: 10px; font-size: 0.85rem; font-weight: var(--act-weight-bold); }
 .act-emoji { font-size: 1.8rem; line-height: 1; }
 
 /* ----- Sub / Chip Tiles ----- */
@@ -208,14 +217,14 @@ body.activity-page {
   cursor: pointer;
   transition: all 0.15s ease;
   font-family: var(--act-font-body);
-  font-weight: 500;
+  font-weight: var(--act-weight-medium);
   color: var(--act-dark-grey);
   font-size: 0.95rem;
   position: relative;
 }
 .act-sub-tile:hover { border-color: var(--act-light-blue); background: white; }
-.act-sub-tile.selected { background: var(--act-light-blue); border-color: var(--act-light-blue); color: white; font-weight: 600; }
-.act-sub-tile.selected::after { content: "\2713"; position: absolute; top: 50%; right: 12px; transform: translateY(-50%); font-size: 0.85rem; font-weight: 700; }
+.act-sub-tile.selected { background: var(--act-light-blue); border-color: var(--act-light-blue); color: white; font-weight: var(--act-weight-semibold); }
+.act-sub-tile.selected::after { content: "\2713"; position: absolute; top: 50%; right: 12px; transform: translateY(-50%); font-size: 0.85rem; font-weight: var(--act-weight-bold); }
 
 /* ----- Nuance / Row Items ----- */
 .act-nuance-list { display: flex; flex-direction: column; gap: 8px; }
@@ -235,14 +244,14 @@ body.activity-page {
 }
 .act-nuance-item:hover { border-color: var(--act-light-blue); background: white; }
 .act-nuance-item.selected { background: white; border-color: var(--act-dark-blue); box-shadow: var(--act-shadow-sm); }
-.act-nuance-item.selected::after { content: "\2713"; position: absolute; top: 50%; right: 16px; transform: translateY(-50%); font-size: 0.95rem; font-weight: 700; color: var(--act-dark-blue); }
-.act-word { font-family: var(--act-font-heading); font-weight: 600; color: var(--act-dark-blue); flex-shrink: 0; min-width: 120px; }
-.act-desc { color: var(--act-dark-grey); font-size: 0.9rem; }
+.act-nuance-item.selected::after { content: "\2713"; position: absolute; top: 50%; right: 16px; transform: translateY(-50%); font-size: 0.95rem; font-weight: var(--act-weight-bold); color: var(--act-dark-blue); }
+.act-word { font-family: var(--act-font-heading); font-weight: var(--act-weight-semibold); color: var(--act-dark-blue); flex-shrink: 0; min-width: 120px; }
+.act-desc { color: var(--act-dark-grey); font-size: 0.9rem; font-weight: var(--act-weight-body); }
 
 /* ----- Section Title (within a step) ----- */
 .act-section-title {
   font-family: var(--act-font-heading);
-  font-weight: 600;
+  font-weight: var(--act-weight-semibold);
   color: var(--act-dark-blue);
   font-size: 1rem;
   margin-bottom: 10px;
@@ -259,15 +268,15 @@ body.activity-page {
   margin-bottom: 24px;
   text-align: center;
 }
-.act-summary-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.85; margin-bottom: 10px; font-weight: 500; }
-.act-summary-words { font-family: var(--act-font-heading); font-weight: 700; font-size: 1.6rem; letter-spacing: -0.3px; line-height: 1.4; }
-.act-summary-path { font-size: 0.85rem; opacity: 0.85; margin-top: 12px; line-height: 1.6; }
+.act-summary-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.85; margin-bottom: 10px; font-weight: var(--act-weight-medium); }
+.act-summary-words { font-family: var(--act-font-heading); font-weight: var(--act-weight-bold); font-size: 1.6rem; letter-spacing: -0.3px; line-height: 1.4; }
+.act-summary-path { font-size: 0.85rem; font-weight: var(--act-weight-body); opacity: 0.85; margin-top: 12px; line-height: 1.6; }
 
 /* ----- Reflect Prompts / Textareas ----- */
 .act-reflect-prompts { display: flex; flex-direction: column; gap: 16px; }
 .act-reflect-prompts label {
   font-family: var(--act-font-heading);
-  font-weight: 600;
+  font-weight: var(--act-weight-semibold);
   color: var(--act-dark-blue);
   font-size: 0.93rem;
   margin-bottom: 6px;
@@ -281,6 +290,7 @@ body.activity-page {
   padding: 12px 14px;
   font-family: var(--act-font-body);
   font-size: 0.93rem;
+  font-weight: var(--act-weight-body);
   color: var(--act-dark-grey);
   background: white;
   resize: vertical;
@@ -298,8 +308,8 @@ body.activity-page {
   border-radius: var(--act-radius-md);
   border: 1px solid var(--act-light-grey);
 }
-.act-redirect-panel p { font-size: 0.93rem; color: var(--act-dark-grey); margin-bottom: 14px; }
-.act-redirect-panel p strong { font-family: var(--act-font-heading); color: var(--act-dark-blue); font-weight: 600; }
+.act-redirect-panel p { font-size: 0.93rem; font-weight: var(--act-weight-body); color: var(--act-dark-grey); margin-bottom: 14px; }
+.act-redirect-panel p strong { font-family: var(--act-font-heading); color: var(--act-dark-blue); font-weight: var(--act-weight-semibold); }
 .act-redirect-options { display: flex; gap: 10px; flex-wrap: wrap; }
 
 .act-none-fit-btn {
@@ -311,6 +321,7 @@ body.activity-page {
   color: var(--act-dark-grey);
   font-family: var(--act-font-body);
   font-size: 0.9rem;
+  font-weight: var(--act-weight-body);
   cursor: pointer;
   width: 100%;
   text-align: left;
@@ -320,7 +331,7 @@ body.activity-page {
   gap: 10px;
 }
 .act-none-fit-btn:hover { border-color: var(--act-light-blue); color: var(--act-dark-blue); background: var(--act-soft); }
-.act-arrow { color: var(--act-light-blue); font-weight: 700; }
+.act-arrow { color: var(--act-light-blue); font-weight: var(--act-weight-bold); }
 
 /* ----- Button Row ----- */
 .act-button-row {
@@ -332,7 +343,7 @@ body.activity-page {
 }
 .act-btn {
   font-family: var(--act-font-heading);
-  font-weight: 600;
+  font-weight: var(--act-weight-semibold);
   font-size: 0.93rem;
   padding: 12px 24px;
   border-radius: var(--act-radius-sm);
@@ -362,7 +373,7 @@ body.activity-page {
   align-items: center;
   gap: 14px;
 }
-.act-save-status { font-size: 0.85rem; color: #888; flex: 1; }
+.act-save-status { font-size: 0.85rem; font-weight: var(--act-weight-body); color: #888; flex: 1; }
 .act-save-status.saved { color: #065f46; }
 .act-save-status.error { color: #991b1b; }
 
@@ -377,7 +388,7 @@ body.activity-page {
 .act-info-card-title {
   font-family: var(--act-font-heading);
   font-size: 0.93rem;
-  font-weight: 700;
+  font-weight: var(--act-weight-bold);
   color: var(--act-dark-blue);
   margin-bottom: 12px;
 }
@@ -386,17 +397,19 @@ body.activity-page {
   gap: 10px;
   margin-bottom: 8px;
   font-size: 0.88rem;
+  font-weight: var(--act-weight-body);
   color: var(--act-dark-grey);
   line-height: 1.5;
 }
 .act-info-row:last-child { margin-bottom: 0; }
-.act-info-label { font-family: var(--act-font-heading); font-weight: 700; color: var(--act-light-blue); flex-shrink: 0; min-width: 120px; }
+.act-info-label { font-family: var(--act-font-heading); font-weight: var(--act-weight-bold); color: var(--act-light-blue); flex-shrink: 0; min-width: 120px; }
 
 /* ----- Footer ----- */
 .act-footer {
   text-align: center;
   margin-top: 40px;
   font-size: 0.78rem;
+  font-weight: var(--act-weight-body);
   color: var(--act-dark-grey);
   opacity: 0.7;
 }
@@ -420,7 +433,7 @@ body.activity-page {
 }
 .act-context-box-title {
   font-family: var(--act-font-heading);
-  font-weight: 700;
+  font-weight: var(--act-weight-bold);
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -429,6 +442,7 @@ body.activity-page {
 }
 .act-context-box p {
   font-size: 0.88rem;
+  font-weight: var(--act-weight-body);
   color: var(--act-dark-grey);
   line-height: 1.6;
   margin: 0;
