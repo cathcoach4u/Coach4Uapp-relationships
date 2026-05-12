@@ -11,7 +11,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Your Relationship Coach">
   <link rel="apple-touch-icon" href="assets/coach4u-icon.jpeg">
-  <style>body{visibility:hidden}</style>
+  <style>body { opacity: 0; transition: opacity 0.2s ease; }</style>
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
@@ -33,8 +33,9 @@
       if (!profile || profile.membership_status !== 'active') {
         window.location.href = 'inactive.html';
       } else {
-        document.getElementById('memberName').textContent = profile.name || user.user_metadata?.name || user.email;
-        document.body.style.visibility = 'visible';
+        document.getElementById('memberName').textContent =
+          profile.name || user.user_metadata?.name || user.email;
+        document.body.style.opacity = '1';
 
         document.getElementById('signOutBtn').addEventListener('click', async () => {
           await supabase.auth.signOut();
@@ -46,25 +47,22 @@
 </head>
 <body>
 
-  <!-- Header -->
   <header class="site-header">
     <div class="header-inner">
       <div class="header-left">
+        <a href="https://cathcoach4u.github.io/yourcoachingportal/" class="header-back">← Portal</a>
         <span class="header-title">Your Relationship Coach</span>
       </div>
       <button id="signOutBtn" class="sign-out-btn">Sign Out</button>
     </div>
   </header>
 
-  <!-- Dashboard -->
   <div class="container">
 
-    <!-- Membership Card -->
     <div class="membership-card">
       <div class="member-name" id="memberName">—</div>
     </div>
 
-    <!-- Modules -->
     <div class="app-section-header">
       <span class="app-section-title">Your Modules</span>
       <span class="app-section-count">7 available · 1 coming soon</span>
@@ -72,7 +70,6 @@
 
     <div class="app-grid">
 
-      <!-- Understanding Your Relationship -->
       <div class="app-card">
         <div class="app-card-icon">🧭</div>
         <div class="app-card-title">Understanding Your Relationship</div>
@@ -80,7 +77,6 @@
         <a href="understanding.html" class="btn btn-primary">Open</a>
       </div>
 
-      <!-- Communication and Connection -->
       <div class="app-card">
         <div class="app-card-icon">💬</div>
         <div class="app-card-title">Communication and Connection</div>
@@ -88,7 +84,6 @@
         <a href="communication.html" class="btn btn-primary">Open</a>
       </div>
 
-      <!-- Daily Practice -->
       <div class="app-card">
         <div class="app-card-icon">📅</div>
         <div class="app-card-title">Daily Practice</div>
@@ -96,7 +91,6 @@
         <a href="daily-practice.html" class="btn btn-primary">Open</a>
       </div>
 
-      <!-- Healing and Trust -->
       <div class="app-card">
         <div class="app-card-icon">💚</div>
         <div class="app-card-title">Healing and Trust</div>
@@ -104,7 +98,6 @@
         <a href="healing.html" class="btn btn-primary">Open</a>
       </div>
 
-      <!-- Navigating Transitions -->
       <div class="app-card">
         <div class="app-card-icon">🔄</div>
         <div class="app-card-title">Navigating Transitions</div>
@@ -112,7 +105,6 @@
         <a href="transitions.html" class="btn btn-primary">Open</a>
       </div>
 
-      <!-- Specialised Support -->
       <div class="app-card">
         <div class="app-card-icon">🧠</div>
         <div class="app-card-title">Specialised Support</div>
@@ -120,7 +112,6 @@
         <a href="specialised.html" class="btn btn-primary">Open</a>
       </div>
 
-      <!-- Downloads -->
       <div class="app-card">
         <div class="app-card-icon">📥</div>
         <div class="app-card-title">Downloads</div>
@@ -132,11 +123,10 @@
 
   </div>
 
-  <!-- Footer -->
-  <footer style="text-align:center;padding:32px 0;margin-top:16px;border-top:1px solid var(--divider);color:var(--text-muted);font-size:12px;line-height:1.8;">
+  <footer class="site-footer">
     Strengths-Based Coaching and Counselling<br>
-    <a href="https://www.coach4u.com.au">www.coach4u.com.au</a> &nbsp;|&nbsp;
-    <a href="mailto:cath@coach4u.com.au">cath@coach4u.com.au</a> &nbsp;|&nbsp;
+    <a href="http://www.coach4u.com.au">www.coach4u.com.au</a> |
+    <a href="mailto:cath@coach4u.com.au">cath@coach4u.com.au</a> |
     0402 313 337
   </footer>
 
