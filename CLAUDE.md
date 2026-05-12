@@ -103,6 +103,30 @@ To add a resource to a module:
 
 To add a new module to the dashboard, create a new HTML page and add an `app-card` entry to `portal.html`.
 
+### Resource Pages in `resources/relationships/`
+
+| File | Module | Description |
+|------|--------|-------------|
+| `adhd-and-your-relationship.html` | Specialised Support | ADHD and relationship dynamics |
+| `communication-and-imago-dialogue.html` | Communication and Connection | Imago Dialogue overview |
+| `couples-counselling-goals-and-outcomes.html` | Understanding | Goals and outcomes worksheet |
+| `daily-connection-rituals.html` | Daily Practice | Daily connection habits |
+| `from-unconscious-to-conscious-love.html` | Understanding | Conscious love framework |
+| `growing-together-weekly-check-in.html` | Daily Practice | Weekly check-in template |
+| `issue-clarifier.html` | Communication and Connection | Imago Dialogue prep worksheet |
+| `love-languages.html` | Communication and Connection | The five love languages — reference and practice prompts |
+| `navigating-separation-with-care.html` | Navigating Transitions | Separation guidance |
+| `pursuer-avoider-dynamics.html` | Communication and Connection | Pursuer/avoider patterns |
+| `rebuilding-trust.html` | Healing and Trust | Trust rebuilding steps |
+| `safety-check-dialogue.html` | Healing and Trust | Safety check dialogue tool |
+| `the-4-relationship-killers.html` | Communication and Connection | The 4 Relationship Killers reference card |
+| `understanding-your-connection-pulse.html` | Understanding | Connection pulse self-assessment |
+| `weekly-connection-check-in.html` | Daily Practice | Weekly check-in (short form) |
+| `your-relationship-journey.html` | Understanding | Relationship journey reflection |
+| `your-relationship-reflection.html` | Understanding | Relationship reflection worksheet |
+| `your-relationship-toolkit.html` | Understanding | Personalised toolkit builder |
+| `your-strengths-as-a-couple.html` | Communication and Connection | Couple strengths worksheet |
+
 ### Auth Guard Template
 
 For module pages at root level:
@@ -151,6 +175,7 @@ For pages in `resources/relationships/` use `'../../index.html'` and `'../../ina
 ### Key Terminology
 
 - **"The 4 Relationship Killers"** is Coach4U's label for criticism, defensiveness, contempt, and stonewalling. Gottman's "Four Horsemen" is a reference only. Always use "The 4 Relationship Killers" in client-facing materials.
+- **"The Five Love Languages"** refers to Dr Gary Chapman's framework (1992): Words of Affirmation, Quality Time, Physical Touch, Acts of Service, Receiving Gifts.
 
 ### Footer (exact text)
 
