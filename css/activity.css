@@ -1,21 +1,21 @@
 /* ============================================
    Coach4U Activity Design System — css/activity.css
-   Version: 1.1
-   Source of truth: coach4u-shared/templates/css/activity.css
+   Version: 1.2
 
    Use on: multi-step tools, worksheets, reflections, builders.
    NOT for: dashboard, auth, or purely informational pages.
-   Pair with css/style.css on authenticated activity pages.
-   Standalone on public activity pages.
-
-   Requires Google Fonts in <head>:
-     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+   Always pair with css/style.css — tokens inherit from it.
    ============================================ */
 
 /* ----- Activity Tokens ----- */
+/*
+  Colour and font tokens reference style.css variables so activity
+  pages stay visually consistent with the dashboard automatically.
+  style.css must be loaded before this file.
+*/
 :root {
-  --act-dark-blue:    #1B3664;
-  --act-light-blue:   #5684C4;
+  --act-dark-blue:    var(--primary);
+  --act-light-blue:   var(--accent);
   --act-dark-grey:    #2D2D2D;
   --act-light-grey:   #DDDDDD;
   --act-bg:           #ffffff;
@@ -23,10 +23,10 @@
   --act-radius-sm:    8px;
   --act-radius-md:    12px;
   --act-radius-lg:    16px;
-  --act-shadow-sm:    0 1px 2px rgba(27, 54, 100, 0.06);
-  --act-shadow-md:    0 4px 16px rgba(27, 54, 100, 0.08);
-  --act-font-body:    'Montserrat', sans-serif;
-  --act-font-heading: 'Inter', sans-serif;
+  --act-shadow-sm:    0 1px 2px rgba(0, 51, 102, 0.06);
+  --act-shadow-md:    0 4px 16px rgba(0, 51, 102, 0.08);
+  --act-font-body:    var(--font-body);
+  --act-font-heading: var(--font-heading);
   /* Weight tokens — override any of these per-page to adjust text density */
   --act-weight-body:      400;
   --act-weight-medium:    500;
@@ -261,7 +261,7 @@ body.activity-page {
 
 /* ----- Summary Banner (Reflect step) ----- */
 .act-summary-banner {
-  background: linear-gradient(135deg, #1B3664 0%, #5684C4 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
   color: white;
   padding: 24px;
   border-radius: var(--act-radius-md);
