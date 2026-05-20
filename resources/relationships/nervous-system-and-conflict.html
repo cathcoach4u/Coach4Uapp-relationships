@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Nervous System and Conflict &mdash; Coach4U</title>
+  <style>
+    @page { size: landscape; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif; background: #FFFFFF; color: #000000; min-height: 100vh; display: flex; flex-direction: column; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 28px 48px 0; }
+    .top-bar-brand img { display: block; height: 40px; width: auto; }
+    .top-bar-category { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #003366; background: #E8EEF4; padding: 4px 14px; border-radius: 20px; }
+    .back-link { font-size: 0.8rem; color: #003366; text-decoration: none; font-weight: 600; }
+    .back-link:hover { text-decoration: underline; }
+    .title-section { text-align: center; padding: 24px 48px 8px; }
+    .title-section h1 { font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 6px; }
+    .title-section h1 em { font-style: italic; font-weight: 400; }
+    .title-section p { font-size: 1rem; color: #646464; max-width: 720px; margin: 0 auto; }
+    .panels { flex: 1; display: flex; gap: 0; padding: 14px 48px 10px; align-items: stretch; }
+    .state-panel { flex: 1; border-radius: 16px; padding: 24px 24px 20px; display: flex; flex-direction: column; }
+    .state-panel.activated { background: linear-gradient(135deg, #FFF0F0 0%, #FFE0E0 100%); border: 2px solid #E8A0A0; }
+    .state-panel.regulated { background: linear-gradient(135deg, #E8F5E8 0%, #D6F0D6 100%); border: 2px solid #A0D8A0; }
+    .state-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .state-emoji { font-size: 2rem; line-height: 1; }
+    .state-title { font-size: 1.2rem; font-weight: 700; color: #003366; }
+    .state-subtitle { font-size: 0.82rem; color: #646464; font-style: italic; }
+    .state-panel h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin: 12px 0 7px; }
+    .activated h3 { color: #AA3333; }
+    .regulated h3 { color: #336633; }
+    .state-panel ul { list-style: none; padding: 0; }
+    .state-panel li { font-size: 0.9rem; padding: 4px 0 4px 18px; position: relative; line-height: 1.4; color: #333; }
+    .state-panel li::before { content: ''; position: absolute; left: 0; top: 10px; width: 7px; height: 7px; border-radius: 50%; }
+    .activated li::before { background: #CC4444; }
+    .regulated li::before { background: #448844; }
+    .state-note { margin-top: auto; padding: 10px 14px; border-radius: 10px; font-size: 0.88rem; font-weight: 600; text-align: center; }
+    .activated .state-note { background: rgba(204,68,68,0.12); color: #993333; }
+    .regulated .state-note { background: rgba(68,136,68,0.12); color: #336633; }
+    .bridge { width: 268px; min-width: 268px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 12px 16px; gap: 10px; }
+    .threshold-box { background: #FFF5CC; border: 2px solid #E8D888; border-radius: 12px; padding: 12px 14px; text-align: center; width: 100%; }
+    .threshold-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #AA8833; margin-bottom: 4px; }
+    .threshold-text { font-size: 0.84rem; color: #665500; line-height: 1.45; }
+    .arrow-mid { font-size: 1.4rem; color: #C0C0C0; text-align: center; }
+    .soothe-box { background: #003366; border-radius: 12px; padding: 16px 16px; text-align: center; width: 100%; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    .soothe-box h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #FFD700; margin-bottom: 10px; }
+    .soothe-list { list-style: none; padding: 0; }
+    .soothe-list li { font-size: 0.86rem; color: #E0E8F0; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.1); line-height: 1.35; text-align: left; }
+    .soothe-list li:last-child { border-bottom: none; }
+    .soothe-list li strong { display: block; font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: #93C5D6; margin-bottom: 1px; }
+    .insight-bar { margin: 4px 48px 10px; background: #F5F8FC; border: 1px solid #D0D8E4; border-radius: 12px; padding: 13px 28px; text-align: center; }
+    .insight-bar p { font-size: 0.88rem; color: #333; line-height: 1.55; }
+    .insight-bar p strong { color: #003366; }
+    .footer { text-align: center; padding: 8px 48px 20px; }
+    .footer p { font-size: 9pt; color: #646464; line-height: 1.8; }
+    @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+    @media (max-width: 900px) {
+      .panels { flex-direction: column; padding: 12px 24px; }
+      .bridge { width: 100%; min-width: unset; flex-direction: row; flex-wrap: wrap; gap: 12px; padding: 16px 0; }
+      .soothe-box { flex: unset; width: 100%; }
+      .top-bar, .title-section, .insight-bar, .footer { padding-left: 24px; padding-right: 24px; }
+    }
+  </style>
+  <style>body{visibility:hidden}</style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient('https://eekefsuaefgpqmjdyniy.supabase.co', 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y');
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (!user || userError) {
+      window.location.href = '../../index.html';
+    } else {
+      const { data: profile } = await supabase.from('users').select('membership_status').eq('id', user.id).single();
+      if (!profile || profile.membership_status !== 'active') {
+        window.location.href = '../../inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="top-bar-brand"><img src="../../assets/coach4u-logo.jpg" alt="Coach4U"></div>
+    <a href="#" onclick="history.back(); return false;" class="back-link">&larr; Back</a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="top-bar-category">Relationships</div>
+    </div>
+  </div>
+
+  <div class="title-section">
+    <h1>Your Nervous System <em>and Conflict</em></h1>
+    <p>Understanding why conflict can feel out of control, and what it takes to come back to yourself.</p>
+  </div>
+
+  <div class="panels">
+
+    <div class="state-panel activated">
+      <div class="state-header">
+        <span class="state-emoji">&#128293;</span>
+        <div>
+          <div class="state-title">Baby brain in charge</div>
+          <div class="state-subtitle">Activated / threat state</div>
+        </div>
+      </div>
+      <h3>What is happening inside</h3>
+      <ul>
+        <li>The brain detects threat and triggers a survival response</li>
+        <li>Stress hormones flood the body within seconds</li>
+        <li>Rational thinking and problem-solving go offline</li>
+        <li>The only available responses are fight, flight, or freeze</li>
+        <li>This is the baby brain running the show</li>
+      </ul>
+      <h3>What it looks like in conflict</h3>
+      <ul>
+        <li>Saying things you would not say when calm</li>
+        <li>Feeling unable to hear your partner clearly</li>
+        <li>Repeating the same point louder rather than differently</li>
+        <li>Storming out, shutting down, or going completely silent</li>
+        <li>Behaviour that feels out of character</li>
+      </ul>
+      <div class="state-note">This is not intentional harm. It is a nervous system doing exactly what it was built to do.</div>
+    </div>
+
+    <div class="bridge">
+      <div class="threshold-box">
+        <div class="threshold-label">The threshold</div>
+        <div class="threshold-text">When emotional intensity crosses a certain point, the brain tips from adult thinking into survival mode. This happens in seconds. You cannot reason your way out of it while it is happening.</div>
+      </div>
+      <div class="arrow-mid">&#8595;</div>
+      <div class="soothe-box">
+        <h3>Coming back to yourself</h3>
+        <ul class="soothe-list">
+          <li><strong>Name it</strong>I think I am activated right now.</li>
+          <li><strong>Leave the room</strong>Physical distance reduces intensity.</li>
+          <li><strong>Wash your hands</strong>Cold water grounds the nervous system.</li>
+          <li><strong>Walk</strong>Movement helps discharge the stress response.</li>
+          <li><strong>Slow your breath</strong>Breathe out longer than you breathe in.</li>
+          <li><strong>Agree a return time</strong>I need 20 minutes, then I will come back.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="state-panel regulated">
+      <div class="state-header">
+        <span class="state-emoji">&#129505;</span>
+        <div>
+          <div class="state-title">Adult brain available</div>
+          <div class="state-subtitle">Regulated / connected state</div>
+        </div>
+      </div>
+      <h3>What becomes possible</h3>
+      <ul>
+        <li>The reasoning, empathy, and language centres come back online</li>
+        <li>You can hear and process what your partner is saying</li>
+        <li>You can choose your response rather than react automatically</li>
+        <li>Perspective-taking and curiosity become available again</li>
+        <li>This is the adult brain in conversation</li>
+      </ul>
+      <h3>What it looks like in conversation</h3>
+      <ul>
+        <li>Staying present without becoming flooded</li>
+        <li>Noticing feelings without being driven by them</li>
+        <li>Choosing words with care and intention</li>
+        <li>Being able to hear your partner without defending</li>
+        <li>Genuine curiosity about their experience</li>
+      </ul>
+      <div class="state-note">Regulation is a skill. It gets easier with practice and with time.</div>
+    </div>
+
+  </div>
+
+  <div class="insight-bar">
+    <p><strong>Both partners are responsible for their own regulation.</strong> Escalation during conflict is not a character flaw and it is not intentional harm. When you understand this, blame softens and repair becomes possible. The conversation is always available again once nervous systems are settled.</p>
+  </div>
+
+  <div class="footer">
+    <p>Strengths-Based Coaching and Counselling<br>www.coach4u.com.au<br>cath@coach4u.com.au<br>0402 313 337</p>
+  </div>
+
+</body>
+</html>

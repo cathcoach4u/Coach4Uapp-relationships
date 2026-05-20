@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capacity and Connection &mdash; Coach4U</title>
+  <style>
+    @page { size: landscape; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif; background: #FFFFFF; color: #000000; min-height: 100vh; display: flex; flex-direction: column; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 28px 48px 0; }
+    .top-bar-brand img { display: block; height: 40px; width: auto; }
+    .top-bar-category { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #003366; background: #E8EEF4; padding: 4px 14px; border-radius: 20px; }
+    .back-link { font-size: 0.8rem; color: #003366; text-decoration: none; font-weight: 600; }
+    .back-link:hover { text-decoration: underline; }
+    .title-section { text-align: center; padding: 22px 48px 4px; }
+    .title-section h1 { font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 6px; }
+    .title-section h1 em { font-style: italic; font-weight: 400; }
+    .title-section p { font-size: 1rem; color: #646464; max-width: 720px; margin: 0 auto; }
+
+    /* Five-band capacity scale */
+    .bands-section { padding: 12px 48px 6px; }
+    .bands-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+    .band-card { border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+    .band-top { padding: 16px 16px 12px; flex: 1; display: flex; flex-direction: column; }
+    .b1 .band-top { background: linear-gradient(135deg, #E8F5E8 0%, #D0EDCF 100%); border: 2px solid #88C888; border-bottom: none; border-radius: 14px 14px 0 0; }
+    .b2 .band-top { background: linear-gradient(135deg, #EBF3FF 0%, #D4E8FF 100%); border: 2px solid #88B8E8; border-bottom: none; border-radius: 14px 14px 0 0; }
+    .b3 .band-top { background: linear-gradient(135deg, #FFF5EB 0%, #FFE8CC 100%); border: 2px solid #E8C480; border-bottom: none; border-radius: 14px 14px 0 0; }
+    .b4 .band-top { background: linear-gradient(135deg, #FFF0E0 0%, #FFE0C0 100%); border: 2px solid #E8A870; border-bottom: none; border-radius: 14px 14px 0 0; }
+    .b5 .band-top { background: linear-gradient(135deg, #FFF0F0 0%, #FFD8D8 100%); border: 2px solid #E89090; border-bottom: none; border-radius: 14px 14px 0 0; }
+    .band-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; margin-bottom: 4px; }
+    .b1 .band-label { color: #3A8A3A; }
+    .b2 .band-label { color: #2255AA; }
+    .b3 .band-label { color: #AA7700; }
+    .b4 .band-label { color: #BB5500; }
+    .b5 .band-label { color: #CC3333; }
+    .band-emoji { font-size: 1.8rem; text-align: center; margin-bottom: 4px; }
+    .band-name { font-size: 0.95rem; font-weight: 700; color: #003366; text-align: center; margin-bottom: 6px; }
+    .band-desc { font-size: 0.8rem; line-height: 1.4; color: #444; text-align: center; flex: 1; }
+    .band-bottom { padding: 9px 14px; text-align: center; }
+    .b1 .band-bottom { background: #CCECCA; border: 2px solid #88C888; border-top: 2px dashed #88C888; border-radius: 0 0 14px 14px; }
+    .b2 .band-bottom { background: #C8DFFA; border: 2px solid #88B8E8; border-top: 2px dashed #88B8E8; border-radius: 0 0 14px 14px; }
+    .b3 .band-bottom { background: #F5DDA8; border: 2px solid #E8C480; border-top: 2px dashed #E8C480; border-radius: 0 0 14px 14px; }
+    .b4 .band-bottom { background: #F5C898; border: 2px solid #E8A870; border-top: 2px dashed #E8A870; border-radius: 0 0 14px 14px; }
+    .b5 .band-bottom { background: #F5B0B0; border: 2px solid #E89090; border-top: 2px dashed #E89090; border-radius: 0 0 14px 14px; }
+    .band-trigger { font-size: 0.78rem; font-style: italic; color: #555; line-height: 1.35; }
+
+    /* Bottom section */
+    .bottom-section { display: flex; gap: 16px; padding: 8px 48px 10px; }
+    .refill-box { flex: 1; background: #F5F8FC; border: 1px solid #D0D8E4; border-radius: 12px; padding: 15px 20px; }
+    .refill-box h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #003366; margin-bottom: 10px; }
+    .refill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; }
+    .refill-item { font-size: 0.85rem; color: #333; padding-left: 16px; position: relative; line-height: 1.4; }
+    .refill-item::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: #0D9488; }
+    .insight-box { width: 360px; min-width: 360px; background: #003366; color: #FFFFFF; border-radius: 12px; padding: 16px 20px; }
+    .insight-box h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #FFD700; margin-bottom: 8px; }
+    .insight-box p { font-size: 0.86rem; color: #E0E8F0; line-height: 1.55; margin-bottom: 8px; }
+    .insight-box p:last-child { margin-bottom: 0; }
+
+    .footer { text-align: center; padding: 6px 48px 20px; }
+    .footer p { font-size: 9pt; color: #646464; line-height: 1.8; }
+    @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+    @media (max-width: 1000px) {
+      .bands-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .bottom-section { flex-direction: column; padding: 8px 24px; }
+      .insight-box { width: 100%; min-width: unset; }
+      .top-bar, .title-section, .bands-section, .footer { padding-left: 24px; padding-right: 24px; }
+    }
+    @media (max-width: 560px) { .bands-grid { grid-template-columns: 1fr; } .refill-grid { grid-template-columns: 1fr; } }
+  </style>
+  <style>body{visibility:hidden}</style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient('https://eekefsuaefgpqmjdyniy.supabase.co', 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y');
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (!user || userError) {
+      window.location.href = '../../index.html';
+    } else {
+      const { data: profile } = await supabase.from('users').select('membership_status').eq('id', user.id).single();
+      if (!profile || profile.membership_status !== 'active') {
+        window.location.href = '../../inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="top-bar-brand"><img src="../../assets/coach4u-logo.jpg" alt="Coach4U"></div>
+    <a href="#" onclick="history.back(); return false;" class="back-link">&larr; Back</a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="top-bar-category">Relationships</div>
+    </div>
+  </div>
+
+  <div class="title-section">
+    <h1>Capacity <em>and Connection</em></h1>
+    <p>How the weight you are carrying affects the way you show up with each other.</p>
+  </div>
+
+  <div class="bands-section">
+    <div class="bands-grid">
+
+      <div class="band-card b1">
+        <div class="band-top">
+          <div class="band-label">Full capacity</div>
+          <div class="band-emoji">&#127807;</div>
+          <div class="band-name">Resourced</div>
+          <div class="band-desc">Rested, supported, and present. You have reserves. You can handle friction with patience and respond rather than react. Connection feels accessible.</div>
+        </div>
+        <div class="band-bottom">
+          <div class="band-trigger">High tolerance. Generous and curious with your partner.</div>
+        </div>
+      </div>
+
+      <div class="band-card b2">
+        <div class="band-top">
+          <div class="band-label">Managing</div>
+          <div class="band-emoji">&#9889;</div>
+          <div class="band-name">Stretched</div>
+          <div class="band-desc">Keeping up but running leaner. Some life stressors are active. You manage most things well but minor irritations land harder than usual.</div>
+        </div>
+        <div class="band-bottom">
+          <div class="band-trigger">Moderate tolerance. May need more reassurance or space than usual.</div>
+        </div>
+      </div>
+
+      <div class="band-card b3">
+        <div class="band-top">
+          <div class="band-label">Reduced capacity</div>
+          <div class="band-emoji">&#128165;</div>
+          <div class="band-name">Overwhelmed</div>
+          <div class="band-desc">Multiple stressors active at once &mdash; work pressure, parenting load, financial strain, or health concerns. Your threshold for conflict drops noticeably.</div>
+        </div>
+        <div class="band-bottom">
+          <div class="band-trigger">Lower tolerance. Small things escalate faster. Rest and support are essential.</div>
+        </div>
+      </div>
+
+      <div class="band-card b4">
+        <div class="band-top">
+          <div class="band-label">Low capacity</div>
+          <div class="band-emoji">&#129711;</div>
+          <div class="band-name">Depleted</div>
+          <div class="band-desc">Running on empty. Sleep, support, or recovery are lacking. Reactivity is high. Connection efforts feel effortful or impossible. Even small requests feel like too much.</div>
+        </div>
+        <div class="band-bottom">
+          <div class="band-trigger">Very low tolerance. Protect connection by naming your state, not acting it out.</div>
+        </div>
+      </div>
+
+      <div class="band-card b5">
+        <div class="band-top">
+          <div class="band-label">No capacity</div>
+          <div class="band-emoji">&#128737;&#65039;</div>
+          <div class="band-name">Flooded</div>
+          <div class="band-desc">Crisis or acute overwhelm. The nervous system is in survival mode. Meaningful relationship conversations are not possible here. Safety and stability must come first.</div>
+        </div>
+        <div class="band-bottom">
+          <div class="band-trigger">No available tolerance. Pause all non-essential conflict conversations until regulated.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="bottom-section">
+    <div class="refill-box">
+      <h3>What refills capacity</h3>
+      <div class="refill-grid">
+        <div class="refill-item">Sleep and physical rest</div>
+        <div class="refill-item">Time alone to decompress</div>
+        <div class="refill-item">Reducing or delegating load</div>
+        <div class="refill-item">Being heard without advice</div>
+        <div class="refill-item">Movement and time outside</div>
+        <div class="refill-item">Connection without demands</div>
+        <div class="refill-item">Naming your state to your partner</div>
+        <div class="refill-item">Practical support, not just emotional</div>
+        <div class="refill-item">Reducing decision-making pressure</div>
+        <div class="refill-item">Shared parenting or household load</div>
+      </div>
+    </div>
+    <div class="insight-box">
+      <h3>Why this matters in your relationship</h3>
+      <p>When capacity drops, the threshold for conflict drops with it. This is not a character flaw or a sign that something is wrong with your relationship. It is the predictable result of carrying too much.</p>
+      <p>Naming your capacity to your partner &mdash; I am really stretched right now &mdash; is not a complaint. It is information that allows both of you to adjust your expectations and support each other more effectively.</p>
+      <p>Stability in the relationship is not just about communication skills. It is also about protecting each other&rsquo;s capacity to show up.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Strengths-Based Coaching and Counselling<br>www.coach4u.com.au<br>cath@coach4u.com.au<br>0402 313 337</p>
+  </div>
+
+</body>
+</html>

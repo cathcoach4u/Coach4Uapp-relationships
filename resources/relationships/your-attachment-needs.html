@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Attachment Needs &mdash; Coach4U</title>
+  <style>
+    @page { size: landscape; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif; background: #FFFFFF; color: #000000; min-height: 100vh; display: flex; flex-direction: column; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 28px 48px 0; }
+    .top-bar-brand img { display: block; height: 40px; width: auto; }
+    .top-bar-category { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #003366; background: #E8EEF4; padding: 4px 14px; border-radius: 20px; }
+    .back-link { font-size: 0.8rem; color: #003366; text-decoration: none; font-weight: 600; }
+    .back-link:hover { text-decoration: underline; }
+    .title-section { text-align: center; padding: 22px 48px 6px; }
+    .title-section h1 { font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 6px; }
+    .title-section h1 em { font-style: italic; font-weight: 400; }
+    .title-section p { font-size: 1rem; color: #646464; max-width: 720px; margin: 0 auto; }
+
+    /* Three-column layout */
+    .main-layout { flex: 1; display: flex; gap: 16px; padding: 14px 48px 10px; align-items: stretch; }
+
+    /* Left panel: escalated needs */
+    .escalated-panel { flex: 1; background: linear-gradient(135deg, #FFF0F0 0%, #FFE4E4 100%); border: 2px solid #E8A0A0; border-radius: 16px; padding: 20px 22px; display: flex; flex-direction: column; }
+    .panel-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .panel-emoji { font-size: 1.8rem; }
+    .panel-title { font-size: 1.1rem; font-weight: 700; color: #003366; }
+    .panel-subtitle { font-size: 0.8rem; color: #646464; font-style: italic; }
+    .escalated-panel h3 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #AA3333; margin: 10px 0 8px; }
+    .escalated-items { list-style: none; padding: 0; flex: 1; }
+    .escalated-items li { font-size: 0.88rem; padding: 5px 0 5px 18px; position: relative; line-height: 1.4; color: #444; border-bottom: 1px solid rgba(200,100,100,0.15); }
+    .escalated-items li:last-child { border-bottom: none; }
+    .escalated-items li::before { content: ''; position: absolute; left: 0; top: 11px; width: 7px; height: 7px; border-radius: 50%; background: #CC4444; }
+    .escalated-note { margin-top: 14px; background: rgba(200,68,68,0.1); border-radius: 10px; padding: 10px 14px; font-size: 0.86rem; color: #883333; line-height: 1.4; }
+
+    /* Centre: the four needs */
+    .needs-centre { width: 280px; min-width: 280px; display: flex; flex-direction: column; gap: 10px; }
+    .needs-label { text-align: center; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #003366; padding: 4px 0; }
+    .need-card { background: #003366; border-radius: 12px; padding: 14px 16px; text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    .need-emoji { font-size: 1.6rem; margin-bottom: 4px; }
+    .need-name { font-size: 1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 4px; }
+    .need-desc { font-size: 0.8rem; color: #C0D4E8; line-height: 1.35; }
+
+    /* Right panel: regulated requests */
+    .regulated-panel { flex: 1; background: linear-gradient(135deg, #E8F5E8 0%, #D6F0D6 100%); border: 2px solid #A0D8A0; border-radius: 16px; padding: 20px 22px; display: flex; flex-direction: column; }
+    .regulated-panel h3 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #336633; margin: 10px 0 8px; }
+    .regulated-items { list-style: none; padding: 0; flex: 1; }
+    .regulated-items li { font-size: 0.88rem; padding: 5px 0 5px 18px; position: relative; line-height: 1.4; color: #444; border-bottom: 1px solid rgba(80,160,80,0.15); }
+    .regulated-items li:last-child { border-bottom: none; }
+    .regulated-items li::before { content: ''; position: absolute; left: 0; top: 11px; width: 7px; height: 7px; border-radius: 50%; background: #448844; }
+    .regulated-note { margin-top: 14px; background: rgba(68,136,68,0.1); border-radius: 10px; padding: 10px 14px; font-size: 0.86rem; color: #336633; line-height: 1.4; }
+
+    /* Bottom: how to ask */
+    .ask-section { display: flex; gap: 16px; padding: 0 48px 10px; }
+    .ask-frame { flex: 1; background: #F5F8FC; border: 1px solid #D0D8E4; border-radius: 12px; padding: 14px 20px; }
+    .ask-frame h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #003366; margin-bottom: 8px; }
+    .ask-steps { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+    .ask-steps li { font-size: 0.86rem; color: #333; padding-left: 22px; position: relative; line-height: 1.4; }
+    .ask-steps li .step-n { position: absolute; left: 0; top: 1px; font-size: 0.72rem; font-weight: 700; color: #0D9488; }
+    .insight-box { width: 340px; min-width: 340px; background: #003366; color: #FFFFFF; border-radius: 12px; padding: 16px 20px; }
+    .insight-box h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #FFD700; margin-bottom: 8px; }
+    .insight-box p { font-size: 0.86rem; color: #E0E8F0; line-height: 1.5; }
+
+    .footer { text-align: center; padding: 6px 48px 20px; }
+    .footer p { font-size: 9pt; color: #646464; line-height: 1.8; }
+    @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+    @media (max-width: 1000px) {
+      .main-layout { flex-direction: column; padding: 12px 24px; }
+      .needs-centre { width: 100%; min-width: unset; flex-direction: row; flex-wrap: wrap; }
+      .need-card { min-width: 120px; }
+      .ask-section { flex-direction: column; padding: 8px 24px; }
+      .insight-box { width: 100%; min-width: unset; }
+      .top-bar, .title-section, .footer { padding-left: 24px; padding-right: 24px; }
+    }
+  </style>
+  <style>body{visibility:hidden}</style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient('https://eekefsuaefgpqmjdyniy.supabase.co', 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y');
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (!user || userError) {
+      window.location.href = '../../index.html';
+    } else {
+      const { data: profile } = await supabase.from('users').select('membership_status').eq('id', user.id).single();
+      if (!profile || profile.membership_status !== 'active') {
+        window.location.href = '../../inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="top-bar-brand"><img src="../../assets/coach4u-logo.jpg" alt="Coach4U"></div>
+    <a href="#" onclick="history.back(); return false;" class="back-link">&larr; Back</a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="top-bar-category">Relationships</div>
+    </div>
+  </div>
+
+  <div class="title-section">
+    <h1>Your <em>Attachment Needs</em></h1>
+    <p>Understanding the needs beneath the behaviour, and how to ask for what you need in a way that can be heard.</p>
+  </div>
+
+  <div class="main-layout">
+
+    <div class="escalated-panel">
+      <div class="panel-header">
+        <span class="panel-emoji">&#128293;</span>
+        <div>
+          <div class="panel-title">Needs under pressure</div>
+          <div class="panel-subtitle">What it looks like when distressed</div>
+        </div>
+      </div>
+      <h3>Escalated expressions</h3>
+      <ul class="escalated-items">
+        <li>Repeated questioning: Do you even care about me?</li>
+        <li>Accusations framed as questions: Why do you always do this?</li>
+        <li>Demanding comfort through criticism or blame</li>
+        <li>Withdrawing completely to see if they will follow</li>
+        <li>Escalating intensity to force a response</li>
+        <li>Saying hurtful things to provoke connection</li>
+      </ul>
+      <div class="escalated-note">This is not manipulation. It is a very human response to feeling unsafe or unseen. The need underneath is real, even when the way it comes out makes it hard to respond to.</div>
+    </div>
+
+    <div class="needs-centre">
+      <div class="needs-label">The four core needs</div>
+      <div class="need-card">
+        <div class="need-emoji">&#128274;</div>
+        <div class="need-name">Safety</div>
+        <div class="need-desc">I need to feel emotionally safe enough to be honest with you</div>
+      </div>
+      <div class="need-card">
+        <div class="need-emoji">&#129309;</div>
+        <div class="need-name">Connection</div>
+        <div class="need-desc">I need to feel genuinely close and bonded with you</div>
+      </div>
+      <div class="need-card">
+        <div class="need-emoji">&#10084;&#65039;</div>
+        <div class="need-name">Reassurance</div>
+        <div class="need-desc">I need to know I matter to you, especially when things are hard</div>
+      </div>
+      <div class="need-card">
+        <div class="need-emoji">&#129730;</div>
+        <div class="need-name">Comfort</div>
+        <div class="need-desc">I need to feel held and supported when I am distressed</div>
+      </div>
+    </div>
+
+    <div class="regulated-panel">
+      <div class="panel-header">
+        <span class="panel-emoji">&#129505;</span>
+        <div>
+          <div class="panel-title">Needs expressed clearly</div>
+          <div class="panel-subtitle">What it looks like when regulated</div>
+        </div>
+      </div>
+      <h3>Regulated requests</h3>
+      <ul class="regulated-items">
+        <li>I am feeling disconnected from you. Can we spend some time together tonight?</li>
+        <li>I am feeling anxious and I could really use some reassurance right now.</li>
+        <li>I need to know we are okay. Can you tell me that?</li>
+        <li>I am struggling and I do not need you to fix it. I just need you close.</li>
+        <li>This conversation is feeling unsafe for me. Can we slow it down?</li>
+        <li>I need a hug before we keep talking.</li>
+      </ul>
+      <div class="regulated-note">A regulated request names the need directly and gives your partner something concrete they can respond to. It invites rather than demands.</div>
+    </div>
+
+  </div>
+
+  <div class="ask-section">
+    <div class="ask-frame">
+      <h3>Making a regulated request in four steps</h3>
+      <ul class="ask-steps">
+        <li><span class="step-n">1.</span>Regulate first. Make sure you are calm enough to speak without escalating. Pause, breathe, or take space if needed.</li>
+        <li><span class="step-n">2.</span>Name the feeling. Use a single word: scared, lonely, anxious, sad. Not a story or an accusation.</li>
+        <li><span class="step-n">3.</span>Name the need. Be specific: I need reassurance, I need connection, I need comfort.</li>
+        <li><span class="step-n">4.</span>Make the request concrete. Tell your partner exactly what would help: a hug, to hear that you love me, to sit together for ten minutes.</li>
+      </ul>
+    </div>
+    <div class="insight-box">
+      <h3>The parenting parallel</h3>
+      <p>Just as a young child needs comfort, reassurance, and connection from a trusted adult, these same needs stay with us into adulthood. They do not disappear. They go underground and surface in our closest relationships. Understanding this removes blame. Your partner is not the source of the need, but they are the person best placed to respond to it.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Strengths-Based Coaching and Counselling<br>www.coach4u.com.au<br>cath@coach4u.com.au<br>0402 313 337</p>
+  </div>
+
+</body>
+</html>
