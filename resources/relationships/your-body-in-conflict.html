@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Body in Conflict &mdash; Coach4U</title>
+  <style>
+    @page { size: landscape; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Aptos', 'Calibri', 'Segoe UI', sans-serif; background: #FFFFFF; color: #000000; min-height: 100vh; display: flex; flex-direction: column; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 28px 48px 0; }
+    .top-bar-brand img { display: block; height: 40px; width: auto; }
+    .top-bar-category { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #003366; background: #E8EEF4; padding: 4px 14px; border-radius: 20px; }
+    .back-link { font-size: 0.8rem; color: #003366; text-decoration: none; font-weight: 600; }
+    .back-link:hover { text-decoration: underline; }
+    .title-section { text-align: center; padding: 20px 48px 6px; }
+    .title-section h1 { font-size: 2rem; font-weight: bold; color: #003366; margin-bottom: 6px; }
+    .title-section h1 em { font-style: italic; font-weight: 400; }
+    .title-section p { font-size: 1rem; color: #646464; max-width: 720px; margin: 0 auto; }
+    .signals-section { padding: 14px 48px 0; }
+    .signals-intro { font-size: 0.92rem; color: #444; margin-bottom: 14px; text-align: center; line-height: 1.55; max-width: 800px; margin-left: auto; margin-right: auto; margin-bottom: 14px; }
+    .signals-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .signal-card { border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+    .signal-top { padding: 18px 18px 14px; flex: 1; display: flex; flex-direction: column; }
+    .sc-head .signal-top { background: linear-gradient(135deg, #FFF0F0 0%, #FFE4E4 100%); border: 2px solid #E8A8A8; border-bottom: none; border-radius: 14px 14px 0 0; }
+    .sc-chest .signal-top { background: linear-gradient(135deg, #FFF5EB 0%, #FFEAD6 100%); border: 2px solid #E8C4A0; border-bottom: none; border-radius: 14px 14px 0 0; }
+    .sc-hands .signal-top { background: linear-gradient(135deg, #F5F0FF 0%, #EAE0FF 100%); border: 2px solid #C8B0E8; border-bottom: none; border-radius: 14px 14px 0 0; }
+    .sc-body .signal-top { background: linear-gradient(135deg, #EBF3FF 0%, #D8EAFF 100%); border: 2px solid #A8C4E8; border-bottom: none; border-radius: 14px 14px 0 0; }
+    .signal-emoji { font-size: 2rem; text-align: center; margin-bottom: 6px; }
+    .signal-name { font-size: 1rem; font-weight: 700; color: #003366; text-align: center; margin-bottom: 10px; }
+    .signal-list { list-style: none; padding: 0; }
+    .signal-list li { font-size: 0.85rem; padding: 3px 0 3px 16px; position: relative; line-height: 1.4; color: #444; }
+    .signal-list li::before { content: ''; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: #0D9488; }
+    .signal-bottom { padding: 10px 16px; text-align: center; }
+    .sc-head .signal-bottom { background: #F5D8D8; border: 2px solid #E8A8A8; border-top: 2px dashed #E8A8A8; border-radius: 0 0 14px 14px; }
+    .sc-chest .signal-bottom { background: #F5E2CC; border: 2px solid #E8C4A0; border-top: 2px dashed #E8C4A0; border-radius: 0 0 14px 14px; }
+    .sc-hands .signal-bottom { background: #E8DCFF; border: 2px solid #C8B0E8; border-top: 2px dashed #C8B0E8; border-radius: 0 0 14px 14px; }
+    .sc-body .signal-bottom { background: #CCE0F8; border: 2px solid #A8C4E8; border-top: 2px dashed #A8C4E8; border-radius: 0 0 14px 14px; }
+    .signal-notice { font-size: 0.82rem; font-style: italic; color: #555; line-height: 1.35; }
+    .response-section { display: flex; gap: 16px; padding: 14px 48px 10px; }
+    .response-main { flex: 1; background: #003366; color: #FFFFFF; border-radius: 14px; padding: 18px 24px; }
+    .response-main h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #FFD700; margin-bottom: 10px; }
+    .response-steps { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+    .response-steps li { font-size: 0.87rem; color: #E0E8F0; padding-left: 26px; position: relative; line-height: 1.4; }
+    .step-num { position: absolute; left: 0; top: 0; width: 18px; height: 18px; border-radius: 50%; background: #0D9488; color: #FFFFFF; font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .response-insight { width: 300px; min-width: 300px; background: #F5F8FC; border: 1px solid #D0D8E4; border-radius: 14px; padding: 18px 20px; }
+    .response-insight h3 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #003366; margin-bottom: 8px; }
+    .response-insight p { font-size: 0.88rem; color: #333; line-height: 1.5; margin-bottom: 8px; }
+    .response-insight p:last-child { margin-bottom: 0; }
+    .footer { text-align: center; padding: 6px 48px 20px; }
+    .footer p { font-size: 9pt; color: #646464; line-height: 1.8; }
+    @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+    @media (max-width: 900px) {
+      .signals-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .response-section { flex-direction: column; padding: 12px 24px; }
+      .response-insight { width: 100%; min-width: unset; }
+      .top-bar, .title-section, .signals-section, .footer { padding-left: 24px; padding-right: 24px; }
+    }
+    @media (max-width: 560px) { .signals-grid { grid-template-columns: 1fr; } }
+  </style>
+  <style>body{visibility:hidden}</style>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabase = createClient('https://eekefsuaefgpqmjdyniy.supabase.co', 'sb_publishable_pcXHwQVMpvEojb4K3afEMw_RMvgZM-Y');
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (!user || userError) {
+      window.location.href = '../../index.html';
+    } else {
+      const { data: profile } = await supabase.from('users').select('membership_status').eq('id', user.id).single();
+      if (!profile || profile.membership_status !== 'active') {
+        window.location.href = '../../inactive.html';
+      } else {
+        document.body.style.visibility = 'visible';
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="top-bar-brand"><img src="../../assets/coach4u-logo.jpg" alt="Coach4U"></div>
+    <a href="#" onclick="history.back(); return false;" class="back-link">&larr; Back</a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="top-bar-category">Relationships</div>
+    </div>
+  </div>
+
+  <div class="title-section">
+    <h1>Your Body <em>in Conflict</em></h1>
+    <p>Learning to recognise your personal escalation signals before the conversation tips.</p>
+  </div>
+
+  <div class="signals-section">
+    <p class="signals-intro">Your body registers escalation before your mind catches up. These physical signals are your early warning system. Learning to notice them gives you a choice about what happens next.</p>
+    <div class="signals-grid">
+
+      <div class="signal-card sc-head">
+        <div class="signal-top">
+          <div class="signal-emoji">&#129760;</div>
+          <div class="signal-name">Head and Face</div>
+          <ul class="signal-list">
+            <li>Face flushing or feeling hot</li>
+            <li>Jaw tightening or teeth clenching</li>
+            <li>Brow furrowing, forehead tightening</li>
+            <li>Voice rising in pitch or volume</li>
+            <li>Difficulty finding or forming words</li>
+          </ul>
+        </div>
+        <div class="signal-bottom">
+          <div class="signal-notice">A flushing face and a rising voice are common early signals that escalation has begun.</div>
+        </div>
+      </div>
+
+      <div class="signal-card sc-chest">
+        <div class="signal-top">
+          <div class="signal-emoji">&#129505;</div>
+          <div class="signal-name">Chest and Breath</div>
+          <ul class="signal-list">
+            <li>Breath becoming shallow or held</li>
+            <li>Tightness or constriction in the chest</li>
+            <li>Heart rate noticeably increasing</li>
+            <li>Throat tightening or constricting</li>
+            <li>A feeling there is not enough air</li>
+          </ul>
+        </div>
+        <div class="signal-bottom">
+          <div class="signal-notice">Chest tightness often signals emotional flooding before you are consciously aware of it.</div>
+        </div>
+      </div>
+
+      <div class="signal-card sc-hands">
+        <div class="signal-top">
+          <div class="signal-emoji">&#9995;</div>
+          <div class="signal-name">Hands and Arms</div>
+          <ul class="signal-list">
+            <li>Hands becoming restless or fidgeting</li>
+            <li>Fingers or fists clenching</li>
+            <li>Arm movements becoming more emphatic</li>
+            <li>Pointing or pressing gestures</li>
+            <li>Hands moving to face, head, or neck</li>
+          </ul>
+        </div>
+        <div class="signal-bottom">
+          <div class="signal-notice">Increased hand and arm movement closely tracks with rising emotional intensity.</div>
+        </div>
+      </div>
+
+      <div class="signal-card sc-body">
+        <div class="signal-top">
+          <div class="signal-emoji">&#129455;</div>
+          <div class="signal-name">Body and Legs</div>
+          <ul class="signal-list">
+            <li>Tension or tightness across the shoulders</li>
+            <li>Restless legs or an urge to pace</li>
+            <li>Feeling frozen or unable to move</li>
+            <li>Sudden sweating or feeling cold</li>
+            <li>Stomach tightening or a sense of nausea</li>
+          </ul>
+        </div>
+        <div class="signal-bottom">
+          <div class="signal-notice">Restlessness and shoulder tension signal the body preparing to move away from threat.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="response-section">
+    <div class="response-main">
+      <h3>When you notice a signal &mdash; what to do</h3>
+      <ul class="response-steps">
+        <li><span class="step-num">1</span>Name it to yourself: I notice my jaw is tight. I am starting to escalate.</li>
+        <li><span class="step-num">2</span>Pause the conversation: I need a moment. Can we pause here?</li>
+        <li><span class="step-num">3</span>Move your body: leave the room, walk around, wash your hands in cold water.</li>
+        <li><span class="step-num">4</span>Slow your breath: breathe in for four counts, out for six. Repeat three times.</li>
+        <li><span class="step-num">5</span>Wait until the physical signal settles before returning to the conversation.</li>
+        <li><span class="step-num">6</span>Return with a clear signal: I am ready now, or I need another ten minutes.</li>
+      </ul>
+    </div>
+    <div class="response-insight">
+      <h3>Why this matters</h3>
+      <p>Physical signals precede emotional flooding by seconds to minutes. Catching the signal early means you can pause before the conversation moves into territory that is hard to come back from.</p>
+      <p>Your signals are personal. Over time you will learn your own pattern. What matters is building the habit of checking in with your body during a difficult conversation, not just with your thoughts.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Strengths-Based Coaching and Counselling<br>www.coach4u.com.au<br>cath@coach4u.com.au<br>0402 313 337</p>
+  </div>
+
+</body>
+</html>
